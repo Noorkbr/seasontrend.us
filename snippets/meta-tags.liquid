@@ -1,0 +1,84 @@
+{%- comment -%}
+  SEO and Social Media Meta Tags
+{%- endcomment -%}
+
+{% assign og_title = page_title %}
+{% assign og_url = canonical_url %}
+{% assign og_type = 'website' %}
+{% assign og_description = page_description | default: shop.description %}
+
+{% if request.page_type == 'product' %}
+  {% assign og_type = 'product' %}
+  {% if product.featured_image %}
+    <meta property="og:image" content="http:{{ product.featured_image | img_url: '1200x630' }}">
+    <meta property="og:image:secure_url" content="https:{{ product.featured_image | img_url: '1200x630' }}">
+    <meta name="twitter:image" content="https:{{ product.featured_image | img_url: '1200x630' }}">
+  {% endif %}
+{% elsif request.page_type == 'article' %}
+  {% assign og_type = 'article' %}
+  {% if article.image %}
+    <meta property="og:image" content="http:{{ article.image | img_url: '1200x630' }}">
+    <meta property="og:image:secure_url" content="https:{{ article.image | img_url: '1200x630' }}">
+    <meta name="twitter:image" content="https:{{ article.image | img_url: '1200x630' }}">
+  {% endif %}
+{% elsif request.page_type == 'collection' %}
+  {% if collection.image %}
+    <meta property="og:image" content="http:{{ collection.image | img_url: '1200x630' }}">
+    <meta property="og:image:secure_url" content="https:{{ collection.image | img_url: '1200x630' }}">
+    <meta name="twitter:image" content="https:{{ collection.image | img_url: '1200x630' }}">
+  {% endif %}
+{% endif %}
+
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:url" content="{{ og_url }}">
+<meta property="og:title" content="{{ og_title }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:description" content="{{ og_description }}">
+
+{% if settings.social_facebook_link != blank %}
+  <meta property="og:see_also" content="{{ settings.social_facebook_link }}">
+{% endif %}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title }}">
+<meta name="twitter:description" content="{{ og_description }}">
+
+{%- if request.page_type == 'product' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "image": [
+      {{ product.featured_image | img_url: 'master' | prepend: 'https:' | json }}
+    ],
+    "description": {{ product.description | strip_html | json }},
+    "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ shop.name | json }}
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": {{ shop.url | append: product.url | json }},
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.00 | json }},
+      "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
+    }
+  }
+  </script>
+{%- endif -%}
+
+{%- if request.page_type == 'index' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "OnlineStore",
+    "name": {{ shop.name | json }},
+    "description": {{ shop.description | json }},
+    "url": {{ shop.url | json }},
+    "priceRange": "$$",
+    "paymentAccepted": ["Credit Card", "PayPal", "Apple Pay", "Google Pay"]
+  }
+  </script>
+{%- endif -%}

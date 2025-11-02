@@ -1,0 +1,38 @@
+{
+  "name": "SeasonTrend",
+  "version": "1.0.0",
+  "theme_author": "SeasonTrend Team",
+  "theme_documentation_url": "https://seasontrend.us/docs",
+  "theme_support_url": "https://seasontrend.us/support",
+  "theme_version": "1.0.0",
+  "theme_store_url": "https://seasontrend.us",
+  "description": "A professional, modern dropshipping theme with beautiful UI/UX design",
+  "features": [
+    "Responsive design",
+    "SEO optimized",
+    "Fast loading",
+    "Product showcase",
+    "Trust badges",
+    "Newsletter integration",
+    "Social media integration",
+    "Cart functionality",
+    "Mobile-first design"
+  ],
+  "settings": {
+    "colors": {
+      "primary": "#6366f1",
+      "secondary": "#8b5cf6",
+      "accent": "#ec4899",
+      "text": "#1f2937",
+      "background": "#ffffff"
+    },
+    "typography": {
+      "heading_font": "Playfair Display",
+      "body_font": "Inter"
+    },
+    "layout": {
+      "container_width": "1280px",
+      "grid_gutter": "24px"
+    }
+  }
+}
