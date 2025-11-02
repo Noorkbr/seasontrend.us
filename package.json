@@ -1,0 +1,29 @@
+{
+  "name": "seasontrend",
+  "version": "1.0.0",
+  "description": "SeasonTrend - Professional dropshipping website with Shopify theme support",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "dev": "python3 -m http.server 8080",
+    "serve": "python3 -m http.server 8080"
+  },
+  "keywords": [
+    "dropshipping",
+    "shopify",
+    "ecommerce",
+    "seasonal",
+    "trending",
+    "ui",
+    "ux",
+    "responsive",
+    "seo"
+  ],
+  "author": "SeasonTrend Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noor-87dsdp-beep/seasontrend.us"
+  },
+  "homepage": "https://seasontrend.us"
+}
