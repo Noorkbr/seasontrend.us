@@ -64,9 +64,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header');
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
-            header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+            header.classList.add('scrolled');
         } else {
-            header.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+            header.classList.remove('scrolled');
         }
     });
 
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Change button text temporarily
             const originalText = this.textContent;
             this.textContent = 'Added ✓';
-            this.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            this.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
             
             setTimeout(() => {
                 this.textContent = originalText;
@@ -166,11 +166,11 @@ document.addEventListener('DOMContentLoaded', function() {
             position: fixed;
             top: 100px;
             right: 20px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
             color: white;
             padding: 1rem 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-radius: 2rem;
+            box-shadow: 0 12px 24px -4px rgba(14, 165, 233, 0.3);
             z-index: 9999;
             animation: slideIn 0.3s ease;
             max-width: 300px;

@@ -11,11 +11,12 @@ SeasonTrend is a premium Shopify Liquid theme designed for dropshipping and e-co
 ## ✨ Features
 
 ### Design & UI/UX
-- **Professional Color Palette**: Modern gradient-based design with primary blues and purples
+- **Modern Color Palette**: Sophisticated sky blue and cyan gradient design with amber accents
 - **Beautiful Typography**: Combination of Playfair Display and Inter fonts
-- **Smooth Animations**: Engaging micro-interactions and scroll animations
+- **Smooth Animations**: Engaging micro-interactions and scroll animations with enhanced transitions
 - **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices
 - **Trust Elements**: Strategic placement of badges, testimonials, and security indicators
+- **Enhanced Depth**: Layered shadows and subtle background animations for visual interest
 
 ### E-commerce Features
 - **Product Showcase**: Beautiful product cards with hover effects
@@ -49,10 +50,10 @@ SeasonTrend is a premium Shopify Liquid theme designed for dropshipping and e-co
 ## 🎨 Color Palette
 
 ```css
-Primary: #6366f1 (Indigo)
-Secondary: #8b5cf6 (Purple)
-Accent: #ec4899 (Pink)
-Text: #1f2937 (Dark Gray)
+Primary: #0ea5e9 (Sky Blue)
+Secondary: #06b6d4 (Cyan)
+Accent: #f59e0b (Amber)
+Text: #0f172a (Slate)
 Background: #ffffff (White)
 ```
 
@@ -146,9 +147,9 @@ shopify theme push
 Edit the CSS variables in `styles.css`:
 ```css
 :root {
-    --primary-color: #6366f1;
-    --secondary-color: #8b5cf6;
-    --accent-color: #ec4899;
+    --primary-color: #0ea5e9;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
 }
 ```
 
