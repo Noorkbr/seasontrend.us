@@ -1,12 +1,12 @@
 {
   "name": "seasontrend",
   "version": "1.0.0",
-  "description": "SeasonTrend - Professional dropshipping website with Shopify theme support",
-  "main": "index.html",
+  "description": "SeasonTrend - Professional Shopify Liquid theme for dropshipping and e-commerce businesses",
   "scripts": {
-    "start": "python3 -m http.server 8080",
-    "dev": "python3 -m http.server 8080",
-    "serve": "python3 -m http.server 8080"
+    "shopify:login": "shopify login",
+    "shopify:push": "shopify theme push",
+    "shopify:dev": "shopify theme dev",
+    "shopify:pull": "shopify theme pull"
   },
   "keywords": [
     "dropshipping",

@@ -6,17 +6,21 @@
   "theme_support_url": "https://seasontrend.us/support",
   "theme_version": "1.0.0",
   "theme_store_url": "https://seasontrend.us",
-  "description": "A professional, modern dropshipping theme with beautiful UI/UX design",
+  "description": "A professional Shopify Liquid theme for dropshipping with beautiful UI/UX design and conversion optimization",
   "features": [
     "Responsive design",
     "SEO optimized",
     "Fast loading",
+    "Dynamic sections",
+    "Customizable settings",
     "Product showcase",
     "Trust badges",
     "Newsletter integration",
     "Social media integration",
     "Cart functionality",
-    "Mobile-first design"
+    "Mobile-first design",
+    "Liquid templating",
+    "Multi-language ready"
   ],
   "settings": {
     "colors": {
