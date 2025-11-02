@@ -24,10 +24,10 @@
   ],
   "settings": {
     "colors": {
-      "primary": "#6366f1",
-      "secondary": "#8b5cf6",
-      "accent": "#ec4899",
-      "text": "#1f2937",
+      "primary": "#0ea5e9",
+      "secondary": "#06b6d4",
+      "accent": "#f59e0b",
+      "text": "#0f172a",
       "background": "#ffffff"
     },
     "typography": {
