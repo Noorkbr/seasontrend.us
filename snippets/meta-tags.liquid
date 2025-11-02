@@ -10,20 +10,20 @@
 {% if request.page_type == 'product' %}
   {% assign og_type = 'product' %}
   {% if product.featured_image %}
-    <meta property="og:image" content="http:{{ product.featured_image | img_url: '1200x630' }}">
+    <meta property="og:image" content="https:{{ product.featured_image | img_url: '1200x630' }}">
     <meta property="og:image:secure_url" content="https:{{ product.featured_image | img_url: '1200x630' }}">
     <meta name="twitter:image" content="https:{{ product.featured_image | img_url: '1200x630' }}">
   {% endif %}
 {% elsif request.page_type == 'article' %}
   {% assign og_type = 'article' %}
   {% if article.image %}
-    <meta property="og:image" content="http:{{ article.image | img_url: '1200x630' }}">
+    <meta property="og:image" content="https:{{ article.image | img_url: '1200x630' }}">
     <meta property="og:image:secure_url" content="https:{{ article.image | img_url: '1200x630' }}">
     <meta name="twitter:image" content="https:{{ article.image | img_url: '1200x630' }}">
   {% endif %}
 {% elsif request.page_type == 'collection' %}
   {% if collection.image %}
-    <meta property="og:image" content="http:{{ collection.image | img_url: '1200x630' }}">
+    <meta property="og:image" content="https:{{ collection.image | img_url: '1200x630' }}">
     <meta property="og:image:secure_url" content="https:{{ collection.image | img_url: '1200x630' }}">
     <meta name="twitter:image" content="https:{{ collection.image | img_url: '1200x630' }}">
   {% endif %}

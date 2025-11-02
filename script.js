@@ -300,16 +300,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Track time on page
+    // Track time on page (analytics can be connected here)
     const startTime = Date.now();
     window.addEventListener('beforeunload', function() {
         const timeSpent = (Date.now() - startTime) / 1000;
-        console.log('User engagement:', {
-            timeSpent: timeSpent + ' seconds',
-            maxScroll: maxScroll.toFixed(2) + '%',
-            cartInteractions: cartCount
-        });
+        // Analytics data collection point - integrate with Google Analytics or similar
+        if (window.gtag) {
+            window.gtag('event', 'user_engagement', {
+                timeSpent: timeSpent,
+                maxScroll: maxScroll.toFixed(2),
+                cartInteractions: cartCount
+            });
+        }
     });
 
-    console.log('SeasonTrend website initialized successfully! 🎉');
+    // Set current year in footer
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 });
