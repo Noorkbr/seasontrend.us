@@ -1,0 +1,146 @@
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-background"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h2 class="hero-subtitle">{{ section.settings.hero_subtitle | default: "Discover This Season's Trends" }}</h2>
+        <h1 class="hero-title">
+          {{ section.settings.hero_title_line1 | default: "Premium Quality" }}<br>
+          <span class="gradient-text">{{ section.settings.hero_title_line2 | default: "Meets Style" }}</span>
+        </h1>
+        <p class="hero-description">
+          {{ section.settings.hero_description | default: "Shop curated collections of trending products with confidence. 30-day money-back guarantee on all items." }}
+        </p>
+        <div class="hero-cta">
+          {% if section.settings.hero_button_primary_text %}
+            <a href="{{ section.settings.hero_button_primary_link | default: '/collections/all' }}" class="btn btn-primary btn-lg">
+              {{ section.settings.hero_button_primary_text }}
+            </a>
+          {% endif %}
+          {% if section.settings.hero_button_secondary_text %}
+            <a href="{{ section.settings.hero_button_secondary_link | default: '/pages/about' }}" class="btn btn-outline btn-lg">
+              {{ section.settings.hero_button_secondary_text }}
+            </a>
+          {% endif %}
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">{{ section.settings.stat1_number | default: "50K+" }}</span>
+            <span class="stat-label">{{ section.settings.stat1_label | default: "Happy Customers" }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{{ section.settings.stat2_number | default: "4.8★" }}</span>
+            <span class="stat-label">{{ section.settings.stat2_label | default: "Average Rating" }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{{ section.settings.stat3_number | default: "1000+" }}</span>
+            <span class="stat-label">{{ section.settings.stat3_label | default: "Products" }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-card card-1"></div>
+        <div class="hero-card card-2"></div>
+        <div class="hero-card card-3"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Subtitle",
+      "default": "Discover This Season's Trends"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line1",
+      "label": "Title Line 1",
+      "default": "Premium Quality"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line2",
+      "label": "Title Line 2 (Gradient)",
+      "default": "Meets Style"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_description",
+      "label": "Description",
+      "default": "Shop curated collections of trending products with confidence. 30-day money-back guarantee on all items."
+    },
+    {
+      "type": "text",
+      "id": "hero_button_primary_text",
+      "label": "Primary Button Text",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_primary_link",
+      "label": "Primary Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_secondary_text",
+      "label": "Secondary Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_secondary_link",
+      "label": "Secondary Button Link",
+      "default": "/pages/about"
+    },
+    {
+      "type": "text",
+      "id": "stat1_number",
+      "label": "Stat 1 Number",
+      "default": "50K+"
+    },
+    {
+      "type": "text",
+      "id": "stat1_label",
+      "label": "Stat 1 Label",
+      "default": "Happy Customers"
+    },
+    {
+      "type": "text",
+      "id": "stat2_number",
+      "label": "Stat 2 Number",
+      "default": "4.8★"
+    },
+    {
+      "type": "text",
+      "id": "stat2_label",
+      "label": "Stat 2 Label",
+      "default": "Average Rating"
+    },
+    {
+      "type": "text",
+      "id": "stat3_number",
+      "label": "Stat 3 Number",
+      "default": "1000+"
+    },
+    {
+      "type": "text",
+      "id": "stat3_label",
+      "label": "Stat 3 Label",
+      "default": "Products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
+}
+{% endschema %}

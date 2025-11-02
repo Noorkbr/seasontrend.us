@@ -1,0 +1,80 @@
+<div class="page-template">
+  <div class="container">
+    <header class="page-header">
+      <h1 class="page-title">{{ page.title }}</h1>
+    </header>
+
+    <div class="page-content rte">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+<style>
+.page-template {
+  padding: 60px 0;
+  min-height: 60vh;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.page-title {
+  font-size: 48px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+}
+
+.page-content {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.page-content h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 40px 0 20px;
+}
+
+.page-content h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 30px 0 15px;
+}
+
+.page-content p {
+  margin-bottom: 20px;
+}
+
+.page-content ul,
+.page-content ol {
+  margin-bottom: 20px;
+  padding-left: 30px;
+}
+
+.page-content li {
+  margin-bottom: 10px;
+}
+
+.page-content a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.page-content a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 32px;
+  }
+  
+  .page-content {
+    padding: 0 20px;
+  }
+}
+</style>

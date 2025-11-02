@@ -1,0 +1,27 @@
+{
+  "current": {
+    "color_primary": "#6366f1",
+    "color_secondary": "#8b5cf6",
+    "color_accent": "#ec4899",
+    "color_text": "#1f2937",
+    "color_background": "#ffffff",
+    "heading_font": "Playfair Display",
+    "body_font": "Inter",
+    "logo_width": 150,
+    "cart_notes_enable": true,
+    "cart_type": "drawer",
+    "product_show_vendor": false,
+    "product_show_sku": false,
+    "product_enable_zoom": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      }
+    }
+  }
+}
