@@ -1,0 +1,318 @@
+<div class="cart-template">
+  <div class="container">
+    <h1 class="cart-title">{{ 'cart.general.title' | t }}</h1>
+
+    {% if cart.item_count > 0 %}
+      <form action="/cart" method="post" novalidate class="cart">
+        <div class="cart-items">
+          {% for item in cart.items %}
+            <div class="cart-item" data-cart-item data-variant-id="{{ item.variant.id }}">
+              <div class="cart-item__image">
+                {% if item.image %}
+                  <img src="{{ item.image | img_url: 'small' }}" alt="{{ item.image.alt | escape }}">
+                {% endif %}
+              </div>
+
+              <div class="cart-item__details">
+                <h3 class="cart-item__title">
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                </h3>
+                
+                {% unless item.variant.title == 'Default Title' %}
+                  <p class="cart-item__variant">{{ item.variant.title }}</p>
+                {% endunless %}
+
+                {% if item.properties %}
+                  <div class="cart-item__properties">
+                    {% for property in item.properties %}
+                      {% assign property_first_char = property.first | slice: 0 %}
+                      {% unless property.last == blank or property_first_char == '_' %}
+                        <p>
+                          <strong>{{ property.first }}:</strong> {{ property.last }}
+                        </p>
+                      {% endunless %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="cart-item__quantity">
+                <label for="updates_{{ item.key }}">{{ 'products.product.quantity' | t }}</label>
+                <input type="number" 
+                       name="updates[]" 
+                       id="updates_{{ item.key }}" 
+                       value="{{ item.quantity }}" 
+                       min="0" 
+                       data-quantity-input>
+              </div>
+
+              <div class="cart-item__price">
+                {% if item.original_line_price != item.line_price %}
+                  <span class="cart-item__price--sale">{{ item.line_price | money }}</span>
+                  <span class="cart-item__price--compare">{{ item.original_line_price | money }}</span>
+                {% else %}
+                  <span>{{ item.line_price | money }}</span>
+                {% endif %}
+              </div>
+
+              <div class="cart-item__remove">
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" 
+                   class="cart-item__remove-link"
+                   data-line="{{ forloop.index }}">
+                  {{ 'cart.general.remove' | t }}
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if settings.cart_notes_enable %}
+          <div class="cart-note">
+            <label for="CartNote">{{ 'cart.general.note' | t }}</label>
+            <textarea name="note" id="CartNote" class="cart-note__textarea">{{ cart.note }}</textarea>
+          </div>
+        {% endif %}
+
+        <div class="cart-footer">
+          <div class="cart-subtotal">
+            <span class="cart-subtotal__title">{{ 'cart.general.subtotal' | t }}</span>
+            <span class="cart-subtotal__price">{{ cart.total_price | money }}</span>
+          </div>
+
+          {% if settings.free_shipping_threshold > 0 %}
+            {% if cart.total_price < settings.free_shipping_threshold %}
+              <p class="cart-shipping-notice">
+                🚚 Add {{ settings.free_shipping_threshold | minus: cart.total_price | money }} more for free shipping!
+              </p>
+            {% else %}
+              <p class="cart-shipping-notice cart-shipping-notice--success">
+                ✓ You qualify for free shipping!
+              </p>
+            {% endif %}
+          {% endif %}
+
+          <div class="cart-actions">
+            <button type="submit" name="update" class="btn btn-secondary">
+              {{ 'cart.general.update' | t }}
+            </button>
+            <button type="submit" name="checkout" class="btn btn-primary btn-lg">
+              {{ 'cart.general.checkout' | t }}
+            </button>
+          </div>
+
+          <a href="/collections/all" class="cart-continue-shopping">
+            {{ 'cart.general.continue_shopping' | t }}
+          </a>
+        </div>
+      </form>
+    {% else %}
+      <div class="cart-empty">
+        <p>{{ 'cart.general.empty' | t }}</p>
+        <a href="/collections/all" class="btn btn-primary">
+          {{ 'cart.general.continue_shopping' | t }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.cart-template {
+  padding: 60px 0;
+  min-height: 60vh;
+}
+
+.cart-title {
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 60px;
+  font-family: 'Playfair Display', serif;
+}
+
+.cart-items {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 150px 150px 100px;
+  gap: 20px;
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item__image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.cart-item__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.cart-item__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cart-item__title a:hover {
+  color: #6366f1;
+}
+
+.cart-item__variant {
+  color: #666;
+  font-size: 14px;
+}
+
+.cart-item__quantity input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.cart-item__price {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.cart-item__price--sale {
+  color: #ec4899;
+  margin-right: 10px;
+}
+
+.cart-item__price--compare {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 14px;
+  display: block;
+}
+
+.cart-item__remove-link {
+  color: #ef4444;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.cart-item__remove-link:hover {
+  text-decoration: underline;
+}
+
+.cart-note {
+  margin-bottom: 30px;
+}
+
+.cart-note label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cart-note__textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.cart-footer {
+  background: #f9fafb;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.cart-subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.cart-shipping-notice {
+  text-align: center;
+  padding: 15px;
+  background: #fef3c7;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.cart-shipping-notice--success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.cart-actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.cart-actions button {
+  flex: 1;
+}
+
+.cart-continue-shopping {
+  display: block;
+  text-align: center;
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cart-continue-shopping:hover {
+  text-decoration: underline;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.cart-empty p {
+  font-size: 24px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .cart-item {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .cart-item__image {
+    max-width: 150px;
+    margin: 0 auto;
+  }
+  
+  .cart-item__price {
+    text-align: left;
+  }
+  
+  .cart-actions {
+    flex-direction: column;
+  }
+}
+</style>

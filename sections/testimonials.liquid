@@ -1,0 +1,135 @@
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "What Our Customers Say" }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle | default: "Real reviews from real customers" }}</p>
+    </div>
+    <div class="testimonials-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'testimonial' %}
+          <div class="testimonial-card" {{ block.shopify_attributes }}>
+            <div class="testimonial-rating">
+              {% for i in (1..5) %}
+                {% if i <= block.settings.rating %}
+                  <span class="star filled">★</span>
+                {% else %}
+                  <span class="star">☆</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <p class="testimonial-text">"{{ block.settings.text }}"</p>
+            <div class="testimonial-author">
+              {% if block.settings.avatar %}
+                <img src="{{ block.settings.avatar | img_url: 'small' }}" alt="{{ block.settings.name }}" class="testimonial-avatar">
+              {% else %}
+                <div class="testimonial-avatar-placeholder">
+                  {{ block.settings.name | slice: 0 }}
+                </div>
+              {% endif %}
+              <div class="testimonial-author-info">
+                <strong>{{ block.settings.name }}</strong>
+                {% if block.settings.location %}
+                  <span>{{ block.settings.location }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Real reviews from real customers"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text",
+          "default": "Great products and amazing service!"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer Name",
+          "default": "Customer Name"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Customer Photo"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Rating",
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "text": "Absolutely love my purchase! The quality exceeded my expectations and shipping was super fast.",
+            "name": "Sarah Johnson",
+            "location": "New York, NY",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "text": "Best online shopping experience! The products are exactly as described and customer service is outstanding.",
+            "name": "Michael Chen",
+            "location": "San Francisco, CA",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "text": "I've ordered multiple times and each time has been perfect. Will definitely recommend to friends!",
+            "name": "Emily Rodriguez",
+            "location": "Austin, TX",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

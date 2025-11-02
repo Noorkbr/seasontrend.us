@@ -1,0 +1,64 @@
+<div class="page-404">
+  <div class="container">
+    <div class="page-404-content">
+      <h1 class="page-404-title">404</h1>
+      <h2 class="page-404-subtitle">{{ 'general.404.title' | t }}</h2>
+      <p class="page-404-text">{{ 'general.404.subtext' | t }}</p>
+      <a href="/" class="btn btn-primary btn-lg">Return to Home</a>
+      <a href="/collections/all" class="btn btn-outline btn-lg">Shop Now</a>
+    </div>
+  </div>
+</div>
+
+<style>
+.page-404 {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.page-404-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page-404-title {
+  font-size: 120px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+
+.page-404-subtitle {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+}
+
+.page-404-text {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.page-404-content .btn {
+  margin: 0 10px 10px;
+}
+
+@media (max-width: 768px) {
+  .page-404-title {
+    font-size: 80px;
+  }
+  
+  .page-404-subtitle {
+    font-size: 28px;
+  }
+}
+</style>
