@@ -79,14 +79,16 @@
             <span class="cart-subtotal__price">{{ cart.total_price | money }}</span>
           </div>
 
-          {% if cart.total_price < 5000 %}
-            <p class="cart-shipping-notice">
-              🚚 Add {{ 5000 | minus: cart.total_price | money }} more for free shipping!
-            </p>
-          {% else %}
-            <p class="cart-shipping-notice cart-shipping-notice--success">
-              ✓ You qualify for free shipping!
-            </p>
+          {% if settings.free_shipping_threshold > 0 %}
+            {% if cart.total_price < settings.free_shipping_threshold %}
+              <p class="cart-shipping-notice">
+                🚚 Add {{ settings.free_shipping_threshold | minus: cart.total_price | money }} more for free shipping!
+              </p>
+            {% else %}
+              <p class="cart-shipping-notice cart-shipping-notice--success">
+                ✓ You qualify for free shipping!
+              </p>
+            {% endif %}
           {% endif %}
 
           <div class="cart-actions">

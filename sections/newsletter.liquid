@@ -9,19 +9,10 @@
         </p>
       </div>
       <div class="newsletter-form">
-        {% form 'customer' %}
-          {% if form.posted_successfully? %}
-            <div class="newsletter-success">
-              {{ section.settings.success_message | default: "Thanks for subscribing!" }}
-            </div>
-          {% endif %}
+        {% comment %} Using a standard form for newsletter - configure action URL in theme settings {% endcomment %}
+        <form action="{{ section.settings.form_action | default: '/contact#newsletter' }}" method="post" class="newsletter-form-wrapper" id="newsletter-form">
+          <input type="hidden" name="contact[tags]" value="newsletter">
           
-          {% if form.errors %}
-            <div class="newsletter-error">
-              {{ form.errors | default_errors }}
-            </div>
-          {% endif %}
-
           <div class="form-group">
             <input type="email" 
                    name="contact[email]" 
@@ -33,11 +24,11 @@
               {{ section.settings.button_text | default: "Subscribe" }}
             </button>
           </div>
-        {% endform %}
+        </form>
         
-        {% comment %} Alternative: Klaviyo or Mailchimp form {% endcomment %}
-        {% if section.settings.use_custom_form %}
-          <form action="{{ section.settings.form_action }}" method="post" class="newsletter-form-custom">
+        {% comment %} Alternative: Use Klaviyo or Mailchimp custom form action URL {% endcomment %}
+        {% if section.settings.use_custom_form and section.settings.custom_form_action %}
+          <form action="{{ section.settings.custom_form_action }}" method="post" class="newsletter-form-custom">
             <div class="form-group">
               <input type="email" 
                      name="email" 
@@ -94,22 +85,29 @@
       "default": "Thanks for subscribing!"
     },
     {
-      "type": "textarea",
+      "type": "text",
       "id": "disclaimer",
       "label": "Disclaimer Text",
       "default": "By subscribing, you agree to our Privacy Policy and consent to receive updates from our company."
     },
     {
+      "type": "text",
+      "id": "form_action",
+      "label": "Form Action URL",
+      "info": "Default is /contact#newsletter. For app integrations, this will be set automatically.",
+      "default": "/contact#newsletter"
+    },
+    {
       "type": "checkbox",
       "id": "use_custom_form",
-      "label": "Use Custom Form (Mailchimp/Klaviyo)",
+      "label": "Use Custom Form Action (Mailchimp/Klaviyo)",
       "default": false
     },
     {
       "type": "text",
-      "id": "form_action",
+      "id": "custom_form_action",
       "label": "Custom Form Action URL",
-      "info": "For Mailchimp or Klaviyo integration"
+      "info": "For Mailchimp or Klaviyo integration. Only used if 'Use Custom Form Action' is enabled."
     }
   ],
   "presets": [

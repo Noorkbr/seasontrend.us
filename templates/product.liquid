@@ -13,7 +13,7 @@
             <div class="product-single__thumbnails">
               {% for image in product.images %}
                 <div class="product-single__thumbnail">
-                  <img src="{{ image.src | img_url: 'compact' }}" 
+                  <img src="{{ image | img_url: 'compact' }}" 
                        alt="{{ image.alt | escape }}">
                 </div>
               {% endfor %}

@@ -176,6 +176,17 @@
           }
         ],
         "default": "drawer"
+      },
+      {
+        "type": "range",
+        "id": "free_shipping_threshold",
+        "min": 0,
+        "max": 20000,
+        "step": 500,
+        "unit": "cents",
+        "label": "Free Shipping Threshold",
+        "info": "Set to 0 to disable. 5000 cents = $50",
+        "default": 5000
       }
     ]
   },

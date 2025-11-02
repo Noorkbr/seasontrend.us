@@ -1,3 +1,4 @@
+{% paginate collection.products by 12 %}
 <div class="collection-template">
   <div class="container">
     <header class="collection-header">
@@ -90,7 +91,6 @@
   </div>
 </div>
 
-{% paginate collection.products by 12 %}
 {% endpaginate %}
 
 <style>
