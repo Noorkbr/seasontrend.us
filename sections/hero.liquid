@@ -18,6 +18,11 @@
               {{ section.settings.hero_button_primary_text }}
             </a>
           {% endif %}
+          {% if section.settings.hero_button_premium_text %}
+            <a href="{{ section.settings.hero_button_premium_link | default: '/collections/premium' }}" class="btn btn-gold btn-lg">
+              {{ section.settings.hero_button_premium_text }}
+            </a>
+          {% endif %}
           {% if section.settings.hero_button_secondary_text %}
             <a href="{{ section.settings.hero_button_secondary_link | default: '/pages/about' }}" class="btn btn-outline btn-lg">
               {{ section.settings.hero_button_secondary_text }}
@@ -29,7 +34,7 @@
             <span class="stat-number">{{ section.settings.stat1_number | default: "50K+" }}</span>
             <span class="stat-label">{{ section.settings.stat1_label | default: "Happy Customers" }}</span>
           </div>
-          <div class="stat">
+          <div class="stat stat-premium">
             <span class="stat-number">{{ section.settings.stat2_number | default: "4.8★" }}</span>
             <span class="stat-label">{{ section.settings.stat2_label | default: "Average Rating" }}</span>
           </div>
@@ -99,6 +104,18 @@
       "id": "hero_button_secondary_link",
       "label": "Secondary Button Link",
       "default": "/pages/about"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_premium_text",
+      "label": "Premium Gold Button Text",
+      "default": ""
+    },
+    {
+      "type": "url",
+      "id": "hero_button_premium_link",
+      "label": "Premium Gold Button Link",
+      "default": "/collections/premium"
     },
     {
       "type": "text",

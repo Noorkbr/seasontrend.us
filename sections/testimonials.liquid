@@ -21,13 +21,13 @@
             <p class="testimonial-text">"{{ block.settings.text }}"</p>
             <div class="testimonial-author">
               {% if block.settings.avatar %}
-                <img src="{{ block.settings.avatar | img_url: 'small' }}" alt="{{ block.settings.name }}" class="testimonial-avatar">
+                <img src="{{ block.settings.avatar | img_url: 'small' }}" alt="{{ block.settings.name }}" class="author-avatar">
               {% else %}
-                <div class="testimonial-avatar-placeholder">
+                <div class="author-avatar">
                   {{ block.settings.name | slice: 0 }}
                 </div>
               {% endif %}
-              <div class="testimonial-author-info">
+              <div class="author-info">
                 <strong>{{ block.settings.name }}</strong>
                 {% if block.settings.location %}
                   <span>{{ block.settings.location }}</span>
