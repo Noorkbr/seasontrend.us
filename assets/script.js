@@ -228,27 +228,26 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 
-    // Intersection Observer for Scroll Animations
+    // Enhanced Intersection Observer for Scroll Animations with slideUp class
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const scrollObserver = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('animate-slideUp');
+                scrollObserver.unobserve(entry.target); // Only animate once
             }
         });
     }, observerOptions);
 
-    // Observe elements for animation
-    document.querySelectorAll('.product-card, .category-card, .testimonial-card, .badge').forEach(element => {
+    // Observe elements for animation with initial hidden state
+    document.querySelectorAll('.product-card, .category-card, .testimonial-card, .badge, .stat').forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(element);
+        scrollObserver.observe(element);
     });
 
     // Search Button Functionality
