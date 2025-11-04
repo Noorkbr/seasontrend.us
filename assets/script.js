@@ -244,10 +244,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // Observe elements for animation with initial hidden state
+    // Only observe elements that are below the fold to avoid animating visible content
     document.querySelectorAll('.product-card, .category-card, .testimonial-card, .badge, .stat').forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
-        scrollObserver.observe(element);
+        const rect = element.getBoundingClientRect();
+        const isVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+        
+        if (!isVisible) {
+            // Only animate elements that are not currently visible
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            scrollObserver.observe(element);
+        }
     });
 
     // Search Button Functionality

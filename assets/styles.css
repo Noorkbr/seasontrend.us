@@ -387,7 +387,7 @@ body {
 
 @keyframes shine {
     0% { left: -100%; }
-    100% { left: 200%; }
+    100% { left: 100%; }
 }
 
 .cta-btn {
@@ -1557,6 +1557,11 @@ section {
     
     .hero-cta {
         flex-direction: column;
+    }
+    
+    .hero-stats {
+        flex-wrap: wrap;
+        gap: var(--spacing-md);
     }
     
     .stat {
