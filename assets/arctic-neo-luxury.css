@@ -1,0 +1,581 @@
+/* 
+ * Arctic Neo-Luxury Design System
+ * "Billionaire" aesthetic: Dark void, aurora gradients, glass morphism, intense glows
+ */
+
+:root {
+    /* Arctic Neo-Luxury Core Colors */
+    --arctic-void: #05080F;
+    --arctic-aurora-cyan: #00F2FF;
+    --arctic-aurora-purple: #BD00FF;
+    --arctic-glass-white: rgba(255, 255, 255, 0.03);
+    --arctic-glass-border: rgba(255, 255, 255, 0.1);
+    --arctic-glow-cyan: rgba(0, 242, 255, 0.5);
+    --arctic-glow-purple: rgba(189, 0, 255, 0.5);
+    
+    /* Typography - Tight & Geometric */
+    --font-clash: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-satoshi: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    
+    /* Arctic Gradients */
+    --gradient-aurora: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+    --gradient-liquid-metal: linear-gradient(135deg, #8B92A8 0%, #D4D8E3 50%, #8B92A8 100%);
+    --gradient-holographic: linear-gradient(135deg, #00F2FF 0%, #0EA5E9 50%, #BD00FF 100%);
+    
+    /* Glassmorphism */
+    --glass-backdrop: blur(20px);
+    --glass-frost: blur(40px);
+    
+    /* Depth & Shadows */
+    --shadow-glow-cyan: 0 0 40px rgba(0, 242, 255, 0.6), 0 0 80px rgba(0, 242, 255, 0.3);
+    --shadow-glow-purple: 0 0 40px rgba(189, 0, 255, 0.6), 0 0 80px rgba(189, 0, 255, 0.3);
+    --shadow-glow-aurora: 0 0 60px rgba(0, 242, 255, 0.4), 0 0 120px rgba(189, 0, 255, 0.4);
+    --shadow-depth: 0 40px 100px rgba(0, 0, 0, 0.7);
+}
+
+/* SECTION 1: PORTAL HERO */
+.hero-portal {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--arctic-void);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.parallax-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.parallax-layer.layer-1 {
+    background: radial-gradient(circle at 20% 30%, var(--arctic-glow-cyan) 0%, transparent 50%);
+    z-index: 2;
+}
+
+.parallax-layer.layer-2 {
+    background: radial-gradient(circle at 80% 70%, var(--arctic-glow-purple) 0%, transparent 50%);
+    z-index: 3;
+}
+
+.product-float {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    z-index: 5;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.product-float img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(var(--shadow-glow-aurora));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 2rem;
+}
+
+.liquid-headline {
+    font-family: var(--font-clash);
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    margin-bottom: 3rem;
+    background: var(--gradient-liquid-metal);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: liquidShimmer 4s ease-in-out infinite;
+    text-shadow: 0 0 60px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes liquidShimmer {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.glass-pill-btn {
+    position: relative;
+    padding: 1.5rem 4rem;
+    font-family: var(--font-satoshi);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: white;
+    background: var(--arctic-glass-white);
+    border: 1px solid var(--arctic-glass-border);
+    backdrop-filter: var(--glass-backdrop);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;
+}
+
+.glass-pill-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-aurora);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.glass-pill-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    border-color: var(--arctic-aurora-cyan);
+    box-shadow: var(--shadow-glow-aurora);
+}
+
+.glass-pill-btn:hover::before {
+    opacity: 0.3;
+}
+
+.glass-pill-btn:active {
+    transform: translateY(0) scale(1);
+}
+
+/* SECTION 2: HOLOGRAPHIC PRODUCT GRID */
+.product-grid-section {
+    background: var(--arctic-void);
+    padding: 8rem 2rem;
+    position: relative;
+}
+
+.holographic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.glass-product-card {
+    position: relative;
+    background: var(--arctic-glass-white);
+    border: 1px solid var(--arctic-glass-border);
+    backdrop-filter: var(--glass-backdrop);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+.glass-product-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--arctic-glow-cyan) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.glass-product-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--arctic-aurora-cyan);
+    box-shadow: var(--shadow-glow-cyan), var(--shadow-depth);
+    transform: translateY(-10px) translateZ(20px);
+}
+
+.glass-product-card:hover::before {
+    opacity: 0.1;
+}
+
+.product-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 1.5rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.glass-product-card:hover .product-image-container img {
+    transform: scale(1.1);
+}
+
+.product-title {
+    font-family: var(--font-satoshi);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+.product-price {
+    font-family: var(--font-satoshi);
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--gradient-aurora);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+
+.quick-buy-btn {
+    width: 100%;
+    padding: 1rem;
+    font-family: var(--font-satoshi);
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: var(--gradient-aurora);
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glass-product-card:hover .quick-buy-btn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.quick-buy-btn:hover {
+    box-shadow: var(--shadow-glow-aurora);
+    transform: translateY(-2px);
+}
+
+/* SECTION 3: VIRAL TRUST WALL */
+.trust-wall-section {
+    background: var(--arctic-void);
+    padding: 6rem 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.trust-wall-title {
+    font-family: var(--font-clash);
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 800;
+    text-align: center;
+    color: white;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+}
+
+.video-scroll-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+}
+
+.video-scroll-container:active {
+    cursor: grabbing;
+}
+
+.video-track {
+    display: flex;
+    gap: 1.5rem;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    will-change: transform;
+}
+
+.trust-video-wrapper {
+    position: relative;
+    width: 340px;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.trust-video {
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--arctic-glass-border);
+}
+
+.trust-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.verified-bubble {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--arctic-glass-white);
+    backdrop-filter: var(--glass-backdrop);
+    border: 1px solid var(--arctic-glass-border);
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bubbleFloat 2s ease-in-out infinite;
+}
+
+@keyframes bubbleFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.verified-badge {
+    width: 20px;
+    height: 20px;
+    background: var(--gradient-aurora);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+
+.verified-text {
+    font-family: var(--font-satoshi);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+}
+
+/* SECTION 4: SNOWGLOBE FOOTER */
+.snowglobe-footer {
+    background: var(--arctic-void);
+    padding: 4rem 2rem 2rem;
+    position: relative;
+}
+
+#snowglobe-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 250px;
+    height: 250px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#snowglobe-container:hover {
+    transform: scale(1.05);
+}
+
+.snowglobe-base {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 60px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 0 0 50% 50% / 0 0 30% 30%;
+    border: 2px solid var(--arctic-glass-border);
+    border-top: none;
+}
+
+.snowglobe-glass {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: var(--arctic-glass-white);
+    backdrop-filter: var(--glass-backdrop);
+    border: 3px solid var(--arctic-glass-border);
+    overflow: hidden;
+    box-shadow: inset 0 0 60px rgba(0, 242, 255, 0.2);
+}
+
+#snowglobe-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.snowglobe-crack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.5) 49%, rgba(255, 255, 255, 0.5) 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.5) 49%, rgba(255, 255, 255, 0.5) 51%, transparent 52%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.snowglobe-crack.active {
+    opacity: 1;
+    animation: crackSpread 0.5s ease-out forwards;
+}
+
+@keyframes crackSpread {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#discount-reveal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--gradient-aurora);
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+#discount-reveal.active {
+    opacity: 1;
+    pointer-events: auto;
+    animation: revealPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes revealPop {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.discount-code {
+    font-family: var(--font-clash);
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+.discount-label {
+    font-family: var(--font-satoshi);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.float-soft {
+    animation: floatSoft 3s ease-in-out infinite;
+}
+
+@keyframes floatSoft {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .liquid-headline {
+        font-size: clamp(2rem, 8vw, 4rem);
+    }
+    
+    .glass-pill-btn {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+    }
+    
+    .holographic-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .video-scroll-container {
+        height: 500px;
+    }
+    
+    .trust-video-wrapper {
+        width: 280px;
+    }
+    
+    #snowglobe-container {
+        width: 180px;
+        height: 180px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .snowglobe-glass {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .snowglobe-base {
+        width: 120px;
+        height: 40px;
+    }
+}

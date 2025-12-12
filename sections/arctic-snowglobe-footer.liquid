@@ -1,0 +1,202 @@
+<!-- SECTION 4: Snowglobe Gamification Footer -->
+<div class="snowglobe-footer">
+  <!-- Fixed Position Snowglobe -->
+  <div id="snowglobe-container">
+    <!-- Glass Dome -->
+    <div class="snowglobe-glass">
+      <canvas id="snowglobe-canvas"></canvas>
+    </div>
+    
+    <!-- Base -->
+    <div class="snowglobe-base"></div>
+    
+    <!-- Discount Reveal Overlay -->
+    <div id="discount-reveal" class="hidden">
+      <div class="discount-code">
+        {{ section.settings.discount_code | default: "ARCTIC25" }}
+      </div>
+      <div class="discount-label">
+        {{ section.settings.discount_label | default: "Your Exclusive Discount!" }}
+      </div>
+      {% if section.settings.discount_cta_text %}
+        <button class="glass-pill-btn" style="margin-top: 1rem; padding: 0.75rem 2rem; font-size: 0.875rem;" 
+                onclick="window.location.href='{{ section.settings.discount_cta_link | default: '/collections/all' }}'">
+          {{ section.settings.discount_cta_text }}
+        </button>
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- Footer Content -->
+  <footer style="background: var(--arctic-void); color: rgba(255, 255, 255, 0.7); padding: 4rem 2rem 2rem;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+        <!-- Footer Column 1 -->
+        <div>
+          <h3 style="font-family: var(--font-clash); font-size: 1.5rem; color: white; margin-bottom: 1rem;">
+            {{ section.settings.footer_col1_title | default: "SeasonTrend" }}
+          </h3>
+          <p style="font-family: var(--font-satoshi); font-size: 0.875rem; line-height: 1.6;">
+            {{ section.settings.footer_col1_text | default: "Arctic Neo-Luxury for the modern trendsetter." }}
+          </p>
+        </div>
+        
+        <!-- Footer Column 2 -->
+        <div>
+          <h4 style="font-family: var(--font-satoshi); font-size: 1rem; font-weight: 600; color: white; margin-bottom: 1rem;">
+            {{ section.settings.footer_col2_title | default: "Quick Links" }}
+          </h4>
+          <ul style="list-style: none; padding: 0; font-family: var(--font-satoshi); font-size: 0.875rem;">
+            {% for link in linklists[section.settings.footer_menu].links %}
+              <li style="margin-bottom: 0.5rem;">
+                <a href="{{ link.url }}" style="color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: color 0.3s;">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        
+        <!-- Footer Column 3 -->
+        <div>
+          <h4 style="font-family: var(--font-satoshi); font-size: 1rem; font-weight: 600; color: white; margin-bottom: 1rem;">
+            {{ section.settings.footer_col3_title | default: "Stay Connected" }}
+          </h4>
+          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            {% if section.settings.social_instagram %}
+              <a href="{{ section.settings.social_instagram }}" target="_blank" style="color: white; font-size: 1.5rem;">📷</a>
+            {% endif %}
+            {% if section.settings.social_tiktok %}
+              <a href="{{ section.settings.social_tiktok }}" target="_blank" style="color: white; font-size: 1.5rem;">🎵</a>
+            {% endif %}
+            {% if section.settings.social_twitter %}
+              <a href="{{ section.settings.social_twitter }}" target="_blank" style="color: white; font-size: 1.5rem;">🐦</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Copyright -->
+      <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; text-align: center; font-family: var(--font-satoshi); font-size: 0.875rem;">
+        <p>{{ section.settings.copyright_text | default: "© 2024 SeasonTrend. All rights reserved." }}</p>
+        {% if section.settings.show_shake_hint %}
+          <p style="margin-top: 1rem; color: var(--arctic-aurora-cyan); font-size: 0.75rem; animation: pulse 2s infinite;">
+            💡 Shake the snowglobe for a surprise!
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </footer>
+</div>
+
+<style>
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Snowglobe Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Snowglobe Gamification"
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Discount Code",
+      "default": "ARCTIC25",
+      "info": "Code revealed when snowglobe is shaken"
+    },
+    {
+      "type": "text",
+      "id": "discount_label",
+      "label": "Discount Label",
+      "default": "Your Exclusive Discount!"
+    },
+    {
+      "type": "text",
+      "id": "discount_cta_text",
+      "label": "Discount CTA Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "discount_cta_link",
+      "label": "Discount CTA Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shake_hint",
+      "label": "Show Shake Hint",
+      "default": true,
+      "info": "Show hint text about shaking the snowglobe"
+    },
+    {
+      "type": "header",
+      "content": "Footer Content"
+    },
+    {
+      "type": "text",
+      "id": "footer_col1_title",
+      "label": "Column 1 Title",
+      "default": "SeasonTrend"
+    },
+    {
+      "type": "textarea",
+      "id": "footer_col1_text",
+      "label": "Column 1 Text",
+      "default": "Arctic Neo-Luxury for the modern trendsetter."
+    },
+    {
+      "type": "text",
+      "id": "footer_col2_title",
+      "label": "Column 2 Title",
+      "default": "Quick Links"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer Menu",
+      "info": "Select menu for quick links"
+    },
+    {
+      "type": "text",
+      "id": "footer_col3_title",
+      "label": "Column 3 Title",
+      "default": "Stay Connected"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "Twitter URL"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2024 SeasonTrend. All rights reserved."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Snowglobe Footer",
+      "category": "Arctic Neo-Luxury"
+    }
+  ]
+}
+{% endschema %}

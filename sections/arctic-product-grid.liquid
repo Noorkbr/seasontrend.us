@@ -1,0 +1,122 @@
+<!-- SECTION 2: Holographic Product Grid with 3D Tilt Cards -->
+<section class="product-grid-section" id="holographic-grid">
+  <div class="container">
+    {% if section.settings.grid_title %}
+      <h2 style="font-family: var(--font-clash); font-size: clamp(2rem, 6vw, 4rem); font-weight: 800; text-align: center; color: white; margin-bottom: 4rem; letter-spacing: -0.02em;">
+        {{ section.settings.grid_title }}
+      </h2>
+    {% endif %}
+    
+    <div class="holographic-grid">
+      {% if section.settings.collection %}
+        {% assign collection = collections[section.settings.collection] %}
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          <div class="glass-product-card">
+            <div class="product-image-container">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | img_url: '600x600' }}" 
+                     alt="{{ product.title }}"
+                     loading="lazy">
+              {% else %}
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%); opacity: 0.3;"></div>
+              {% endif %}
+            </div>
+            
+            <h3 class="product-title">{{ product.title }}</h3>
+            
+            <div class="product-price">
+              {{ product.price | money }}
+              {% if product.compare_at_price > product.price %}
+                <span style="font-size: 1rem; text-decoration: line-through; opacity: 0.5; margin-left: 0.5rem;">
+                  {{ product.compare_at_price | money }}
+                </span>
+              {% endif %}
+            </div>
+            
+            <button class="quick-buy-btn" onclick="window.location.href='{{ product.url }}'">
+              Quick Buy
+            </button>
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Placeholder cards if no collection selected -->
+        {% for i in (1..6) %}
+          <div class="glass-product-card">
+            <div class="product-image-container">
+              <div style="width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 242, 255, 0.2) 0%, rgba(189, 0, 255, 0.2) 100%);"></div>
+            </div>
+            
+            <h3 class="product-title">Product {{ i }}</h3>
+            
+            <div class="product-price">$99.00</div>
+            
+            <button class="quick-buy-btn">Quick Buy</button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    {% if section.settings.view_all_link %}
+      <div style="text-align: center; margin-top: 4rem;">
+        <a href="{{ section.settings.view_all_link }}" class="glass-pill-btn">
+          {{ section.settings.view_all_text | default: "View All Products" }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Holographic Product Grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Grid Settings"
+    },
+    {
+      "type": "text",
+      "id": "grid_title",
+      "label": "Section Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select collection to display products from"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Number of Products",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "View All Button"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Button Text",
+      "default": "View All Products"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Button Link",
+      "info": "Link to collection page"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Holographic Product Grid",
+      "category": "Arctic Neo-Luxury"
+    }
+  ]
+}
+{% endschema %}

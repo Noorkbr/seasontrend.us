@@ -1,0 +1,153 @@
+<!-- SECTION 3: Viral Trust Wall - Infinite Scroll TikTok-Style Videos -->
+<section class="trust-wall-section" id="trust-wall">
+  <div class="container">
+    {% if section.settings.trust_wall_title %}
+      <h2 class="trust-wall-title">
+        {{ section.settings.trust_wall_title }}
+      </h2>
+    {% endif %}
+    
+    <div class="video-scroll-container">
+      <div class="video-track">
+        {% for block in section.blocks %}
+          <div class="trust-video-wrapper">
+            <div class="trust-video">
+              {% if block.settings.video_url != blank %}
+                <video autoplay loop muted playsinline>
+                  <source src="{{ block.settings.video_url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              {% elsif block.settings.video_file %}
+                <video autoplay loop muted playsinline>
+                  <source src="{{ block.settings.video_file | file_url }}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              {% else %}
+                <!-- Placeholder for video -->
+                <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0, 242, 255, 0.1) 0%, rgba(189, 0, 255, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                  <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Video {{ forloop.index }}</span>
+                </div>
+              {% endif %}
+            </div>
+            
+            {% if block.settings.show_verified_badge %}
+              <div class="verified-bubble">
+                <div class="verified-badge">✓</div>
+                <span class="verified-text">
+                  {{ block.settings.verified_text | default: "Verified Buyer" }}
+                </span>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        
+        <!-- If no blocks, show placeholders -->
+        {% if section.blocks.size == 0 %}
+          {% for i in (1..8) %}
+            <div class="trust-video-wrapper">
+              <div class="trust-video">
+                <div style="width: 100%; height: 100%; background: linear-gradient({{ i | times: 45 }}deg, rgba(0, 242, 255, 0.1) 0%, rgba(189, 0, 255, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                  <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Video {{ i }}</span>
+                </div>
+              </div>
+              
+              <div class="verified-bubble">
+                <div class="verified-badge">✓</div>
+                <span class="verified-text">Verified Buyer</span>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    
+    {% if section.settings.trust_wall_description %}
+      <p style="font-family: var(--font-satoshi); text-align: center; color: rgba(255, 255, 255, 0.6); margin-top: 2rem; font-size: 1rem;">
+        {{ section.settings.trust_wall_description }}
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+/* Ensure videos are in 9:16 aspect ratio */
+.trust-video video {
+  aspect-ratio: 9 / 16;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Viral Trust Wall",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Trust Wall Settings"
+    },
+    {
+      "type": "text",
+      "id": "trust_wall_title",
+      "label": "Section Title",
+      "default": "Real Customers, Real Results"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_wall_description",
+      "label": "Description",
+      "info": "Optional text below the videos"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Customer Video",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "Direct link to MP4 video file"
+        },
+        {
+          "type": "video",
+          "id": "video_file",
+          "label": "Upload Video",
+          "info": "Or upload a video file (9:16 aspect ratio recommended)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_verified_badge",
+          "label": "Show Verified Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "verified_text",
+          "label": "Verified Badge Text",
+          "default": "Verified Buyer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Viral Trust Wall",
+      "category": "Arctic Neo-Luxury",
+      "blocks": [
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
