@@ -1,0 +1,290 @@
+<!-- FAQ Section -->
+<section class="faq-section" style="padding: 80px 0; background: var(--arctic-void, #05080F);">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <div class="faq-header" style="text-align: center; margin-bottom: 60px;">
+      <h2 style="
+        font-family: 'Playfair Display', serif;
+        font-size: 48px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+      ">
+        {{ section.settings.faq_title | default: 'Frequently Asked Questions' }}
+      </h2>
+      <p style="
+        font-family: 'Inter', sans-serif;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 600px;
+        margin: 0 auto;
+      ">
+        {{ section.settings.faq_subtitle | default: 'Got questions? We have answers.' }}
+      </p>
+    </div>
+
+    <div class="faq-grid" style="
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    ">
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <div class="faq-item" data-faq-item style="
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          ">
+            <div class="faq-question" style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              gap: 16px;
+            ">
+              <h3 style="
+                font-family: 'Inter', sans-serif;
+                font-size: 18px;
+                font-weight: 600;
+                color: rgba(255, 255, 255, 0.95);
+                margin: 0;
+                flex: 1;
+              ">
+                {{ block.settings.question }}
+              </h3>
+              <span class="faq-icon" style="
+                font-size: 24px;
+                color: #00F2FF;
+                transition: transform 0.3s ease;
+                flex-shrink: 0;
+              ">+</span>
+            </div>
+            <div class="faq-answer" style="
+              max-height: 0;
+              overflow: hidden;
+              transition: max-height 0.3s ease;
+              padding-top: 0;
+            ">
+              <div style="
+                font-family: 'Inter', sans-serif;
+                font-size: 15px;
+                line-height: 1.6;
+                color: rgba(255, 255, 255, 0.7);
+                padding-top: 16px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                margin-top: 16px;
+              ">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Default FAQs -->
+        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
+          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">What is your shipping policy?</h3>
+            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
+          </div>
+          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
+            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
+              We offer FREE shipping on all orders over $50 within the United States. Standard shipping takes 2-5 business days. Express shipping options are available at checkout for faster delivery.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
+          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">What is your return policy?</h3>
+            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
+          </div>
+          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
+            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
+              We offer a 30-day money-back guarantee. If you're not completely satisfied with your purchase, you can return it within 30 days for a full refund. Items must be unused and in original packaging.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
+          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">How do I track my order?</h3>
+            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
+          </div>
+          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
+            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
+              Once your order ships, you'll receive an email with a tracking number and link. You can use this to track your package in real-time. You can also track orders from your account dashboard.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
+          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">What payment methods do you accept?</h3>
+            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
+          </div>
+          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
+            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
+              We accept all major credit cards (Visa, Mastercard, American Express), PayPal, Apple Pay, Google Pay, and Shop Pay. All transactions are secured with 256-bit SSL encryption for your safety.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
+          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">How do I contact customer support?</h3>
+            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
+          </div>
+          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
+            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
+              Our customer support team is available 24/7 to help you. You can reach us via email at support@seasontrend.us, through our live chat feature, or by calling 1-800-SEASON-TREND. We typically respond within 2 hours.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
+          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">Are your products authentic?</h3>
+            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
+          </div>
+          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
+            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
+              Absolutely! We guarantee 100% authentic products. All our items come directly from authorized distributors and manufacturers. Each product includes a certificate of authenticity and our quality guarantee.
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+// FAQ Accordion functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const faqItems = document.querySelectorAll('[data-faq-item]');
+  
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
+    
+    question.addEventListener('click', () => {
+      const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+      
+      // Close all other FAQs
+      faqItems.forEach(otherItem => {
+        if (otherItem !== item) {
+          const otherAnswer = otherItem.querySelector('.faq-answer');
+          const otherIcon = otherItem.querySelector('.faq-icon');
+          otherAnswer.style.maxHeight = '0px';
+          otherIcon.style.transform = 'rotate(0deg)';
+          otherIcon.textContent = '+';
+          otherItem.style.background = 'rgba(255, 255, 255, 0.03)';
+        }
+      });
+      
+      // Toggle current FAQ
+      if (isOpen) {
+        answer.style.maxHeight = '0px';
+        icon.style.transform = 'rotate(0deg)';
+        icon.textContent = '+';
+        item.style.background = 'rgba(255, 255, 255, 0.03)';
+      } else {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.style.transform = 'rotate(45deg)';
+        icon.textContent = '+';
+        item.style.background = 'rgba(255, 255, 255, 0.05)';
+      }
+    });
+    
+    // Hover effect
+    item.addEventListener('mouseenter', () => {
+      item.style.borderColor = 'rgba(0, 242, 255, 0.3)';
+      item.style.transform = 'translateY(-2px)';
+      item.style.boxShadow = '0 8px 24px rgba(0, 242, 255, 0.1)';
+    });
+    
+    item.addEventListener('mouseleave', () => {
+      item.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+      item.style.transform = 'translateY(0)';
+      item.style.boxShadow = 'none';
+    });
+  });
+});
+</script>
+
+<style>
+@media (max-width: 768px) {
+  .faq-section h2 {
+    font-size: 32px !important;
+  }
+  
+  .faq-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .faq-item {
+    padding: 20px !important;
+  }
+  
+  .faq-question h3 {
+    font-size: 16px !important;
+  }
+  
+  .faq-icon {
+    font-size: 20px !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "faq_title",
+      "label": "Section Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "faq_subtitle",
+      "label": "Section Subtitle",
+      "default": "Got questions? We have answers."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Your question here"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Your answer here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

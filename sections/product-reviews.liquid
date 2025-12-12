@@ -1,0 +1,239 @@
+<!-- Product Reviews Section -->
+<section class="product-reviews-section" style="
+  padding: 60px 0;
+  background: var(--arctic-void, #05080F);
+">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+    <!-- Reviews Header -->
+    <div class="reviews-header" style="margin-bottom: 40px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div>
+          <h2 style="
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+          ">Customer Reviews</h2>
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <div class="rating-stars" style="font-size: 24px; color: #D4AF37;">
+              ★★★★★
+            </div>
+            <span style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.9);">
+              4.8 out of 5
+            </span>
+            <span style="font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255, 255, 255, 0.6);">
+              Based on 1,247 reviews
+            </span>
+          </div>
+        </div>
+        <button class="write-review-btn" style="
+          padding: 14px 32px;
+          background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+          color: white;
+          border: none;
+          border-radius: 50px;
+          font-family: 'Inter', sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          box-shadow: 0 4px 16px rgba(0, 242, 255, 0.3);
+        ">Write a Review</button>
+      </div>
+    </div>
+
+    <!-- Rating Breakdown -->
+    <div class="rating-breakdown" style="
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 40px;
+    ">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        {% for i in (1..5) %}
+          {% assign stars = 6 | minus: i %}
+          {% assign percentage = 95 | minus: i | times: 10 %}
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255, 255, 255, 0.7); white-space: nowrap;">
+              {{ stars }} stars
+            </span>
+            <div style="flex: 1; height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden;">
+              <div style="
+                height: 100%;
+                width: {{ percentage }}%;
+                background: linear-gradient(90deg, #D4AF37 0%, #F0D97C 100%);
+                transition: width 0.3s ease;
+              "></div>
+            </div>
+            <span style="font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255, 255, 255, 0.7); white-space: nowrap;">
+              {{ percentage }}%
+            </span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Reviews Grid -->
+    <div class="reviews-grid" style="
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 24px;
+    ">
+      {% for i in (1..6) %}
+        <div class="review-card" style="
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          padding: 24px;
+          transition: all 0.3s ease;
+        ">
+          <!-- Review Header -->
+          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #667eea {{ i | times: 30 }}%, #764ba2 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+              ">
+                {% assign avatars = '👩,👨,👸,🧑,👰,🧔,👩‍💼,👨‍💼' | split: ',' %}
+                {{ avatars[i] }}
+              </div>
+              <div>
+                <div style="font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: rgba(255, 255, 255, 0.95);">
+                  {% assign names = 'Sarah M.,Michael R.,Emma L.,David K.,Lisa P.,James W.' | split: ',' %}
+                  {{ names[i] | default: 'Customer' }}
+                </div>
+                <div class="review-stars" style="font-size: 14px; color: #D4AF37;">★★★★★</div>
+              </div>
+            </div>
+            <div style="
+              padding: 4px 12px;
+              background: rgba(0, 242, 255, 0.1);
+              border-radius: 50px;
+              font-family: 'Inter', sans-serif;
+              font-size: 11px;
+              font-weight: 600;
+              color: #00F2FF;
+            ">
+              Verified Purchase
+            </div>
+          </div>
+
+          <!-- Review Title -->
+          <h3 style="
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 12px;
+          ">
+            {% assign titles = 'Absolutely Love It!,Best Purchase Ever!,Exceeded Expectations!,Worth Every Penny!,Amazing Quality!,Perfect Product!' | split: ',' %}
+            {{ titles[i] | default: 'Great Product!' }}
+          </h3>
+
+          <!-- Review Text -->
+          <p style="
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 16px;
+          ">
+            {% assign reviews = 'I ordered this and it arrived quickly. The quality is outstanding and exactly what I was looking for. Highly recommend to anyone!,This product has changed my life! The attention to detail is incredible. Customer service was also very helpful.,Simply amazing! I have ordered three more for my family. The craftsmanship is top-notch and the design is beautiful.,I was skeptical at first, but this exceeded all my expectations. Worth every penny and more!,Best decision I made this year. The product is exactly as described and even better in person.,I have been using this for a month now and I am extremely satisfied. Will definitely buy again!' | split: ',' %}
+            {{ reviews[i] | default: 'Great product! Highly recommend.' }}
+          </p>
+
+          <!-- Review Footer -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255, 255, 255, 0.5);">
+              {{ 'now' | date: '%s' | minus: i | times: 86400 | date: '%B %d, %Y' }}
+            </div>
+            <div style="display: flex; gap: 16px; align-items: center;">
+              <button style="
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 0.6);
+                font-family: 'Inter', sans-serif;
+                font-size: 12px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+              ">
+                👍 Helpful ({{ i | times: 12 | plus: 5 }})
+              </button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Load More Button -->
+    <div style="text-align: center; margin-top: 40px;">
+      <button style="
+        padding: 14px 48px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      ">Load More Reviews</button>
+    </div>
+  </div>
+</section>
+
+<style>
+.write-review-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 242, 255, 0.4);
+}
+
+.review-card:hover {
+  border-color: rgba(0, 242, 255, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 242, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .reviews-header h2 {
+    font-size: 28px !important;
+  }
+  
+  .rating-breakdown {
+    padding: 20px !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Product Reviews",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product Reviews",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

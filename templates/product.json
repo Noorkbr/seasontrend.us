@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "trust-badges": {
+      "type": "trust-badges-section",
+      "settings": {}
+    },
+    "product-reviews": {
+      "type": "product-reviews",
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {}
+    },
+    "faq-section": {
+      "type": "faq-section",
+      "settings": {
+        "faq_title": "Product FAQs",
+        "faq_subtitle": "Common questions about this product"
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "trust-badges",
+    "product-reviews",
+    "product-recommendations",
+    "faq-section"
+  ]
+}
