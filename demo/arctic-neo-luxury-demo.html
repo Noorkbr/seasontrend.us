@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#05080F">
+    <title>Arctic Neo-Luxury UI/UX - SeasonTrend Demo</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/arctic-neo-luxury.css">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    
+    <!-- Matter.js Physics Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: var(--arctic-void);
+            font-family: var(--font-satoshi);
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- SECTION 1: ARCTIC HERO PORTAL -->
+    <section class="hero-portal" id="arctic-hero">
+        <!-- Particle Canvas for 3D Neon Snowflakes -->
+        <canvas id="particle-canvas"></canvas>
+        
+        <!-- Parallax Aurora Layers -->
+        <div class="parallax-layer layer-1"></div>
+        <div class="parallax-layer layer-2"></div>
+        
+        <!-- Floating Product (3D Rotation with Mouse) -->
+        <div class="product-float float-soft">
+            <!-- Placeholder gradient sphere -->
+            <div style="width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%); filter: blur(20px);"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="hero-content">
+            <h1 class="liquid-headline">
+                FUTURE. COMFORT.
+            </h1>
+            
+            <p style="font-family: var(--font-satoshi); font-size: 1.25rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem; letter-spacing: 0.05em;">
+                Experience the next generation of luxury products
+            </p>
+            
+            <button class="glass-pill-btn" id="heroCTA">
+                Enter The Future
+            </button>
+        </div>
+    </section>
+
+    <!-- SECTION 2: HOLOGRAPHIC PRODUCT GRID -->
+    <section class="product-grid-section" id="holographic-grid">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <h2 style="font-family: var(--font-clash); font-size: clamp(2rem, 6vw, 4rem); font-weight: 800; text-align: center; color: white; margin-bottom: 4rem; letter-spacing: -0.02em;">
+                The Collection
+            </h2>
+            
+            <div class="holographic-grid">
+                <!-- Product Card 1 -->
+                <div class="glass-product-card">
+                    <div class="product-image-container">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 242, 255, 0.3) 0%, rgba(189, 0, 255, 0.3) 100%);"></div>
+                    </div>
+                    <h3 class="product-title">Arctic Glow Serum</h3>
+                    <div class="product-price">$129.00</div>
+                    <button class="quick-buy-btn">Quick Buy</button>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="glass-product-card">
+                    <div class="product-image-container">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, rgba(189, 0, 255, 0.3) 0%, rgba(0, 242, 255, 0.3) 100%);"></div>
+                    </div>
+                    <h3 class="product-title">Neo-Comfort Wrap</h3>
+                    <div class="product-price">$249.00</div>
+                    <button class="quick-buy-btn">Quick Buy</button>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="glass-product-card">
+                    <div class="product-image-container">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 242, 255, 0.3) 0%, rgba(14, 165, 233, 0.3) 100%);"></div>
+                    </div>
+                    <h3 class="product-title">Holographic Essence</h3>
+                    <div class="product-price">$179.00</div>
+                    <button class="quick-buy-btn">Quick Buy</button>
+                </div>
+                
+                <!-- Product Card 4 -->
+                <div class="glass-product-card">
+                    <div class="product-image-container">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, rgba(14, 165, 233, 0.3) 0%, rgba(189, 0, 255, 0.3) 100%);"></div>
+                    </div>
+                    <h3 class="product-title">Luxury Light Pod</h3>
+                    <div class="product-price">$399.00</div>
+                    <button class="quick-buy-btn">Quick Buy</button>
+                </div>
+                
+                <!-- Product Card 5 -->
+                <div class="glass-product-card">
+                    <div class="product-image-container">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, rgba(189, 0, 255, 0.3) 0%, rgba(14, 165, 233, 0.3) 100%);"></div>
+                    </div>
+                    <h3 class="product-title">Bioluminescent Mask</h3>
+                    <div class="product-price">$159.00</div>
+                    <button class="quick-buy-btn">Quick Buy</button>
+                </div>
+                
+                <!-- Product Card 6 -->
+                <div class="glass-product-card">
+                    <div class="product-image-container">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 242, 255, 0.3) 0%, rgba(189, 0, 255, 0.3) 100%);"></div>
+                    </div>
+                    <h3 class="product-title">Cyro Recovery Set</h3>
+                    <div class="product-price">$349.00</div>
+                    <button class="quick-buy-btn">Quick Buy</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 4rem;">
+                <button class="glass-pill-btn">View All Products</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: VIRAL TRUST WALL -->
+    <section class="trust-wall-section" id="trust-wall">
+        <div class="container" style="max-width: 100%; padding: 0;">
+            <h2 class="trust-wall-title">
+                Real Customers, Real Results
+            </h2>
+            
+            <div class="video-scroll-container">
+                <div class="video-track" style="transform: translateX(0px);">
+                    <!-- Video 1 -->
+                    <div class="trust-video-wrapper">
+                        <div class="trust-video">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0, 242, 255, 0.1) 0%, rgba(189, 0, 255, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                                <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Customer Review 1</span>
+                            </div>
+                        </div>
+                        <div class="verified-bubble">
+                            <div class="verified-badge">✓</div>
+                            <span class="verified-text">Verified Buyer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Video 2 -->
+                    <div class="trust-video-wrapper">
+                        <div class="trust-video">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(189, 0, 255, 0.1) 0%, rgba(0, 242, 255, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                                <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Customer Review 2</span>
+                            </div>
+                        </div>
+                        <div class="verified-bubble">
+                            <div class="verified-badge">✓</div>
+                            <span class="verified-text">Verified Buyer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Video 3 -->
+                    <div class="trust-video-wrapper">
+                        <div class="trust-video">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0, 242, 255, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                                <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Customer Review 3</span>
+                            </div>
+                        </div>
+                        <div class="verified-bubble">
+                            <div class="verified-badge">✓</div>
+                            <span class="verified-text">Verified Buyer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Video 4 -->
+                    <div class="trust-video-wrapper">
+                        <div class="trust-video">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(14, 165, 233, 0.1) 0%, rgba(189, 0, 255, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                                <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Customer Review 4</span>
+                            </div>
+                        </div>
+                        <div class="verified-bubble">
+                            <div class="verified-badge">✓</div>
+                            <span class="verified-text">Verified Buyer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Video 5 -->
+                    <div class="trust-video-wrapper">
+                        <div class="trust-video">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(189, 0, 255, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                                <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Customer Review 5</span>
+                            </div>
+                        </div>
+                        <div class="verified-bubble">
+                            <div class="verified-badge">✓</div>
+                            <span class="verified-text">Verified Buyer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Video 6 -->
+                    <div class="trust-video-wrapper">
+                        <div class="trust-video">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0, 242, 255, 0.1) 0%, rgba(189, 0, 255, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                                <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Customer Review 6</span>
+                            </div>
+                        </div>
+                        <div class="verified-bubble">
+                            <div class="verified-badge">✓</div>
+                            <span class="verified-text">Verified Buyer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Video 7 -->
+                    <div class="trust-video-wrapper">
+                        <div class="trust-video">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(189, 0, 255, 0.1) 0%, rgba(0, 242, 255, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                                <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Customer Review 7</span>
+                            </div>
+                        </div>
+                        <div class="verified-bubble">
+                            <div class="verified-badge">✓</div>
+                            <span class="verified-text">Verified Buyer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Video 8 -->
+                    <div class="trust-video-wrapper">
+                        <div class="trust-video">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0, 242, 255, 0.1) 0%, rgba(189, 0, 255, 0.1) 100%); display: flex; align-items: center; justify-content: center;">
+                                <span style="font-family: var(--font-satoshi); color: rgba(255, 255, 255, 0.5); font-size: 1rem;">Customer Review 8</span>
+                            </div>
+                        </div>
+                        <div class="verified-bubble">
+                            <div class="verified-badge">✓</div>
+                            <span class="verified-text">Verified Buyer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="font-family: var(--font-satoshi); text-align: center; color: rgba(255, 255, 255, 0.6); margin-top: 2rem; font-size: 1rem;">
+                Join thousands of satisfied customers experiencing the future
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 4: SNOWGLOBE FOOTER -->
+    <div class="snowglobe-footer">
+        <!-- Fixed Position Snowglobe -->
+        <div id="snowglobe-container">
+            <!-- Glass Dome -->
+            <div class="snowglobe-glass">
+                <canvas id="snowglobe-canvas"></canvas>
+            </div>
+            
+            <!-- Base -->
+            <div class="snowglobe-base"></div>
+            
+            <!-- Discount Reveal Overlay -->
+            <div id="discount-reveal" class="hidden">
+                <div class="discount-code">ARCTIC25</div>
+                <div class="discount-label">Your Exclusive Discount!</div>
+                <button class="glass-pill-btn" style="margin-top: 1rem; padding: 0.75rem 2rem; font-size: 0.875rem;">
+                    Shop Now
+                </button>
+            </div>
+        </div>
+        
+        <!-- Footer Content -->
+        <footer style="background: var(--arctic-void); color: rgba(255, 255, 255, 0.7); padding: 4rem 2rem 2rem;">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                    <!-- Footer Column 1 -->
+                    <div>
+                        <h3 style="font-family: var(--font-clash); font-size: 1.5rem; color: white; margin-bottom: 1rem;">
+                            SeasonTrend
+                        </h3>
+                        <p style="font-family: var(--font-satoshi); font-size: 0.875rem; line-height: 1.6;">
+                            Arctic Neo-Luxury for the modern trendsetter. Experience the future of comfort.
+                        </p>
+                    </div>
+                    
+                    <!-- Footer Column 2 -->
+                    <div>
+                        <h4 style="font-family: var(--font-satoshi); font-size: 1rem; font-weight: 600; color: white; margin-bottom: 1rem;">
+                            Quick Links
+                        </h4>
+                        <ul style="list-style: none; padding: 0; font-family: var(--font-satoshi); font-size: 0.875rem;">
+                            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">Shop</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">About</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="#" style="color: rgba(255, 255, 255, 0.7); text-decoration: none;">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Footer Column 3 -->
+                    <div>
+                        <h4 style="font-family: var(--font-satoshi); font-size: 1rem; font-weight: 600; color: white; margin-bottom: 1rem;">
+                            Stay Connected
+                        </h4>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <a href="#" style="color: white; font-size: 1.5rem;">📷</a>
+                            <a href="#" style="color: white; font-size: 1.5rem;">🎵</a>
+                            <a href="#" style="color: white; font-size: 1.5rem;">🐦</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Copyright -->
+                <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; text-align: center; font-family: var(--font-satoshi); font-size: 0.875rem;">
+                    <p>© 2024 SeasonTrend. All rights reserved.</p>
+                    <p style="margin-top: 1rem; color: var(--arctic-aurora-cyan); font-size: 0.75rem; animation: pulse 2s infinite;">
+                        💡 Shake the snowglobe for a surprise!
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../assets/arctic-neo-luxury.js"></script>
+    
+</body>
+</html>

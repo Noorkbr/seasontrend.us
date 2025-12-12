@@ -1,0 +1,104 @@
+<!-- SECTION 1: Arctic Neo-Luxury Portal Hero -->
+<section class="hero-portal" id="arctic-hero">
+  <!-- Particle Canvas for 3D Neon Snowflakes -->
+  <canvas id="particle-canvas"></canvas>
+  
+  <!-- Parallax Aurora Layers -->
+  <div class="parallax-layer layer-1"></div>
+  <div class="parallax-layer layer-2"></div>
+  
+  <!-- Floating Product (3D Rotation with Mouse) -->
+  <div class="product-float float-soft">
+    {% if section.settings.hero_product_image %}
+      <img src="{{ section.settings.hero_product_image | img_url: '800x800' }}" 
+           alt="{{ section.settings.hero_product_title | default: 'Featured Product' }}">
+    {% else %}
+      <!-- Placeholder gradient sphere -->
+      <div style="width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%); filter: blur(20px);"></div>
+    {% endif %}
+  </div>
+  
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <h1 class="liquid-headline">
+      {{ section.settings.hero_headline | default: "FUTURE. COMFORT." }}
+    </h1>
+    
+    {% if section.settings.hero_subheadline %}
+      <p style="font-family: var(--font-satoshi); font-size: 1.25rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem; letter-spacing: 0.05em;">
+        {{ section.settings.hero_subheadline }}
+      </p>
+    {% endif %}
+    
+    <button class="glass-pill-btn" id="heroCTA" onclick="window.location.href='{{ section.settings.hero_cta_link | default: '/collections/all' }}'">
+      {{ section.settings.hero_cta_text | default: "Enter The Future" }}
+    </button>
+  </div>
+</section>
+
+<style>
+/* Section-specific adjustments can go here if needed */
+</style>
+
+<script>
+// Section-specific initialization can go here
+</script>
+
+{% schema %}
+{
+  "name": "Arctic Hero Portal",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Content"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline",
+      "label": "Headline",
+      "default": "FUTURE. COMFORT.",
+      "info": "Main headline with liquid metal effect"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subheadline",
+      "label": "Subheadline",
+      "info": "Optional supporting text"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "CTA Button Text",
+      "default": "Enter The Future"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "CTA Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Featured Product"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_product_image",
+      "label": "Product Image",
+      "info": "Product to float in the center with 3D rotation"
+    },
+    {
+      "type": "text",
+      "id": "hero_product_title",
+      "label": "Product Title",
+      "info": "For accessibility"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arctic Hero Portal",
+      "category": "Arctic Neo-Luxury"
+    }
+  ]
+}
+{% endschema %}

@@ -31,8 +31,17 @@
   {{ content_for_header }}
 
   {{ 'styles.css' | asset_url | stylesheet_tag }}
+  {{ 'arctic-neo-luxury.css' | asset_url | stylesheet_tag }}
+
+  <!-- GSAP Animation Library -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  
+  <!-- Matter.js Physics Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
 
   <script src="{{ 'script.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'arctic-neo-luxury.js' | asset_url }}" defer="defer"></script>
 </head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
