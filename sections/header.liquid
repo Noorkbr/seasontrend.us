@@ -39,34 +39,11 @@
           </a>
           <a href="/collections/all" class="arctic-cta-btn">Shop Now</a>
         </div>
-        <button class="arctic-mobile-toggle" id="arctic-mobile-toggle" aria-label="Toggle menu">☰</button>
+        <button class="arctic-mobile-toggle" id="arctic-mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       </div>
     </div>
   </nav>
 </header>
-
-<script>
-  // Mobile menu toggle
-  document.addEventListener('DOMContentLoaded', function() {
-    const mobileToggle = document.getElementById('arctic-mobile-toggle');
-    const navMenu = document.getElementById('arctic-nav-menu');
-    
-    if (mobileToggle && navMenu) {
-      mobileToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('mobile-open');
-        this.textContent = navMenu.classList.contains('mobile-open') ? '✕' : '☰';
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(event) {
-        if (!event.target.closest('.arctic-navbar') && navMenu.classList.contains('mobile-open')) {
-          navMenu.classList.remove('mobile-open');
-          mobileToggle.textContent = '☰';
-        }
-      });
-    }
-  });
-</script>
 
 {% schema %}
 {
