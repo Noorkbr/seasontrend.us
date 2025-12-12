@@ -1,0 +1,266 @@
+<!-- Email Capture Popup Modal -->
+<div id="email-popup-modal" style="
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 8, 15, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+">
+  <div class="email-popup-content" style="
+    max-width: 600px;
+    width: 90%;
+    background: var(--arctic-void, #05080F);
+    border: 2px solid rgba(0, 242, 255, 0.3);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 242, 255, 0.2);
+  ">
+    <!-- Close Button -->
+    <button id="close-popup" style="
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    ">×</button>
+
+    <!-- Popup Content -->
+    <div style="padding: 60px 40px;">
+      <div style="text-align: center; margin-bottom: 32px;">
+        <div style="
+          font-size: 64px;
+          margin-bottom: 24px;
+          animation: bounce 2s infinite;
+        ">🎁</div>
+        
+        <h2 style="
+          font-family: 'Playfair Display', serif;
+          font-size: 36px;
+          font-weight: 700;
+          background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-bottom: 16px;
+        ">Get 15% Off Your First Order!</h2>
+        
+        <p style="
+          font-family: 'Inter', sans-serif;
+          font-size: 18px;
+          color: rgba(255, 255, 255, 0.8);
+          line-height: 1.6;
+        ">
+          Join our exclusive community and receive special offers, early access to new products, and insider tips delivered straight to your inbox.
+        </p>
+      </div>
+
+      <!-- Email Form -->
+      <form id="email-popup-form" style="margin-bottom: 24px;">
+        <div style="position: relative; margin-bottom: 16px;">
+          <input 
+            type="email" 
+            id="popup-email" 
+            placeholder="Enter your email address" 
+            required
+            style="
+              width: 100%;
+              padding: 18px 24px;
+              background: rgba(255, 255, 255, 0.05);
+              border: 2px solid rgba(255, 255, 255, 0.2);
+              border-radius: 50px;
+              font-family: 'Inter', sans-serif;
+              font-size: 16px;
+              color: rgba(255, 255, 255, 0.9);
+              transition: all 0.2s ease;
+            ">
+        </div>
+        
+        <button type="submit" style="
+          width: 100%;
+          padding: 18px;
+          background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+          border: none;
+          border-radius: 50px;
+          font-family: 'Inter', sans-serif;
+          font-size: 18px;
+          font-weight: 700;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 8px 24px rgba(0, 242, 255, 0.3);
+        ">
+          Claim My 15% Discount
+        </button>
+      </form>
+
+      <div style="text-align: center;">
+        <p style="
+          font-family: 'Inter', sans-serif;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.5);
+        ">
+          By signing up, you agree to receive marketing emails. Unsubscribe anytime.
+        </p>
+      </div>
+    </div>
+
+    <!-- Social Proof Bar -->
+    <div style="
+      padding: 20px 40px;
+      background: rgba(0, 242, 255, 0.05);
+      border-top: 1px solid rgba(0, 242, 255, 0.2);
+    ">
+      <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div style="text-align: center;">
+          <div style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; color: #00F2FF;">50K+</div>
+          <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255, 255, 255, 0.6);">Happy Customers</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; color: #00F2FF;">4.8★</div>
+          <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255, 255, 255, 0.6);">Average Rating</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; color: #00F2FF;">24/7</div>
+          <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255, 255, 255, 0.6);">Support Available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+#close-popup:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+#popup-email:focus {
+  outline: none;
+  border-color: rgba(0, 242, 255, 0.5);
+  box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.1);
+}
+
+#email-popup-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 242, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .email-popup-content {
+    border-radius: 20px !important;
+  }
+  
+  .email-popup-content > div:first-of-type {
+    padding: 40px 24px !important;
+  }
+  
+  .email-popup-content h2 {
+    font-size: 28px !important;
+  }
+  
+  .email-popup-content > div:last-child {
+    padding: 16px 24px !important;
+  }
+}
+</style>
+
+<script>
+(function() {
+  const modal = document.getElementById('email-popup-modal');
+  const closeBtn = document.getElementById('close-popup');
+  const form = document.getElementById('email-popup-form');
+  
+  // Check if user has already subscribed or dismissed
+  const hasSubscribed = localStorage.getItem('email_subscribed');
+  const hasDismissed = sessionStorage.getItem('email_popup_dismissed');
+  
+  // Show popup after 10 seconds if conditions are met
+  if (!hasSubscribed && !hasDismissed) {
+    setTimeout(() => {
+      modal.style.display = 'flex';
+    }, 10000); // 10 seconds delay
+  }
+  
+  // Close button handler
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    sessionStorage.setItem('email_popup_dismissed', 'true');
+  });
+  
+  // Close on outside click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      sessionStorage.setItem('email_popup_dismissed', 'true');
+    }
+  });
+  
+  // Form submission handler
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('popup-email').value;
+    
+    // Here you would typically send to your email service
+    // For now, we'll just show success and close
+    
+    // Store subscription status
+    localStorage.setItem('email_subscribed', 'true');
+    
+    // Show success message
+    alert('Thank you! Check your email for your 15% discount code.');
+    
+    // Close modal
+    modal.style.display = 'none';
+    
+    // Optional: Track with analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'generate_lead', {
+        'event_category': 'Email',
+        'event_label': 'Popup Subscription'
+      });
+    }
+    
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead');
+    }
+  });
+  
+  // Exit intent detection (desktop only)
+  if (window.innerWidth > 768) {
+    document.addEventListener('mouseout', (e) => {
+      if (e.clientY < 0 && !hasSubscribed && !hasDismissed) {
+        modal.style.display = 'flex';
+      }
+    });
+  }
+})();
+</script>

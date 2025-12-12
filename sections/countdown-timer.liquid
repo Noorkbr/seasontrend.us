@@ -1,0 +1,227 @@
+<!-- Countdown Timer for Urgency -->
+<div class="countdown-timer-banner" style="
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  color: white;
+  padding: 16px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+">
+  <div class="container" style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <span style="
+          font-family: 'Inter', sans-serif;
+          font-size: 18px;
+          font-weight: 700;
+          margin-right: 12px;
+        ">🔥 LIMITED TIME OFFER:</span>
+        <span style="
+          font-family: 'Inter', sans-serif;
+          font-size: 16px;
+          font-weight: 500;
+        ">Get 25% OFF on all products!</span>
+      </div>
+      
+      <div class="countdown-display" style="
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      ">
+        <div class="countdown-unit" style="
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          padding: 8px 12px;
+          border-radius: 8px;
+          min-width: 60px;
+        ">
+          <div id="countdown-hours" style="font-size: 24px; font-weight: 700; font-family: 'Inter', sans-serif;">23</div>
+          <div style="font-size: 11px; font-weight: 500; font-family: 'Inter', sans-serif; opacity: 0.9;">Hours</div>
+        </div>
+        
+        <span style="font-size: 24px; font-weight: 700;">:</span>
+        
+        <div class="countdown-unit" style="
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          padding: 8px 12px;
+          border-radius: 8px;
+          min-width: 60px;
+        ">
+          <div id="countdown-minutes" style="font-size: 24px; font-weight: 700; font-family: 'Inter', sans-serif;">45</div>
+          <div style="font-size: 11px; font-weight: 500; font-family: 'Inter', sans-serif; opacity: 0.9;">Minutes</div>
+        </div>
+        
+        <span style="font-size: 24px; font-weight: 700;">:</span>
+        
+        <div class="countdown-unit" style="
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          padding: 8px 12px;
+          border-radius: 8px;
+          min-width: 60px;
+        ">
+          <div id="countdown-seconds" style="font-size: 24px; font-weight: 700; font-family: 'Inter', sans-serif;">32</div>
+          <div style="font-size: 11px; font-weight: 500; font-family: 'Inter', sans-serif; opacity: 0.9;">Seconds</div>
+        </div>
+      </div>
+      
+      <a href="/collections/all" style="
+        padding: 10px 24px;
+        background: white;
+        color: #ec4899;
+        border-radius: 50px;
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.2s ease;
+        white-space: nowrap;
+      ">Shop Now →</a>
+    </div>
+  </div>
+  
+  <!-- Animated Background Pattern -->
+  <div style="
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.1;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.1) 10px,
+      rgba(255, 255, 255, 0.1) 20px
+    );
+    animation: moveStripes 20s linear infinite;
+  "></div>
+</div>
+
+<style>
+@keyframes moveStripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+.countdown-timer-banner a:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .countdown-timer-banner {
+    padding: 12px 16px !important;
+  }
+  
+  .countdown-timer-banner > div > div {
+    font-size: 14px !important;
+    gap: 16px !important;
+  }
+  
+  .countdown-unit {
+    min-width: 50px !important;
+    padding: 6px 8px !important;
+  }
+  
+  .countdown-unit > div:first-child {
+    font-size: 20px !important;
+  }
+  
+  .countdown-unit > div:last-child {
+    font-size: 10px !important;
+  }
+  
+  .countdown-timer-banner span[style*="font-size: 18px"] {
+    font-size: 15px !important;
+  }
+  
+  .countdown-timer-banner span[style*="font-size: 16px"] {
+    font-size: 14px !important;
+  }
+}
+</style>
+
+<script>
+(function() {
+  // Set end time (24 hours from now)
+  const endTime = new Date();
+  endTime.setHours(endTime.getHours() + 24);
+  
+  // Store in localStorage to persist across page loads
+  if (!localStorage.getItem('countdown_end')) {
+    localStorage.setItem('countdown_end', endTime.toISOString());
+  }
+  
+  const storedEndTime = new Date(localStorage.getItem('countdown_end'));
+  
+  function updateCountdown() {
+    const now = new Date();
+    const timeLeft = storedEndTime - now;
+    
+    if (timeLeft <= 0) {
+      // Reset countdown
+      const newEndTime = new Date();
+      newEndTime.setHours(newEndTime.getHours() + 24);
+      localStorage.setItem('countdown_end', newEndTime.toISOString());
+      location.reload();
+      return;
+    }
+    
+    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    
+    const hoursEl = document.getElementById('countdown-hours');
+    const minutesEl = document.getElementById('countdown-minutes');
+    const secondsEl = document.getElementById('countdown-seconds');
+    
+    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+  }
+  
+  // Update immediately
+  updateCountdown();
+  
+  // Update every second
+  setInterval(updateCountdown, 1000);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Countdown Timer Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Banner Text",
+      "default": "LIMITED TIME OFFER: Get 25% OFF on all products!"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Timer Banner",
+      "category": "Promotional"
+    }
+  ]
+}
+{% endschema %}
