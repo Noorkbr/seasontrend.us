@@ -1,0 +1,123 @@
+<div class="policy-page" style="padding: 80px 0; background: var(--arctic-void, #05080F); min-height: 100vh;">
+  <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+    <div class="policy-header" style="text-align: center; margin-bottom: 60px;">
+      <h1 style="
+        font-family: 'Playfair Display', serif;
+        font-size: 48px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+      ">{{ page.title }}</h1>
+      <p style="font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(255, 255, 255, 0.6);">
+        Last updated: {{ 'now' | date: '%B %d, %Y' }}
+      </p>
+    </div>
+
+    <div class="policy-content" style="
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 40px;
+    ">
+      <div class="rte" style="
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.85);
+      ">
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.policy-content h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 40px 0 20px;
+}
+
+.policy-content h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 30px 0 15px;
+}
+
+.policy-content h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 25px 0 12px;
+}
+
+.policy-content p {
+  margin-bottom: 20px;
+}
+
+.policy-content ul,
+.policy-content ol {
+  margin: 20px 0;
+  padding-left: 30px;
+}
+
+.policy-content li {
+  margin-bottom: 12px;
+}
+
+.policy-content a {
+  color: #00F2FF;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 242, 255, 0.3);
+  transition: border-color 0.2s ease;
+}
+
+.policy-content a:hover {
+  border-bottom-color: #00F2FF;
+}
+
+.policy-content strong {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+.policy-content code {
+  background: rgba(0, 242, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #00F2FF;
+}
+
+@media (max-width: 768px) {
+  .policy-header h1 {
+    font-size: 32px !important;
+  }
+  
+  .policy-content {
+    padding: 25px !important;
+  }
+  
+  .policy-content h2 {
+    font-size: 24px;
+  }
+  
+  .policy-content h3 {
+    font-size: 20px;
+  }
+  
+  .policy-content {
+    font-size: 15px !important;
+  }
+}
+</style>

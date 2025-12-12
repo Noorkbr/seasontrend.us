@@ -23,6 +23,7 @@
   {% endif %}
 
   {% render 'meta-tags' %}
+  {% render 'seo-meta-tags' %}
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +36,9 @@
   
   <!-- Arctic Neo-Luxury Design System (primary) -->
   {{ 'arctic-neo-luxury.css' | asset_url | stylesheet_tag }}
+  
+  <!-- Fake TikTok Videos Styles -->
+  {{ 'fake-tiktok-videos.css' | asset_url | stylesheet_tag }}
 
   <!-- GSAP Animation Library -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -45,6 +49,9 @@
 
   <script src="{{ 'script.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'arctic-neo-luxury.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'fake-tiktok-videos.js' | asset_url }}" defer="defer"></script>
+  
+  {% render 'analytics-integrations' %}
 </head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} arctic-theme">
@@ -53,6 +60,10 @@
   </a>
 
   {% section 'header' %}
+
+  <!-- Marketing Elements -->
+  {% render 'email-popup' %}
+  {% render 'social-proof-notifications' %}
 
   <main id="MainContent" role="main">
     {{ content_for_layout }}

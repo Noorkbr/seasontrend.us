@@ -1,0 +1,229 @@
+<!-- Social Proof Notification System -->
+<div id="social-proof-notifications" style="
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9999;
+  pointer-events: none;
+"></div>
+
+<style>
+.social-proof-notification {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(5, 8, 15, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 242, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin-bottom: 12px;
+  max-width: 350px;
+  animation: slideInLeft 0.5s ease, fadeOut 0.5s ease 4.5s;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.social-proof-notification:hover {
+  transform: translateX(4px);
+  transition: transform 0.2s ease;
+}
+
+.social-proof-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.social-proof-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.social-proof-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 4px;
+}
+
+.social-proof-action {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+.social-proof-product {
+  color: #00F2FF;
+  font-weight: 500;
+}
+
+.social-proof-time {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 4px;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+@media (max-width: 768px) {
+  #social-proof-notifications {
+    left: 12px !important;
+    bottom: 12px !important;
+  }
+  
+  .social-proof-notification {
+    max-width: calc(100vw - 24px);
+    padding: 12px 16px;
+  }
+  
+  .social-proof-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+}
+</style>
+
+<script>
+class SocialProofNotifications {
+  constructor() {
+    this.container = document.getElementById('social-proof-notifications');
+    this.notifications = [
+      {
+        name: 'Sarah from New York',
+        avatar: '👩',
+        action: 'just purchased',
+        product: 'Premium Comfort Hoodie',
+        time: '2 minutes ago'
+      },
+      {
+        name: 'Michael from Los Angeles',
+        avatar: '👨',
+        action: 'added to cart',
+        product: 'Urban Style Sneakers',
+        time: '5 minutes ago'
+      },
+      {
+        name: 'Emma from Chicago',
+        avatar: '👸',
+        action: 'is viewing',
+        product: 'Classic Denim Jacket',
+        time: 'Just now'
+      },
+      {
+        name: 'David from Houston',
+        avatar: '🧑',
+        action: 'just purchased',
+        product: 'Arctic Thermal Beanie',
+        time: '8 minutes ago'
+      },
+      {
+        name: 'Lisa from Miami',
+        avatar: '👰',
+        action: 'added to cart',
+        product: 'Luxury Travel Bag',
+        time: '12 minutes ago'
+      },
+      {
+        name: 'James from Seattle',
+        avatar: '🧔',
+        action: 'just purchased',
+        product: 'Performance Running Shoes',
+        time: '15 minutes ago'
+      }
+    ];
+    
+    this.currentIndex = 0;
+    this.init();
+  }
+  
+  init() {
+    // Show first notification after 5 seconds
+    setTimeout(() => {
+      this.showNotification();
+      
+      // Show new notification every 15 seconds
+      setInterval(() => {
+        this.showNotification();
+      }, 15000);
+    }, 5000);
+  }
+  
+  showNotification() {
+    const notification = this.notifications[this.currentIndex];
+    this.currentIndex = (this.currentIndex + 1) % this.notifications.length;
+    
+    const element = document.createElement('div');
+    element.className = 'social-proof-notification';
+    element.innerHTML = `
+      <div class="social-proof-avatar">${notification.avatar}</div>
+      <div class="social-proof-content">
+        <div class="social-proof-name">${notification.name}</div>
+        <div class="social-proof-action">
+          ${notification.action} <span class="social-proof-product">${notification.product}</span>
+        </div>
+        <div class="social-proof-time">${notification.time}</div>
+      </div>
+    `;
+    
+    // Add click handler to close
+    element.addEventListener('click', () => {
+      element.style.animation = 'fadeOut 0.3s ease';
+      setTimeout(() => element.remove(), 300);
+    });
+    
+    this.container.appendChild(element);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+      if (element.parentNode) {
+        element.style.animation = 'fadeOut 0.5s ease';
+        setTimeout(() => element.remove(), 500);
+      }
+    }, 5000);
+    
+    // Track impression
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'view_promotion', {
+        'promotion_name': 'Social Proof Notification'
+      });
+    }
+  }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new SocialProofNotifications();
+  });
+} else {
+  new SocialProofNotifications();
+}
+</script>

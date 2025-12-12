@@ -1,0 +1,187 @@
+<!-- Product Recommendations Section -->
+<section class="product-recommendations-section" style="
+  padding: 80px 0;
+  background: var(--arctic-void, #05080F);
+">
+  <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+    <div style="text-align: center; margin-bottom: 60px;">
+      <h2 style="
+        font-family: 'Playfair Display', serif;
+        font-size: 48px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+      ">You May Also Like</h2>
+      <p style="
+        font-family: 'Inter', sans-serif;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.7);
+      ">Complete your collection with these trending items</p>
+    </div>
+
+    <div class="recommendations-grid" style="
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    ">
+      {% if recommendations.products_count > 0 %}
+        {% for product in recommendations.products limit: 4 %}
+          <div class="recommendation-card" style="
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+          ">
+            <a href="{{ product.url }}" style="text-decoration: none; color: inherit;">
+              <div style="aspect-ratio: 1; overflow: hidden; position: relative;">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | img_url: '600x600' }}" 
+                       alt="{{ product.featured_image.alt | escape }}"
+                       style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                {% else %}
+                  <div style="
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  ">
+                    <span style="font-size: 60px;">📦</span>
+                  </div>
+                {% endif %}
+                {% if product.compare_at_price_max > product.price %}
+                  <span style="
+                    position: absolute;
+                    top: 12px;
+                    right: 12px;
+                    padding: 6px 14px;
+                    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+                    border-radius: 50px;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 13px;
+                    font-weight: 700;
+                    color: white;
+                  ">SALE</span>
+                {% endif %}
+              </div>
+
+              <div style="padding: 20px;">
+                <h3 style="
+                  font-family: 'Inter', sans-serif;
+                  font-size: 18px;
+                  font-weight: 600;
+                  color: rgba(255, 255, 255, 0.95);
+                  margin-bottom: 8px;
+                  line-height: 1.4;
+                ">{{ product.title }}</h3>
+
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                  <div style="font-size: 14px; color: #D4AF37;">★★★★★</div>
+                  <span style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(255, 255, 255, 0.6);">
+                    ({{ 100 | plus: forloop.index | times: 10 }})
+                  </span>
+                </div>
+
+                <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px;">
+                  {% if product.compare_at_price_max > product.price %}
+                    <span style="
+                      font-family: 'Inter', sans-serif;
+                      font-size: 24px;
+                      font-weight: 700;
+                      color: #00F2FF;
+                    ">{{ product.price | money }}</span>
+                    <span style="
+                      font-family: 'Inter', sans-serif;
+                      font-size: 18px;
+                      font-weight: 500;
+                      color: rgba(255, 255, 255, 0.4);
+                      text-decoration: line-through;
+                    ">{{ product.compare_at_price_max | money }}</span>
+                  {% else %}
+                    <span style="
+                      font-family: 'Inter', sans-serif;
+                      font-size: 24px;
+                      font-weight: 700;
+                      color: #00F2FF;
+                    ">{{ product.price | money }}</span>
+                  {% endif %}
+                </div>
+
+                <button style="
+                  width: 100%;
+                  padding: 12px;
+                  background: rgba(0, 242, 255, 0.1);
+                  border: 2px solid rgba(0, 242, 255, 0.3);
+                  border-radius: 50px;
+                  font-family: 'Inter', sans-serif;
+                  font-size: 15px;
+                  font-weight: 600;
+                  color: #00F2FF;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                ">Quick View</button>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <!-- Fallback if no recommendations -->
+        <p style="
+          font-family: 'Inter', sans-serif;
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.6);
+          text-align: center;
+          grid-column: 1 / -1;
+        ">Check out our collections to discover more amazing products!</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+.recommendation-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 242, 255, 0.3);
+  box-shadow: 0 12px 32px rgba(0, 242, 255, 0.15);
+}
+
+.recommendation-card:hover img {
+  transform: scale(1.05);
+}
+
+.recommendation-card button:hover {
+  background: rgba(0, 242, 255, 0.2);
+  border-color: rgba(0, 242, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .recommendations-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    gap: 16px !important;
+  }
+  
+  .product-recommendations-section h2 {
+    font-size: 32px !important;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Product Recommendations",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product Recommendations",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
