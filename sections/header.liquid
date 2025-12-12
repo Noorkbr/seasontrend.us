@@ -1,190 +1,4 @@
 <!-- Arctic Neo-Luxury Header -->
-<style>
-.arctic-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: rgba(5, 8, 15, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.arctic-header-top {
-    background: linear-gradient(135deg, rgba(0, 242, 255, 0.1) 0%, rgba(189, 0, 255, 0.1) 100%);
-    border-bottom: 1px solid rgba(0, 242, 255, 0.2);
-    color: rgba(255, 255, 255, 0.9);
-    padding: 0.5rem 0;
-    font-size: 0.875rem;
-}
-
-.arctic-header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.arctic-header-right {
-    display: flex;
-    gap: 1.5rem;
-}
-
-.arctic-navbar {
-    padding: 1rem 0;
-}
-
-.arctic-navbar-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-}
-
-.arctic-logo h1 {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.75rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-}
-
-.arctic-logo h1 a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-
-.arctic-logo span {
-    background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
-}
-
-.arctic-nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-}
-
-.arctic-nav-menu a {
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 500;
-    font-size: 0.9375rem;
-    transition: all 0.3s ease;
-    position: relative;
-    padding: 0.5rem 0;
-}
-
-.arctic-nav-menu a:hover {
-    color: #00F2FF;
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
-}
-
-.arctic-nav-menu a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #00F2FF, #BD00FF);
-    transition: width 0.3s ease;
-}
-
-.arctic-nav-menu a:hover::after {
-    width: 100%;
-}
-
-.arctic-nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.arctic-icon-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 1.25rem;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    position: relative;
-}
-
-.arctic-icon-btn:hover {
-    background: rgba(0, 242, 255, 0.1);
-    border-color: rgba(0, 242, 255, 0.3);
-    color: #00F2FF;
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
-}
-
-.arctic-cart-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
-    color: white;
-    font-size: 0.625rem;
-    padding: 3px 6px;
-    border-radius: 9999px;
-    font-weight: 700;
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
-}
-
-.arctic-cta-btn {
-    background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
-    color: white;
-    padding: 0.625rem 1.5rem;
-    border: none;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-}
-
-.arctic-cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 40px rgba(0, 242, 255, 0.6), 0 0 80px rgba(189, 0, 255, 0.4);
-}
-
-.arctic-mobile-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: white;
-}
-
-@media (max-width: 768px) {
-    .arctic-header-right {
-        display: none;
-    }
-    
-    .arctic-nav-menu {
-        display: none;
-    }
-    
-    .arctic-mobile-toggle {
-        display: block;
-    }
-}
-</style>
-
 <header class="arctic-header">
   <div class="arctic-header-top">
     <div class="container">
@@ -213,7 +27,7 @@
             <h1><a href="/">Season<span>Trend</span></a></h1>
           {% endif %}
         </div>
-        <ul class="arctic-nav-menu">
+        <ul class="arctic-nav-menu" id="arctic-nav-menu">
           {% for link in linklists.main-menu.links %}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
           {% endfor %}
@@ -225,11 +39,34 @@
           </a>
           <a href="/collections/all" class="arctic-cta-btn">Shop Now</a>
         </div>
-        <button class="arctic-mobile-toggle" aria-label="Toggle menu">☰</button>
+        <button class="arctic-mobile-toggle" id="arctic-mobile-toggle" aria-label="Toggle menu">☰</button>
       </div>
     </div>
   </nav>
 </header>
+
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileToggle = document.getElementById('arctic-mobile-toggle');
+    const navMenu = document.getElementById('arctic-nav-menu');
+    
+    if (mobileToggle && navMenu) {
+      mobileToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('mobile-open');
+        this.textContent = navMenu.classList.contains('mobile-open') ? '✕' : '☰';
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!event.target.closest('.arctic-navbar') && navMenu.classList.contains('mobile-open')) {
+          navMenu.classList.remove('mobile-open');
+          mobileToggle.textContent = '☰';
+        }
+      });
+    }
+  });
+</script>
 
 {% schema %}
 {
