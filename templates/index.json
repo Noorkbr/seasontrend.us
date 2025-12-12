@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "arctic-hero-portal": {
+      "type": "arctic-hero-portal",
+      "settings": {
+        "hero_headline": "FUTURE. COMFORT.",
+        "hero_subheadline": "Experience the next generation of luxury products",
+        "hero_cta_text": "Enter The Future",
+        "hero_cta_link": "/collections/all"
+      }
+    },
+    "arctic-product-grid": {
+      "type": "arctic-product-grid",
+      "settings": {
+        "grid_title": "The Collection",
+        "products_to_show": 6,
+        "view_all_text": "View All Products",
+        "view_all_link": "/collections/all"
+      }
+    },
+    "arctic-trust-wall": {
+      "type": "arctic-trust-wall",
+      "settings": {
+        "trust_wall_title": "Real Customers, Real Results",
+        "trust_wall_description": "Join thousands of satisfied customers experiencing the future"
+      }
+    },
+    "arctic-snowglobe-footer": {
+      "type": "arctic-snowglobe-footer",
+      "settings": {
+        "discount_code": "ARCTIC25",
+        "discount_label": "Your Exclusive Discount!",
+        "discount_cta_text": "Shop Now",
+        "discount_cta_link": "/collections/all",
+        "show_shake_hint": true,
+        "footer_col1_title": "SeasonTrend",
+        "footer_col1_text": "Arctic Neo-Luxury for the modern trendsetter. Experience the future of comfort.",
+        "footer_col2_title": "Quick Links",
+        "footer_col3_title": "Stay Connected",
+        "copyright_text": "© 2024 SeasonTrend. All rights reserved."
+      }
+    }
+  },
+  "order": [
+    "arctic-hero-portal",
+    "arctic-product-grid",
+    "arctic-trust-wall",
+    "arctic-snowglobe-footer"
+  ]
+}

@@ -1,22 +1,22 @@
-<!-- Header & Navigation -->
-<header class="header">
-  <div class="header-top">
+<!-- Arctic Neo-Luxury Header -->
+<header class="arctic-header">
+  <div class="arctic-header-top">
     <div class="container">
-      <div class="header-top-content">
-        <div class="header-top-left">
-          <span>🚚 {{ section.settings.header_announcement | default: "Free Shipping on Orders Over $50" }}</span>
+      <div class="arctic-header-content">
+        <div class="arctic-header-left">
+          <span>⚡ {{ section.settings.header_announcement | default: "Free Shipping on Orders Over $50" }}</span>
         </div>
-        <div class="header-top-right">
+        <div class="arctic-header-right">
           <span>🔒 Secure Checkout</span>
           <span>📞 24/7 Support</span>
         </div>
       </div>
     </div>
   </div>
-  <nav class="navbar">
+  <nav class="arctic-navbar">
     <div class="container">
-      <div class="navbar-content">
-        <div class="logo">
+      <div class="arctic-navbar-content">
+        <div class="arctic-logo">
           {% if section.settings.logo %}
             <a href="/">
               <img src="{{ section.settings.logo | img_url: 'medium' }}" 
@@ -27,19 +27,19 @@
             <h1><a href="/">Season<span>Trend</span></a></h1>
           {% endif %}
         </div>
-        <ul class="nav-menu">
+        <ul class="arctic-nav-menu" id="arctic-nav-menu">
           {% for link in linklists.main-menu.links %}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
           {% endfor %}
         </ul>
-        <div class="nav-actions">
-          <button class="icon-btn search-btn" aria-label="Search">🔍</button>
-          <a href="/cart" class="icon-btn cart-btn" aria-label="Cart">
-            🛒 <span class="cart-count">{{ cart.item_count }}</span>
+        <div class="arctic-nav-actions">
+          <button class="arctic-icon-btn search-btn" aria-label="Search">🔍</button>
+          <a href="/cart" class="arctic-icon-btn cart-btn" aria-label="Cart">
+            🛒 <span class="arctic-cart-count">{{ cart.item_count }}</span>
           </a>
-          <a href="/collections/all" class="btn btn-gold btn-sm">Shop Now</a>
+          <a href="/collections/all" class="arctic-cta-btn">Shop Now</a>
         </div>
-        <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
+        <button class="arctic-mobile-toggle" id="arctic-mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       </div>
     </div>
   </nav>

@@ -476,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initHeroPortal();
     initProductGrid();
     initTrustWall();
+    initMobileMenu();
     
     // Wait a bit for external libraries to load
     setTimeout(() => {
@@ -484,3 +485,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500);
     
 });
+
+// ============================================
+// MOBILE MENU FUNCTIONALITY
+// ============================================
+function initMobileMenu() {
+    const mobileToggle = document.getElementById('arctic-mobile-toggle');
+    const navMenu = document.getElementById('arctic-nav-menu');
+    
+    if (!mobileToggle || !navMenu) return;
+    
+    // Toggle menu open/close
+    mobileToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('mobile-open');
+        this.textContent = navMenu.classList.contains('mobile-open') ? '✕' : '☰';
+        this.setAttribute('aria-expanded', navMenu.classList.contains('mobile-open'));
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.arctic-navbar') && navMenu.classList.contains('mobile-open')) {
+            navMenu.classList.remove('mobile-open');
+            mobileToggle.textContent = '☰';
+            mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+    
+    // Close menu when pressing Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && navMenu.classList.contains('mobile-open')) {
+            navMenu.classList.remove('mobile-open');
+            mobileToggle.textContent = '☰';
+            mobileToggle.setAttribute('aria-expanded', 'false');
+            mobileToggle.focus();
+        }
+    });
+}
