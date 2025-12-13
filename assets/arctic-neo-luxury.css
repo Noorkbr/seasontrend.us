@@ -1631,24 +1631,23 @@ button:focus-visible {
    IMAGE LOADING PERFORMANCE
    ============================================ */
 
-/* Placeholder while images load */
-.product-image-container {
+/* Placeholder gradient background while images load */
+.product-image-container,
+.luxury-product-image-container {
     background: linear-gradient(135deg, rgba(0, 242, 255, 0.05), rgba(189, 0, 255, 0.05));
 }
 
-/* Smooth fade-in for lazy loaded images */
-.product-image-container img {
+/* Ensure images are always visible and load smoothly */
+.product-image-container img,
+.luxury-product-image-container img {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
 
-.product-image-container img[loading="lazy"] {
-    opacity: 0;
-}
-
-.product-image-container img.loaded,
-.product-image-container img[loading="lazy"]:not([src=""]) {
-    opacity: 1;
+/* Show images immediately - no hiding */
+.product-image,
+.luxury-product-image {
+    opacity: 1 !important;
 }
 
 /* ============================================

@@ -571,48 +571,26 @@ document.addEventListener('DOMContentLoaded', function() {
 // LAZY IMAGE LOADING WITH FADE-IN
 // ============================================
 function initLazyImageLoading() {
-    // Handle lazy loaded images - add loaded class when complete
-    const images = document.querySelectorAll('img[loading="lazy"]');
+    // Handle all product images - ensure they display immediately
+    const allImages = document.querySelectorAll('.product-image, .luxury-product-image, img[loading="lazy"]');
     
-    images.forEach(img => {
-        if (img.complete) {
-            img.classList.add('loaded');
-        } else {
+    allImages.forEach(img => {
+        // Set opacity to 1 immediately to ensure visibility
+        img.style.opacity = '1';
+        
+        if (!img.complete) {
             img.addEventListener('load', function() {
                 this.classList.add('loaded');
             });
             img.addEventListener('error', function() {
-                // Show placeholder on error
+                // Show placeholder styling on error but keep visible
                 this.classList.add('loaded');
-                this.style.opacity = '0.3';
+                this.style.opacity = '0.5';
             });
+        } else {
+            img.classList.add('loaded');
         }
     });
-    
-    // Use Intersection Observer for better performance
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    if (img.dataset.src) {
-                        img.src = img.dataset.src;
-                    }
-                    if (img.dataset.srcset) {
-                        img.srcset = img.dataset.srcset;
-                    }
-                    observer.unobserve(img);
-                }
-            });
-        }, {
-            rootMargin: '100px 0px',
-            threshold: 0.01
-        });
-        
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-    }
 }
 
 // ============================================
