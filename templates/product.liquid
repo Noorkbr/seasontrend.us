@@ -34,7 +34,7 @@
             <div class="product-single__thumbnails">
               {% for image in product.images %}
                 <div class="product-single__thumbnail" data-thumbnail-index="{{ forloop.index0 }}">
-                  {% if image != blank and image.src != blank %}
+                  {% if image != blank %}
                     <img 
                       src="{{ image | image_url: width: 200 }}" 
                       alt="{{ image.alt | default: product.title | escape }}"

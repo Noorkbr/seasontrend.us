@@ -44,7 +44,7 @@
           <div class="thumbnail-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px;">
             {% for image in product.images limit: 6 %}
               <div class="thumbnail" data-thumbnail-index="{{ forloop.index0 }}" style="aspect-ratio: 1; border-radius: 12px; overflow: hidden; cursor: pointer; border: 2px solid {% if forloop.first %}rgba(0, 242, 255, 0.5){% else %}rgba(255, 255, 255, 0.1){% endif %};">
-                {% if image != blank and image.src != blank %}
+                {% if image != blank %}
                   <img 
                     src="{{ image | image_url: width: 200 }}" 
                     alt="{{ image.alt | default: product.title | escape }}"
