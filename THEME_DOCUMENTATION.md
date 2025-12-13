@@ -49,7 +49,17 @@ This guide explains how to customize the SeasonTrend theme using the Shopify The
 
 ---
 
-### 3. Product Grid (Arctic Product Grid)
+### 3. Stats Banner
+**Location:** Theme Editor > Home page > Stats Banner
+
+#### What you can customize:
+- **Statistics**: Add up to 4 stats (e.g., "50K+ Happy Customers", "4.9 Star Rating")
+- **CTA Button**: Optional call-to-action below stats
+- Each stat has a number, suffix (like +, %), and label
+
+---
+
+### 4. Product Grid (Arctic Product Grid)
 **Location:** Theme Editor > Home page > Arctic Product Grid
 
 #### What you can customize:
@@ -68,7 +78,52 @@ This guide explains how to customize the SeasonTrend theme using the Shopify The
 
 ---
 
-### 4. Footer
+### 5. Premium Features
+**Location:** Theme Editor > Home page > Premium Features
+
+#### What you can customize:
+- **Section Title & Subtitle**: Customize heading
+- **Feature Blocks**: Add up to 4+ features with:
+  - Icon (emoji)
+  - Title
+  - Description
+
+#### Default features include:
+- Free Shipping
+- Easy Returns
+- Secure Checkout
+- 24/7 Support
+
+---
+
+### 6. Premium Testimonials
+**Location:** Theme Editor > Home page > Premium Testimonials
+
+#### What you can customize:
+- **Section Title & Subtitle**
+- **Rating Summary**: Show overall rating
+- **Testimonial Cards**: Add customer reviews with:
+  - Star rating (1-5)
+  - Review text
+  - Customer name
+  - Photo (optional)
+  - Verified buyer badge
+  - Product purchased
+
+---
+
+### 7. Marquee Banner
+**Location:** Theme Editor > Home page > Marquee Banner
+
+A scrolling banner great for highlighting key benefits.
+
+#### What you can customize:
+- **Banner Items**: Add text with icons that scroll across the screen
+- Items pause on hover
+
+---
+
+### 8. Footer
 **Location:** Theme Editor > Footer section
 
 #### What you can customize:
@@ -101,6 +156,12 @@ For best display:
 - **Aspect ratio**: Square (1:1) works best
 - **Format**: JPG or PNG
 - Images are automatically optimized for different devices
+
+### Product Reviews & Social Proof
+To show review counts and sold counts on product cards, set up metafields:
+- `reviews.rating` - Product rating (number)
+- `reviews.count` - Number of reviews
+- `custom.sold_count` - Products sold (for urgency messaging)
 
 ---
 
