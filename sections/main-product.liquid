@@ -42,14 +42,22 @@
         {% if product.images.size > 1 %}
           <div class="thumbnail-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px;">
             {% for image in product.images limit: 6 %}
-              <div class="thumbnail" style="aspect-ratio: 1; border-radius: 12px; overflow: hidden; cursor: pointer; border: 2px solid rgba(255, 255, 255, 0.1);">
-                <img 
-                  src="{{ image | image_url: width: 200 }}" 
-                  alt="{{ image.alt | default: product.title | escape }}"
-                  width="200"
-                  height="200"
-                  loading="lazy"
-                  style="width: 100%; height: 100%; object-fit: cover;">
+              <div class="thumbnail" data-thumbnail-index="{{ forloop.index0 }}" style="aspect-ratio: 1; border-radius: 12px; overflow: hidden; cursor: pointer; border: 2px solid {% if forloop.first %}rgba(0, 242, 255, 0.5){% else %}rgba(255, 255, 255, 0.1){% endif %};">
+                {% if image != blank and image.src != blank %}
+                  <img 
+                    src="{{ image | image_url: width: 200 }}" 
+                    alt="{{ image.alt | default: product.title | escape }}"
+                    data-large-src="{{ image | image_url: width: 1000 }}"
+                    width="200"
+                    height="200"
+                    loading="lazy"
+                    onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;\'><span style=\'font-size:40px;\'>📷</span></div>';"
+                    style="width: 100%; height: 100%; object-fit: cover;">
+                {% else %}
+                  <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 40px;">📷</span>
+                  </div>
+                {% endif %}
               </div>
             {% endfor %}
           </div>
@@ -194,6 +202,12 @@
   50% { opacity: 0.4; }
 }
 
+.thumbnail.active,
+.product-single__thumbnail.active {
+  border-color: rgba(0, 242, 255, 0.5) !important;
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
 @media (max-width: 1024px) {
   .product-layout { grid-template-columns: 1fr !important; gap: 40px !important; }
   .product-images { position: static !important; }
@@ -241,6 +255,29 @@
     const newCount = Math.max(8, Math.min(40, currentCount + change));
     viewerCount.textContent = newCount;
   }, 6000);
+})();
+
+// Thumbnail click handler for main-product section
+(function() {
+  const thumbnails = document.querySelectorAll('.thumbnail-grid .thumbnail');
+  const mainImage = document.querySelector('.main-image img');
+  
+  if (!thumbnails.length || !mainImage) return;
+  
+  thumbnails.forEach(function(thumb) {
+    thumb.addEventListener('click', function() {
+      const img = this.querySelector('img');
+      if (img && img.dataset.largeSrc) {
+        mainImage.src = img.dataset.largeSrc;
+        
+        // Update active state
+        thumbnails.forEach(function(t) {
+          t.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        });
+        this.style.borderColor = 'rgba(0, 242, 255, 0.5)';
+      }
+    });
+  });
 })();
 </script>
 
