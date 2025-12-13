@@ -1,0 +1,438 @@
+{% comment %}
+  Premium Testimonials Section
+  ============================
+  Beautiful testimonial cards with customer reviews.
+  
+  To edit: Theme Editor > Home page > Premium Testimonials
+{% endcomment %}
+
+<section class="premium-testimonials-section">
+  <div class="container">
+    <div class="testimonials-header">
+      <h2 class="testimonials-title">
+        {{ section.settings.title | default: 'What Our Customers Say' }}
+      </h2>
+      {% if section.settings.subtitle %}
+        <p class="testimonials-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+      
+      <div class="rating-summary">
+        <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+        <div class="rating-text">{{ section.settings.rating_text | default: '4.9 out of 5 based on 2,847 reviews' }}</div>
+      </div>
+    </div>
+    
+    <div class="testimonials-grid">
+      {% for block in section.blocks %}
+        <div class="testimonial-card" {{ block.shopify_attributes }}>
+          <div class="testimonial-content">
+            <div class="testimonial-stars">
+              {% assign stars = block.settings.stars | default: 5 %}
+              {% for i in (1..stars) %}⭐{% endfor %}
+            </div>
+            <p class="testimonial-text">"{{ block.settings.text }}"</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              {% if block.settings.avatar %}
+                <img src="{{ block.settings.avatar | image_url: width: 100 }}" alt="{{ block.settings.name }}" loading="lazy">
+              {% else %}
+                <div class="avatar-placeholder">{{ block.settings.name | slice: 0 }}</div>
+              {% endif %}
+            </div>
+            <div class="author-info">
+              <div class="author-name">{{ block.settings.name }}</div>
+              {% if block.settings.verified %}
+                <div class="verified-badge">✓ Verified Buyer</div>
+              {% endif %}
+            </div>
+          </div>
+          {% if block.settings.product %}
+            <div class="testimonial-product">
+              Purchased: {{ block.settings.product }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      
+      {% if section.blocks.size == 0 %}
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"Absolutely love the quality! Fast shipping and the product exceeded my expectations. Will definitely order again!"</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <div class="avatar-placeholder">S</div>
+            </div>
+            <div class="author-info">
+              <div class="author-name">Sarah M.</div>
+              <div class="verified-badge">✓ Verified Buyer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"Premium quality and beautiful design. Customer service was incredibly helpful. This is my new favorite store!"</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <div class="avatar-placeholder">J</div>
+            </div>
+            <div class="author-info">
+              <div class="author-name">James K.</div>
+              <div class="verified-badge">✓ Verified Buyer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"The attention to detail is incredible. Packaging was gorgeous and the product is even better in person!"</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <div class="avatar-placeholder">E</div>
+            </div>
+            <div class="author-info">
+              <div class="author-name">Emily R.</div>
+              <div class="verified-badge">✓ Verified Buyer</div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    
+    {% if section.settings.show_cta %}
+      <div class="testimonials-cta">
+        <a href="{{ section.settings.cta_link | default: '/pages/reviews' }}" class="glass-pill-btn">
+          {{ section.settings.cta_text | default: 'Read More Reviews' }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.premium-testimonials-section {
+  background: var(--arctic-void, #05080F);
+  padding: clamp(4rem, 10vw, 8rem) 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-testimonials-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(189, 0, 255, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonials-title {
+  font-family: var(--font-clash, 'Inter', sans-serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: white;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.testimonials-subtitle {
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rating-summary {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+
+.rating-stars {
+  font-size: 1.5rem;
+}
+
+.rating-text {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 242, 255, 0.3);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 242, 255, 0.1);
+}
+
+.testimonial-content {
+  flex: 1;
+}
+
+.testimonial-stars {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-text {
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--arctic-aurora-cyan, #00F2FF), var(--arctic-aurora-purple, #BD00FF));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.author-name {
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+}
+
+.verified-badge {
+  font-size: 0.75rem;
+  color: var(--arctic-aurora-cyan, #00F2FF);
+  font-weight: 600;
+}
+
+.testimonial-product {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.testimonials-cta {
+  text-align: center;
+  margin-top: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+  
+  .testimonials-header {
+    margin-bottom: 2.5rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Premium Testimonials",
+  "tag": "section",
+  "class": "testimonials-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Real reviews from real customers who love our products"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating Summary Text",
+      "default": "4.9 out of 5 based on 2,847 reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Read More Reviews"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text",
+          "default": "Absolutely love the quality! Will definitely order again!"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer Name",
+          "default": "Sarah M."
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Customer Photo (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Buyer Badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "product",
+          "label": "Product Purchased (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium Testimonials",
+      "category": "Arctic Neo-Luxury",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "text": "Absolutely love the quality! Fast shipping and the product exceeded my expectations. Will definitely order again!",
+            "name": "Sarah M.",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "text": "Premium quality and beautiful design. Customer service was incredibly helpful. This is my new favorite store!",
+            "name": "James K.",
+            "verified": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "text": "The attention to detail is incredible. Packaging was gorgeous and the product is even better in person!",
+            "name": "Emily R.",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
