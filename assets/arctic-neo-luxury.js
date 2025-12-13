@@ -658,20 +658,33 @@ function initAjaxCart() {
         addToCartDirect(variantId, 1, button);
     });
     
-    // Add touch support for Quick Buy buttons on mobile
-    document.addEventListener('touchend', function(e) {
+    // Enhanced touch support for Quick Buy buttons on mobile
+    // Using a flag to prevent double-firing with click events
+    let touchHandled = false;
+    
+    document.addEventListener('touchstart', function(e) {
+        const button = e.target.closest('.quick-buy-btn, .luxury-quick-buy-btn');
+        if (button) {
+            touchHandled = true;
+        }
+    }, { passive: true });
+    
+    document.addEventListener('click', function(e) {
         const button = e.target.closest('.quick-buy-btn, .luxury-quick-buy-btn');
         if (!button) return;
         
-        // Prevent ghost clicks
-        e.preventDefault();
+        // If this was already handled by touch, reset and skip
+        if (touchHandled) {
+            touchHandled = false;
+            return;
+        }
         
         const form = button.closest('form[data-add-to-cart-form]');
         if (form) {
-            const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
-            form.dispatchEvent(submitEvent);
+            // Form submission already handles this
+            return;
         }
-    }, { passive: false });
+    });
 }
 
 async function addToCart(form, button) {

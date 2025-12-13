@@ -65,7 +65,8 @@
             src="{{ product.images[1] | image_url: width: 400 }}"
             srcset="{{ product.images[1] | image_url: width: 200 }} 200w,
                     {{ product.images[1] | image_url: width: 400 }} 400w,
-                    {{ product.images[1] | image_url: width: 600 }} 600w"
+                    {{ product.images[1] | image_url: width: 600 }} 600w,
+                    {{ product.images[1] | image_url: width: 800 }} 800w"
             alt="{{ product.images[1].alt | default: product.title | escape }}"
             loading="lazy"
             decoding="async"

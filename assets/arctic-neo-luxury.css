@@ -1560,26 +1560,18 @@ button:focus-visible {
    Using only transform and opacity for GPU acceleration
    ============================================ */
 
-/* Ensure all animations use transform/opacity only */
-.glass-product-card {
-    will-change: transform, opacity;
-}
-
+/* Apply will-change only on hover to save GPU memory */
 .glass-product-card:hover {
+    will-change: transform, opacity;
     transform: translateY(-10px) scale(1.02);
 }
 
-.quick-buy-btn,
-.luxury-quick-buy-btn,
-.glass-pill-btn,
-.luxury-cta-primary {
-    will-change: transform, opacity;
-}
-
+/* Remove will-change when not hovering (handled by browser automatically) */
 .quick-buy-btn:hover,
 .luxury-quick-buy-btn:hover,
 .glass-pill-btn:hover,
 .luxury-cta-primary:hover {
+    will-change: transform;
     transform: translateY(-3px) scale(1.02);
 }
 
@@ -1647,7 +1639,7 @@ button:focus-visible {
 /* Smooth fade-in for lazy loaded images */
 .product-image-container img {
     opacity: 1;
-    transition: opacity 0.3s ease, transform 0.6s ease;
+    transition: opacity 0.3s ease;
 }
 
 .product-image-container img[loading="lazy"] {
