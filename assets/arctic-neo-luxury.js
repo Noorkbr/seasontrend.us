@@ -567,6 +567,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
+// CART CONFIGURATION CONSTANTS
+// ============================================
+const CART_CONFIG = {
+    NOTIFICATION_DURATION: 4000,
+    FADE_OUT_DURATION: 300,
+    SUCCESS_RESET_DELAY: 2000
+};
+
+// ============================================
 // AJAX CART FUNCTIONALITY
 // ============================================
 function initAjaxCart() {
@@ -864,8 +873,8 @@ function showCartNotification(message, type = 'added') {
     // Auto-remove after delay
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease forwards';
-        setTimeout(() => notification.remove(), 300);
-    }, 4000);
+        setTimeout(() => notification.remove(), CART_CONFIG.FADE_OUT_DURATION);
+    }, CART_CONFIG.NOTIFICATION_DURATION);
 }
 
 // Expose functions globally for external use

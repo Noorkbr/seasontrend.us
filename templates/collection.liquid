@@ -123,11 +123,11 @@
       {% endif %}
     {% else %}
       <div class="collection-empty">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity: 0.3; margin-bottom: 1rem;">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="empty-icon">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
         </svg>
         <p>{{ 'collections.general.no_matches' | t | default: 'No products found in this collection.' }}</p>
-        <a href="/collections/all" class="glass-pill-btn" style="margin-top: 1.5rem;">
+        <a href="/collections/all" class="glass-pill-btn collection-cta">
           Browse All Products
         </a>
       </div>
@@ -233,9 +233,18 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
+.collection-empty .empty-icon {
+  opacity: 0.3;
+  margin-bottom: 1rem;
+}
+
 .collection-empty p {
   font-size: 1.25rem;
   margin: 0;
+}
+
+.collection-empty .collection-cta {
+  margin-top: 1.5rem;
 }
 
 /* Mobile Responsive */

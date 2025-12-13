@@ -117,14 +117,13 @@
         {% endif %}
       </div>
     {% else %}
-      {%- comment -%} Default rating for demo {%- endcomment -%}
+      {%- comment -%} Default rating display - no fake counts, shows stars only {%- endcomment -%}
       <div class="luxury-product-rating">
         <span class="star-full">⭐</span>
         <span class="star-full">⭐</span>
         <span class="star-full">⭐</span>
         <span class="star-full">⭐</span>
         <span class="star-full">⭐</span>
-        <span class="review-count">({{ product.id | modulo: 100 | plus: 50 }})</span>
       </div>
     {% endif %}
     
@@ -147,11 +146,12 @@
       </div>
     {% endif %}
     
-    {%- comment -%} Social Proof {%- endcomment -%}
-    {% assign sold_count = product.id | modulo: 50 | plus: 10 %}
-    <div class="luxury-social-proof">
-      <span>🔥 {{ sold_count }} sold in last 24 hours</span>
-    </div>
+    {%- comment -%} Social Proof - Only show if metafield exists {%- endcomment -%}
+    {% if product.metafields.custom.sold_count %}
+      <div class="luxury-social-proof">
+        <span>🔥 {{ product.metafields.custom.sold_count }} sold recently</span>
+      </div>
+    {% endif %}
     
     {%- comment -%} Quick Buy Button {%- endcomment -%}
     {% if show_quick_buy and product.available %}
