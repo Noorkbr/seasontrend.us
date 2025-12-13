@@ -127,6 +127,8 @@
 .announcement-item a {
   color: inherit;
   text-decoration: none;
+  padding: 0.5rem;
+  display: inline-block;
 }
 
 .announcement-item a:hover {
@@ -157,6 +159,11 @@
 
 .arctic-icon-btn {
   position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Sale Link Styling */
@@ -174,6 +181,22 @@
 .arctic-mobile-toggle .hamburger-icon {
   display: block;
   font-size: 1.5rem;
+}
+
+/* Mobile Toggle Button Touch Target */
+.arctic-mobile-toggle {
+  min-width: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure logo link is accessible */
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 </style>
 

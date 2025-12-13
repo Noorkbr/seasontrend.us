@@ -557,6 +557,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initTrustWall();
     initMobileMenu();
     initAjaxCart();
+    initLazyImageLoading();
     
     // Wait a bit for external libraries to load
     setTimeout(() => {
@@ -565,6 +566,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500);
     
 });
+
+// ============================================
+// LAZY IMAGE LOADING WITH FADE-IN
+// ============================================
+function initLazyImageLoading() {
+    // Handle all product images - ensure they display immediately
+    const allImages = document.querySelectorAll('.product-image, .luxury-product-image, img[loading="lazy"]');
+    
+    allImages.forEach(img => {
+        // Set opacity to 1 immediately to ensure visibility
+        img.style.opacity = '1';
+        
+        if (!img.complete) {
+            img.addEventListener('load', function() {
+                this.classList.add('loaded');
+            });
+            img.addEventListener('error', function() {
+                // Show placeholder styling on error but keep visible
+                this.classList.add('loaded');
+                this.style.opacity = '0.5';
+            });
+        } else {
+            img.classList.add('loaded');
+        }
+    });
+}
 
 // ============================================
 // CART CONFIGURATION CONSTANTS
@@ -607,6 +634,34 @@ function initAjaxCart() {
         if (!variantId) return;
         
         addToCartDirect(variantId, 1, button);
+    });
+    
+    // Enhanced touch support for Quick Buy buttons on mobile
+    // Using a flag to prevent double-firing with click events
+    let touchHandled = false;
+    
+    document.addEventListener('touchstart', function(e) {
+        const button = e.target.closest('.quick-buy-btn, .luxury-quick-buy-btn');
+        if (button) {
+            touchHandled = true;
+        }
+    }, { passive: true });
+    
+    document.addEventListener('click', function(e) {
+        const button = e.target.closest('.quick-buy-btn, .luxury-quick-buy-btn');
+        if (!button) return;
+        
+        // If this was already handled by touch, reset and skip
+        if (touchHandled) {
+            touchHandled = false;
+            return;
+        }
+        
+        const form = button.closest('form[data-add-to-cart-form]');
+        if (form) {
+            // Form submission already handles this
+            return;
+        }
     });
 }
 

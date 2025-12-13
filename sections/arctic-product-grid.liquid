@@ -53,17 +53,23 @@
                     src="{{ product.featured_image | image_url: width: 400 }}"
                     srcset="{{ product.featured_image | image_url: width: 200 }} 200w,
                             {{ product.featured_image | image_url: width: 400 }} 400w,
-                            {{ product.featured_image | image_url: width: 600 }} 600w"
-                    sizes="(max-width: 480px) 45vw, (max-width: 768px) 30vw, (max-width: 1200px) 25vw, 300px"
+                            {{ product.featured_image | image_url: width: 600 }} 600w,
+                            {{ product.featured_image | image_url: width: 800 }} 800w"
+                    sizes="(max-width: 480px) 45vw, (max-width: 768px) 30vw, (max-width: 1440px) 25vw, (max-width: 1920px) 20vw, 400px"
                     alt="{{ product.featured_image.alt | default: product.title | escape }}"
                     width="400"
                     height="400"
-                    loading="lazy"
+                    loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}"
                     decoding="async"
+                    fetchpriority="{% if forloop.index <= 4 %}high{% else %}auto{% endif %}"
                     class="product-image">
                   {% if product.images.size > 1 and section.settings.show_secondary_image %}
                     <img 
                       src="{{ product.images[1] | image_url: width: 400 }}"
+                      srcset="{{ product.images[1] | image_url: width: 200 }} 200w,
+                              {{ product.images[1] | image_url: width: 400 }} 400w,
+                              {{ product.images[1] | image_url: width: 600 }} 600w,
+                              {{ product.images[1] | image_url: width: 800 }} 800w"
                       alt="{{ product.images[1].alt | default: product.title | escape }}"
                       width="400"
                       height="400"
@@ -240,6 +246,7 @@
 }
 
 .product-image {
+  opacity: 1;
   transition: opacity 0.4s ease, transform 0.6s ease;
 }
 
