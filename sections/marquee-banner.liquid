@@ -1,0 +1,202 @@
+{% comment %}
+  Premium Marquee Banner
+  ======================
+  Animated scrolling text banner for brand messaging.
+  
+  To edit: Theme Editor > Home page > Marquee Banner
+{% endcomment %}
+
+<section class="premium-marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-content">
+      {% for block in section.blocks %}
+        <span class="marquee-item" {{ block.shopify_attributes }}>
+          <span class="marquee-icon">{{ block.settings.icon | default: '✦' }}</span>
+          <span class="marquee-text">{{ block.settings.text }}</span>
+        </span>
+      {% endfor %}
+      
+      {% if section.blocks.size == 0 %}
+        <span class="marquee-item">
+          <span class="marquee-icon">✦</span>
+          <span class="marquee-text">FREE SHIPPING OVER $50</span>
+        </span>
+        <span class="marquee-item">
+          <span class="marquee-icon">✦</span>
+          <span class="marquee-text">PREMIUM QUALITY</span>
+        </span>
+        <span class="marquee-item">
+          <span class="marquee-icon">✦</span>
+          <span class="marquee-text">30-DAY RETURNS</span>
+        </span>
+        <span class="marquee-item">
+          <span class="marquee-icon">✦</span>
+          <span class="marquee-text">24/7 SUPPORT</span>
+        </span>
+      {% endif %}
+    </div>
+    <div class="marquee-content" aria-hidden="true">
+      {% for block in section.blocks %}
+        <span class="marquee-item">
+          <span class="marquee-icon">{{ block.settings.icon | default: '✦' }}</span>
+          <span class="marquee-text">{{ block.settings.text }}</span>
+        </span>
+      {% endfor %}
+      
+      {% if section.blocks.size == 0 %}
+        <span class="marquee-item">
+          <span class="marquee-icon">✦</span>
+          <span class="marquee-text">FREE SHIPPING OVER $50</span>
+        </span>
+        <span class="marquee-item">
+          <span class="marquee-icon">✦</span>
+          <span class="marquee-text">PREMIUM QUALITY</span>
+        </span>
+        <span class="marquee-item">
+          <span class="marquee-icon">✦</span>
+          <span class="marquee-text">30-DAY RETURNS</span>
+        </span>
+        <span class="marquee-item">
+          <span class="marquee-icon">✦</span>
+          <span class="marquee-text">24/7 SUPPORT</span>
+        </span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+.premium-marquee-section {
+  background: linear-gradient(90deg, rgba(0, 242, 255, 0.1) 0%, rgba(189, 0, 255, 0.1) 50%, rgba(0, 242, 255, 0.1) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1rem 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.premium-marquee-section:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-content {
+  display: flex;
+  gap: 4rem;
+  padding: 0 2rem;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.marquee-icon {
+  font-size: 0.875rem;
+  color: var(--arctic-aurora-cyan, #00F2FF);
+}
+
+.marquee-text {
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 768px) {
+  .marquee-content {
+    gap: 3rem;
+  }
+  
+  .marquee-text {
+    font-size: 0.75rem;
+  }
+  
+  .marquee-track {
+    animation-duration: 20s;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Marquee Banner",
+  "tag": "section",
+  "class": "marquee-banner-section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Marquee Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon",
+          "default": "✦"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "FREE SHIPPING OVER $50"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Banner",
+      "category": "Arctic Neo-Luxury",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "✦",
+            "text": "FREE SHIPPING OVER $50"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "✦",
+            "text": "PREMIUM QUALITY"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "✦",
+            "text": "30-DAY RETURNS"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "✦",
+            "text": "24/7 SUPPORT"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

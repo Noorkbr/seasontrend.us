@@ -1,141 +1,652 @@
-<footer class="luxury-footer">
+{% comment %}
+  Luxury Footer Section
+  =====================
+  Premium footer with trust badges, newsletter, navigation, and social links.
+  
+  MERCHANT CUSTOMIZATION (via Shopify Theme Editor):
+  - Configure social media links
+  - Set contact information (email, phone)
+  - Show/hide legal links
+  - Customize copyright text
+  - Links are pulled from Shopify navigation menus
+  
+  To edit: Theme Editor > Footer section
+{% endcomment %}
+
+<footer class="luxury-footer" role="contentinfo">
   <div class="container">
     
-    <div class="luxury-footer-trust">
-      {% render 'trust-badges' %}
-    </div>
+    {%- comment -%} Trust Badges Section {%- endcomment -%}
+    {% if section.settings.show_trust_badges %}
+      <div class="luxury-footer-trust">
+        {% render 'trust-badges' %}
+      </div>
+    {% endif %}
     
-    <div class="luxury-newsletter-section">
-      <div class="luxury-newsletter-content">
-        <div class="luxury-newsletter-text">
-          <h3 class="luxury-newsletter-title">JOIN THE VIP LIST</h3>
-          <p class="luxury-newsletter-subtitle">Get 10% off your first order + exclusive deals</p>
-        </div>
-        <form class="luxury-newsletter-form" action="/contact#newsletter" method="post" accept-charset="UTF-8">
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <div class="luxury-newsletter-input-group">
-            <input 
-              type="email" 
-              name="contact[email]" 
-              placeholder="Enter your email"
-              class="luxury-newsletter-input"
-              required
-              aria-label="Email address"
-            >
-            <button type="submit" class="luxury-newsletter-btn">
-              Subscribe
-            </button>
+    {%- comment -%} Newsletter Section {%- endcomment -%}
+    {% if section.settings.show_newsletter %}
+      <div class="luxury-newsletter-section">
+        <div class="luxury-newsletter-content">
+          <div class="luxury-newsletter-text">
+            <h3 class="luxury-newsletter-title">{{ section.settings.newsletter_title | default: 'JOIN THE VIP LIST' }}</h3>
+            <p class="luxury-newsletter-subtitle">{{ section.settings.newsletter_subtitle | default: 'Get 10% off your first order + exclusive deals' }}</p>
           </div>
-        </form>
+          <form class="luxury-newsletter-form" action="/contact#newsletter" method="post" accept-charset="UTF-8">
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="luxury-newsletter-input-group">
+              <label for="footer-newsletter-email" class="visually-hidden">{{ 'general.newsletter.email_placeholder' | t | default: 'Email address' }}</label>
+              <input 
+                type="email" 
+                name="contact[email]" 
+                id="footer-newsletter-email"
+                placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' }}"
+                class="luxury-newsletter-input"
+                required
+                autocomplete="email"
+                aria-label="Email address"
+              >
+              <button type="submit" class="luxury-newsletter-btn">
+                {{ section.settings.newsletter_button_text | default: 'Subscribe' }}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    {% endif %}
     
-    <div class="luxury-social-proof-summary">
-      <span class="proof-stars">⭐⭐⭐⭐⭐</span>
-      <span class="proof-text">4.8/5 from 1,247+ reviews</span>
-    </div>
+    {%- comment -%} Social Proof Summary {%- endcomment -%}
+    {% if section.settings.show_reviews_summary %}
+      <div class="luxury-social-proof-summary">
+        <span class="proof-stars" aria-label="5 star rating">⭐⭐⭐⭐⭐</span>
+        <span class="proof-text">{{ section.settings.reviews_text | default: '4.8/5 from 1,247+ reviews' }}</span>
+      </div>
+    {% endif %}
     
+    {%- comment -%} Footer Navigation Grid {%- endcomment -%}
     <div class="luxury-footer-nav">
-      <div class="luxury-footer-column">
-        <h4 class="luxury-footer-heading">Shop</h4>
-        <ul class="luxury-footer-links">
-          <li><a href="/collections/all">All Collections</a></li>
-          <li><a href="/collections/new-arrivals">New Arrivals</a></li>
-          <li><a href="/collections/best-sellers">Best Sellers</a></li>
-          <li><a href="/collections/sale">Sale</a></li>
-        </ul>
-      </div>
-      
-      <div class="luxury-footer-column">
-        <h4 class="luxury-footer-heading">Help</h4>
-        <ul class="luxury-footer-links">
-          <li><a href="/pages/contact">Contact Us</a></li>
-          <li><a href="/pages/shipping">Shipping Info</a></li>
-          <li><a href="/pages/returns">Returns & Exchanges</a></li>
-          <li><a href="/pages/faq">FAQ</a></li>
-        </ul>
-      </div>
-      
-      <div class="luxury-footer-column">
-        <h4 class="luxury-footer-heading">About</h4>
-        <ul class="luxury-footer-links">
-          <li><a href="/pages/about">Our Story</a></li>
-          <li><a href="/pages/reviews">Customer Reviews</a></li>
-          <li><a href="/blogs/news">Blog</a></li>
-          <li><a href="/pages/careers">Careers</a></li>
-        </ul>
-      </div>
-      
-      <div class="luxury-footer-column">
-        <h4 class="luxury-footer-heading">Connect</h4>
-        <div class="luxury-footer-social">
-          {% if section.settings.facebook_url %}
-            <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">
-              <span>📘</span>
-            </a>
-          {% endif %}
-          {% if section.settings.instagram_url %}
-            <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">
-              <span>📷</span>
-            </a>
-          {% endif %}
-          {% if section.settings.twitter_url %}
-            <a href="{{ section.settings.twitter_url }}" target="_blank" rel="noopener" aria-label="Twitter" class="social-icon">
-              <span>🐦</span>
-            </a>
-          {% endif %}
-          {% if section.settings.pinterest_url %}
-            <a href="{{ section.settings.pinterest_url }}" target="_blank" rel="noopener" aria-label="Pinterest" class="social-icon">
-              <span>📌</span>
-            </a>
-          {% endif %}
-          {% if section.settings.tiktok_url %}
-            <a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">
-              <span>🎵</span>
-            </a>
-          {% endif %}
-        </div>
-        
-        <div class="luxury-footer-contact">
-          {% if section.settings.email %}
-            <a href="mailto:{{ section.settings.email }}" class="contact-link">
-              <span class="icon">📧</span>
-              <span>{{ section.settings.email }}</span>
-            </a>
-          {% endif %}
-          {% if section.settings.phone %}
-            <a href="tel:{{ section.settings.phone }}" class="contact-link">
-              <span class="icon">📞</span>
-              <span>{{ section.settings.phone }}</span>
-            </a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-    
-    <div class="luxury-footer-bottom">
-      <div class="luxury-footer-copyright">
-        <p>© {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ section.settings.copyright_text | default: "All rights reserved." }}</p>
-      </div>
-      
-      <div class="luxury-footer-legal">
-        {% if section.settings.show_legal_links %}
-          <a href="/pages/privacy-policy">Privacy Policy</a>
-          <a href="/pages/terms-of-service">Terms of Service</a>
-          <a href="/pages/refund-policy">Refund Policy</a>
+      {%- comment -%} About/Brand Column {%- endcomment -%}
+      <div class="luxury-footer-column luxury-footer-column--brand">
+        <h4 class="luxury-footer-heading">{{ section.settings.about_title | default: shop.name }}</h4>
+        {% if section.settings.about_text != blank %}
+          <p class="luxury-footer-about">{{ section.settings.about_text }}</p>
         {% endif %}
       </div>
+      
+      {%- comment -%} Menu Columns - Dynamic from blocks {%- endcomment -%}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'menu' %}
+            <div class="luxury-footer-column" {{ block.shopify_attributes }}>
+              <h4 class="luxury-footer-heading">{{ block.settings.heading }}</h4>
+              {% if block.settings.menu != blank %}
+                <ul class="luxury-footer-links">
+                  {% for link in linklists[block.settings.menu].links %}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% when 'contact' %}
+            <div class="luxury-footer-column" {{ block.shopify_attributes }}>
+              <h4 class="luxury-footer-heading">{{ block.settings.heading | default: 'Contact' }}</h4>
+              <div class="luxury-footer-contact-info">
+                {% if block.settings.email != blank %}
+                  <a href="mailto:{{ block.settings.email }}" class="contact-link">
+                    <span class="contact-icon" aria-hidden="true">📧</span>
+                    <span>{{ block.settings.email }}</span>
+                  </a>
+                {% endif %}
+                {% if block.settings.phone != blank %}
+                  <a href="tel:{{ block.settings.phone | remove: ' ' | remove: '-' }}" class="contact-link">
+                    <span class="contact-icon" aria-hidden="true">📞</span>
+                    <span>{{ block.settings.phone }}</span>
+                  </a>
+                {% endif %}
+                {% if block.settings.address != blank %}
+                  <p class="contact-address">
+                    <span class="contact-icon" aria-hidden="true">📍</span>
+                    <span>{{ block.settings.address }}</span>
+                  </p>
+                {% endif %}
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+      
+      {%- comment -%} Social Links Column {%- endcomment -%}
+      <div class="luxury-footer-column luxury-footer-column--social">
+        <h4 class="luxury-footer-heading">{{ section.settings.social_title | default: 'Connect' }}</h4>
+        <div class="luxury-footer-social">
+          {% if section.settings.facebook_url != blank %}
+            <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.instagram_url != blank %}
+            <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1.5" fill="currentColor"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.twitter_url != blank %}
+            <a href="{{ section.settings.twitter_url }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X" class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.pinterest_url != blank %}
+            <a href="{{ section.settings.pinterest_url }}" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.tiktok_url != blank %}
+            <a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.youtube_url != blank %}
+            <a href="{{ section.settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="social-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    {%- comment -%} Footer Bottom Bar {%- endcomment -%}
+    <div class="luxury-footer-bottom">
+      <div class="luxury-footer-copyright">
+        <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_text | default: 'All rights reserved.' }}</p>
+      </div>
+      
+      {% if section.settings.show_legal_links %}
+        <nav class="luxury-footer-legal" aria-label="Legal">
+          <a href="{{ section.settings.privacy_link | default: '/pages/privacy-policy' }}">Privacy Policy</a>
+          <a href="{{ section.settings.terms_link | default: '/pages/terms-of-service' }}">Terms of Service</a>
+          <a href="{{ section.settings.refund_link | default: '/pages/refund-policy' }}">Refund Policy</a>
+        </nav>
+      {% endif %}
+      
+      {% if section.settings.show_payment_icons %}
+        <div class="luxury-footer-payment" aria-label="Accepted payment methods">
+          {%- for type in shop.enabled_payment_types -%}
+            {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+          {%- endfor -%}
+        </div>
+      {% endif %}
     </div>
   </div>
 </footer>
 
+<style>
+/* Enhanced Footer Styles */
+.luxury-footer {
+  background: var(--arctic-void, #05080F);
+  padding: 4rem 2rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.luxury-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.5), rgba(189, 0, 255, 0.5), transparent);
+}
+
+/* Trust Badges */
+.luxury-footer-trust {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Newsletter Section */
+.luxury-newsletter-section {
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.08), rgba(189, 0, 255, 0.08));
+  border: 1px solid rgba(0, 242, 255, 0.2);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.luxury-newsletter-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.luxury-newsletter-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.luxury-newsletter-title {
+  font-family: var(--font-clash, 'Inter', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+.luxury-newsletter-subtitle {
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.luxury-newsletter-form {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.luxury-newsletter-input-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.luxury-newsletter-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 1rem 1.25rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.luxury-newsletter-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.luxury-newsletter-input:focus {
+  outline: none;
+  border-color: rgba(0, 242, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.1);
+}
+
+.luxury-newsletter-btn {
+  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.luxury-newsletter-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 242, 255, 0.3);
+}
+
+/* Social Proof Summary */
+.luxury-social-proof-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+}
+
+.proof-stars {
+  font-size: 1.25rem;
+}
+
+.proof-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+/* Footer Navigation Grid */
+.luxury-footer-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.luxury-footer-column--brand {
+  max-width: 300px;
+}
+
+.luxury-footer-heading {
+  color: white;
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 1.25rem;
+}
+
+.luxury-footer-about {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.luxury-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.luxury-footer-links a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.luxury-footer-links a:hover {
+  color: #00F2FF;
+}
+
+/* Contact Info */
+.luxury-footer-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-link, .contact-address {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #00F2FF;
+}
+
+.contact-icon {
+  font-size: 1.125rem;
+}
+
+/* Social Links */
+.luxury-footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.2), rgba(189, 0, 255, 0.2));
+  border-color: rgba(0, 242, 255, 0.4);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Footer Bottom */
+.luxury-footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.luxury-footer-copyright p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.luxury-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.luxury-footer-legal a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.luxury-footer-legal a:hover {
+  color: #00F2FF;
+}
+
+/* Payment Icons */
+.luxury-footer-payment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.luxury-footer-payment .payment-icon {
+  height: 24px;
+  width: auto;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.luxury-footer-payment .payment-icon:hover {
+  opacity: 1;
+}
+
+/* Utility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .luxury-footer {
+    padding: 3rem 1rem 1.5rem;
+  }
+  
+  .luxury-newsletter-section {
+    padding: 1.5rem;
+  }
+  
+  .luxury-newsletter-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .luxury-newsletter-form {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .luxury-newsletter-input-group {
+    flex-direction: column;
+  }
+  
+  .luxury-newsletter-input,
+  .luxury-newsletter-btn {
+    width: 100%;
+  }
+  
+  .luxury-footer-nav {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .luxury-footer-column--brand {
+    grid-column: 1 / -1;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .luxury-footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .luxury-footer-legal {
+    justify-content: center;
+  }
+  
+  .luxury-footer-payment {
+    justify-content: center;
+  }
+  
+  .luxury-social-proof-summary {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .luxury-footer-nav {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .luxury-footer-links {
+    align-items: center;
+  }
+  
+  .luxury-footer-social {
+    justify-content: center;
+  }
+  
+  .luxury-footer-contact-info {
+    align-items: center;
+  }
+}
+</style>
+
 {% schema %}
 {
   "name": "Footer",
+  "tag": "section",
+  "class": "luxury-footer-section",
   "settings": [
     {
       "type": "header",
+      "content": "About Section"
+    },
+    {
+      "type": "text",
+      "id": "about_title",
+      "label": "Brand Title",
+      "info": "Defaults to store name if empty"
+    },
+    {
+      "type": "textarea",
+      "id": "about_text",
+      "label": "About Text",
+      "default": "Arctic Neo-Luxury for the modern trendsetter. Premium quality, exceptional service."
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show Newsletter Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "JOIN THE VIP LIST"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_subtitle",
+      "label": "Newsletter Subtitle",
+      "default": "Get 10% off your first order + exclusive deals"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Subscribe Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Trust & Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show Trust Badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews_summary",
+      "label": "Show Reviews Summary",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "reviews_text",
+      "label": "Reviews Text",
+      "default": "4.8/5 from 1,247+ reviews"
+    },
+    {
+      "type": "header",
       "content": "Social Media"
+    },
+    {
+      "type": "text",
+      "id": "social_title",
+      "label": "Social Section Title",
+      "default": "Connect"
     },
     {
       "type": "url",
@@ -150,7 +661,7 @@
     {
       "type": "url",
       "id": "twitter_url",
-      "label": "Twitter URL"
+      "label": "Twitter/X URL"
     },
     {
       "type": "url",
@@ -163,22 +674,13 @@
       "label": "TikTok URL"
     },
     {
-      "type": "header",
-      "content": "Contact Information"
-    },
-    {
-      "type": "text",
-      "id": "email",
-      "label": "Email"
-    },
-    {
-      "type": "text",
-      "id": "phone",
-      "label": "Phone"
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
     },
     {
       "type": "header",
-      "content": "Legal"
+      "content": "Legal & Copyright"
     },
     {
       "type": "checkbox",
@@ -187,16 +689,105 @@
       "default": true
     },
     {
+      "type": "url",
+      "id": "privacy_link",
+      "label": "Privacy Policy Link"
+    },
+    {
+      "type": "url",
+      "id": "terms_link",
+      "label": "Terms of Service Link"
+    },
+    {
+      "type": "url",
+      "id": "refund_link",
+      "label": "Refund Policy Link"
+    },
+    {
       "type": "text",
       "id": "copyright_text",
       "label": "Copyright Text",
       "default": "All rights reserved."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show Payment Icons",
+      "default": true,
+      "info": "Displays accepted payment methods"
     }
   ],
-  "presets": [
+  "blocks": [
     {
-      "name": "Footer"
+      "type": "menu",
+      "name": "Navigation Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Menu Title",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "info": "Select a menu from Navigation settings"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact Information",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Section Title",
+          "default": "Contact Us"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email Address"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone Number"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address"
+        }
+      ]
     }
-  ]
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "Shop",
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "Help",
+          "menu": "footer"
+        }
+      },
+      {
+        "type": "contact",
+        "settings": {
+          "heading": "Contact Us"
+        }
+      }
+    ]
+  }
 }
 {% endschema %}

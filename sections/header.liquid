@@ -1,65 +1,192 @@
+{% comment %}
+  Arctic Header Section
+  =====================
+  Premium fixed header with announcement bar, navigation, and cart.
+  
+  MERCHANT CUSTOMIZATION (via Shopify Theme Editor):
+  - Upload custom logo and set width
+  - Add rotating announcement messages (via blocks)
+  - Navigation pulls from Shopify Navigation settings (main-menu)
+  - Cart count updates automatically with AJAX
+  
+  To edit: Theme Editor > Header section
+{% endcomment %}
+
 <header class="arctic-header" id="arctic-header">
-  <div class="arctic-header-top">
-    <div class="container">
-      <div class="arctic-announcement-bar" id="arctic-announcement-bar">
-        <div class="announcement-track">
-          {% for block in section.blocks %}
-            <div class="announcement-item {% if forloop.first %}active{% endif %}">
-              {{ block.settings.text }}
-            </div>
-          {% endfor %}
-          {% if section.blocks.size == 0 %}
-            <div class="announcement-item active">Welcome to SeasonTrend</div>
-          {% endif %}
+  {%- comment -%} Announcement Bar {%- endcomment -%}
+  {% if section.blocks.size > 0 or section.settings.show_announcement %}
+    <div class="arctic-header-top">
+      <div class="container">
+        <div class="arctic-announcement-bar" id="arctic-announcement-bar">
+          <div class="announcement-track">
+            {% for block in section.blocks %}
+              {% if block.type == 'announcement' %}
+                <div class="announcement-item {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
+                  {% if block.settings.link != blank %}
+                    <a href="{{ block.settings.link }}">{{ block.settings.text }}</a>
+                  {% else %}
+                    {{ block.settings.text }}
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+            {% if section.blocks.size == 0 %}
+              <div class="announcement-item active">{{ section.settings.default_announcement | default: 'Welcome to ' | append: shop.name }}</div>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  {% endif %}
   
-  <nav class="arctic-navbar">
+  {%- comment -%} Main Navigation Bar {%- endcomment -%}
+  <nav class="arctic-navbar" role="navigation" aria-label="Main navigation">
     <div class="container">
       <div class="arctic-navbar-content">
+        {%- comment -%} Logo {%- endcomment -%}
         <div class="arctic-logo">
           {% if section.settings.logo %}
-            <a href="/" class="logo-link">
-              <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}" 
-                   alt="{{ shop.name }}"
-                   width="{{ section.settings.logo_width }}"
-                   height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
-                   style="max-width: {{ section.settings.logo_width }}px; height: auto;">
+            <a href="/" class="logo-link" aria-label="{{ shop.name }} - Home">
+              <img 
+                src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}" 
+                alt="{{ shop.name }}"
+                width="{{ section.settings.logo_width }}"
+                height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
+                style="max-width: {{ section.settings.logo_width }}px; height: auto;"
+                loading="eager">
             </a>
           {% else %}
-            <h1><a href="/" class="logo-link">Season<span>Trend</span></a></h1>
+            <h1><a href="/" class="logo-link">{{ section.settings.logo_text | default: shop.name | split: '' | first }}{% if section.settings.logo_text == blank %}<span>{{ shop.name | split: '' | last | default: 'Trend' }}</span>{% endif %}</a></h1>
           {% endif %}
         </div>
         
-        <ul class="arctic-nav-menu" id="arctic-nav-menu">
-          <li><a href="/collections/new-arrivals" class="luxury-accent">NEW ARRIVALS</a></li>
-          <li><a href="/collections/best-sellers" class="luxury-accent">BEST SELLERS</a></li>
-          <li><a href="/collections/all">COLLECTIONS</a></li>
-          {% for link in linklists.main-menu.links %}
-            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- comment -%} Desktop Navigation Menu {%- endcomment -%}
+        <ul class="arctic-nav-menu" id="arctic-nav-menu" role="menubar">
+          {% if section.settings.show_new_arrivals %}
+            <li role="none"><a href="{{ section.settings.new_arrivals_link | default: '/collections/new-arrivals' }}" class="luxury-accent" role="menuitem">{{ section.settings.new_arrivals_text | default: 'NEW ARRIVALS' }}</a></li>
+          {% endif %}
+          {% if section.settings.show_best_sellers %}
+            <li role="none"><a href="{{ section.settings.best_sellers_link | default: '/collections/best-sellers' }}" class="luxury-accent" role="menuitem">{{ section.settings.best_sellers_text | default: 'BEST SELLERS' }}</a></li>
+          {% endif %}
+          {% for link in linklists[section.settings.menu].links %}
+            <li role="none">
+              <a href="{{ link.url }}" role="menuitem" {% if link.current %}aria-current="page"{% endif %}>
+                {{ link.title }}
+              </a>
+            </li>
           {% endfor %}
-          <li><a href="/collections/sale" class="sale-link">SALE</a></li>
+          {% if section.settings.show_sale_link %}
+            <li role="none"><a href="{{ section.settings.sale_link | default: '/collections/sale' }}" class="sale-link" role="menuitem">{{ section.settings.sale_text | default: 'SALE' }}</a></li>
+          {% endif %}
         </ul>
         
+        {%- comment -%} Action Buttons {%- endcomment -%}
         <div class="arctic-nav-actions">
-          <a href="/cart" class="arctic-icon-btn cart-btn" id="arctic-cart-btn" aria-label="Cart">
-            🛒 <span class="arctic-cart-count" id="arctic-cart-count">{{ cart.item_count }}</span>
+          {% if section.settings.show_search %}
+            <a href="/search" class="arctic-icon-btn search-btn" aria-label="Search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+              </svg>
+            </a>
+          {% endif %}
+          
+          <a href="/cart" class="arctic-icon-btn cart-btn" id="arctic-cart-btn" aria-label="Cart ({{ cart.item_count }} items)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+            </svg>
+            <span class="arctic-cart-count" id="arctic-cart-count" data-cart-count aria-live="polite">{{ cart.item_count }}</span>
           </a>
-          <a href="/collections/all" class="arctic-cta-btn">Shop Now</a>
+          
+          {% if section.settings.show_cta_button %}
+            <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="arctic-cta-btn">
+              {{ section.settings.cta_text | default: 'Shop Now' }}
+            </a>
+          {% endif %}
         </div>
         
-        <button class="arctic-mobile-toggle" id="arctic-mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+        {%- comment -%} Mobile Menu Toggle {%- endcomment -%}
+        <button class="arctic-mobile-toggle" id="arctic-mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="arctic-nav-menu">
+          <span class="hamburger-icon" aria-hidden="true">☰</span>
+        </button>
       </div>
     </div>
   </nav>
 </header>
 
+<style>
+/* Announcement Bar Styles */
+.announcement-item {
+  display: none;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.announcement-item.active {
+  display: block;
+}
+
+.announcement-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.announcement-item a:hover {
+  text-decoration: underline;
+}
+
+/* Cart Count Badge */
+.arctic-cart-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, #00F2FF, #BD00FF);
+  border-radius: 50px;
+}
+
+.arctic-cart-count:empty,
+.arctic-cart-count[data-cart-count="0"] {
+  display: none;
+}
+
+.arctic-icon-btn {
+  position: relative;
+}
+
+/* Sale Link Styling */
+.sale-link {
+  color: #FF6B6B !important;
+  font-weight: 600 !important;
+}
+
+/* Search Button */
+.search-btn svg {
+  stroke: currentColor;
+}
+
+/* Mobile Hamburger Animation */
+.arctic-mobile-toggle .hamburger-icon {
+  display: block;
+  font-size: 1.5rem;
+}
+</style>
+
 {% schema %}
 {
   "name": "Header",
+  "tag": "section",
+  "class": "arctic-header-section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
     {
       "type": "image_picker",
       "id": "logo",
@@ -74,6 +201,118 @@
       "unit": "px",
       "label": "Logo Width",
       "default": 150
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Text Logo (if no image)",
+      "info": "Displayed if no logo image is uploaded"
+    },
+    {
+      "type": "header",
+      "content": "Announcement Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "default_announcement",
+      "label": "Default Announcement",
+      "default": "Free Shipping on Orders Over $50"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main Menu",
+      "default": "main-menu",
+      "info": "Select your main navigation menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_new_arrivals",
+      "label": "Show New Arrivals Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "new_arrivals_text",
+      "label": "New Arrivals Text",
+      "default": "NEW ARRIVALS"
+    },
+    {
+      "type": "url",
+      "id": "new_arrivals_link",
+      "label": "New Arrivals Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_best_sellers",
+      "label": "Show Best Sellers Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "best_sellers_text",
+      "label": "Best Sellers Text",
+      "default": "BEST SELLERS"
+    },
+    {
+      "type": "url",
+      "id": "best_sellers_link",
+      "label": "Best Sellers Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_link",
+      "label": "Show Sale Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sale_text",
+      "label": "Sale Text",
+      "default": "SALE"
+    },
+    {
+      "type": "url",
+      "id": "sale_link",
+      "label": "Sale Link"
+    },
+    {
+      "type": "header",
+      "content": "Actions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search Icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta_button",
+      "label": "Show CTA Button",
+      "default": true,
+      "info": "Shop Now button (hidden on mobile)"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
     }
   ],
   "blocks": [
@@ -84,11 +323,38 @@
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "Announcement Text",
           "default": "Free Shipping Over $50"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
         }
       ]
     }
-  ]
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement",
+        "settings": {
+          "text": "Free Shipping Over $50 🚚"
+        }
+      },
+      {
+        "type": "announcement",
+        "settings": {
+          "text": "New Arrivals Just Dropped! ✨"
+        }
+      },
+      {
+        "type": "announcement",
+        "settings": {
+          "text": "24/7 Customer Support 💬"
+        }
+      }
+    ]
+  }
 }
 {% endschema %}

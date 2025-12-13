@@ -1,50 +1,101 @@
 {% comment %}
   Luxury Product Card Snippet
+  ===========================
+  Premium product card with hover effects, badges, quick buy, and urgency indicators.
+  
   Usage: {% render 'luxury-product-card', product: product, show_badge: true, badge_text: 'NEW' %}
+  
+  Parameters:
+  - product (required): The product object
+  - show_badge: true/false - Show badge on card
+  - badge_text: Text for the badge
+  - badge_type: 'new', 'hot', 'sale' - Badge style
+  - show_quick_buy: true/false - Show quick buy button
+  - lazy_load: true/false - Lazy load images
 {% endcomment %}
 
 {% assign show_badge = show_badge | default: false %}
 {% assign badge_text = badge_text | default: 'NEW' %}
 {% assign badge_type = badge_type | default: 'new' %}
+{% assign show_quick_buy = show_quick_buy | default: true %}
+{% assign lazy_load = lazy_load | default: true %}
 
-<div class="luxury-product-card">
-  <!-- Badge (NEW or HOT) -->
+<article class="luxury-product-card" data-product-id="{{ product.id }}">
+  {%- comment -%} Badge Section {%- endcomment -%}
   {% if show_badge %}
     <div class="luxury-badge luxury-badge-{{ badge_type }}">
       {% if badge_type == 'new' %}
         <span class="badge-shimmer">✨ {{ badge_text }}</span>
       {% elsif badge_type == 'hot' %}
         <span class="badge-fire">🔥 {{ badge_text }}</span>
+      {% elsif badge_type == 'sale' and product.compare_at_price > product.price %}
+        {% assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+        <span>-{{ savings }}% OFF</span>
+      {% else %}
+        <span>{{ badge_text }}</span>
       {% endif %}
+    </div>
+  {% elsif product.compare_at_price > product.price %}
+    {% assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+    <div class="luxury-badge luxury-badge-sale">
+      <span>-{{ savings }}%</span>
     </div>
   {% endif %}
   
-  <!-- Product Image -->
+  {%- comment -%} Product Image {%- endcomment -%}
   <div class="luxury-product-image-container">
-    <a href="{{ product.url }}">
+    <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
       {% if product.featured_image %}
         <img 
-          src="{{ product.featured_image | img_url: 'large' }}"
-          alt="{{ product.featured_image.alt | escape }}"
-          loading="lazy"
+          src="{{ product.featured_image | image_url: width: 400 }}"
+          srcset="{{ product.featured_image | image_url: width: 200 }} 200w,
+                  {{ product.featured_image | image_url: width: 400 }} 400w,
+                  {{ product.featured_image | image_url: width: 600 }} 600w"
+          sizes="(max-width: 480px) 45vw, (max-width: 768px) 30vw, 300px"
+          alt="{{ product.featured_image.alt | default: product.title | escape }}"
+          {% if lazy_load %}loading="lazy"{% else %}loading="eager" fetchpriority="high"{% endif %}
+          decoding="async"
           width="400"
           height="400"
+          class="luxury-product-image"
         >
+        {% if product.images.size > 1 %}
+          <img 
+            src="{{ product.images[1] | image_url: width: 400 }}"
+            alt="{{ product.images[1].alt | default: product.title | escape }}"
+            loading="lazy"
+            decoding="async"
+            width="400"
+            height="400"
+            class="luxury-product-image luxury-product-image--hover"
+          >
+        {% endif %}
       {% else %}
         <div class="luxury-placeholder-image">
-          <span>{{ product.title | slice: 0, 1 }}</span>
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="M21 15l-5-5L5 21"/>
+          </svg>
         </div>
       {% endif %}
     </a>
+    
+    {%- comment -%} Wishlist Button {%- endcomment -%}
+    <button class="luxury-wishlist-btn" aria-label="Add to wishlist">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </button>
   </div>
   
-  <!-- Product Info -->
+  {%- comment -%} Product Info {%- endcomment -%}
   <div class="luxury-product-info">
     <h3 class="luxury-product-title">
       <a href="{{ product.url }}">{{ product.title }}</a>
     </h3>
     
-    <!-- Star Rating (if available) -->
+    {%- comment -%} Star Rating {%- endcomment -%}
     {% if product.metafields.reviews.rating %}
       <div class="luxury-product-rating">
         {% assign rating = product.metafields.reviews.rating | times: 1.0 %}
@@ -65,76 +116,123 @@
           <span class="review-count">({{ product.metafields.reviews.count }})</span>
         {% endif %}
       </div>
+    {% else %}
+      {%- comment -%} Default rating display - no fake counts, shows stars only {%- endcomment -%}
+      <div class="luxury-product-rating">
+        <span class="star-full">⭐</span>
+        <span class="star-full">⭐</span>
+        <span class="star-full">⭐</span>
+        <span class="star-full">⭐</span>
+        <span class="star-full">⭐</span>
+      </div>
     {% endif %}
     
-    <!-- Price -->
+    {%- comment -%} Price {%- endcomment -%}
     <div class="luxury-product-price">
       {% if product.compare_at_price > product.price %}
         <span class="luxury-price-compare">{{ product.compare_at_price | money }}</span>
         <span class="luxury-price-current luxury-price-sale">{{ product.price | money }}</span>
-        <span class="luxury-price-badge">SAVE {{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</span>
       {% else %}
         <span class="luxury-price-current">{{ product.price | money }}</span>
       {% endif %}
     </div>
     
-    <!-- Social Proof (if available) -->
+    {%- comment -%} Urgency Indicators {%- endcomment -%}
+    {% assign inventory = product.selected_or_first_available_variant.inventory_quantity %}
+    {% if inventory < 10 and inventory > 0 and product.selected_or_first_available_variant.inventory_management == 'shopify' %}
+      <div class="luxury-urgency">
+        <span class="urgency-icon">⚡</span>
+        <span class="urgency-text">Only {{ inventory }} left!</span>
+      </div>
+    {% endif %}
+    
+    {%- comment -%} Social Proof - Only show if metafield exists {%- endcomment -%}
     {% if product.metafields.custom.sold_count %}
       <div class="luxury-social-proof">
-        <span>🔥 {{ product.metafields.custom.sold_count }} sold today</span>
+        <span>🔥 {{ product.metafields.custom.sold_count }} sold recently</span>
       </div>
     {% endif %}
     
-    <!-- Low Stock Warning -->
-    {% if product.selected_or_first_available_variant.inventory_quantity < 10 and product.selected_or_first_available_variant.inventory_quantity > 0 %}
-      <div class="luxury-low-stock">
-        ⚠️ Only {{ product.selected_or_first_available_variant.inventory_quantity }} left in stock!
-      </div>
+    {%- comment -%} Quick Buy Button {%- endcomment -%}
+    {% if show_quick_buy and product.available %}
+      <form class="luxury-quick-buy-form" data-add-to-cart-form>
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button 
+          type="submit" 
+          class="luxury-quick-buy-btn"
+          data-add-to-cart
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          aria-label="Add {{ product.title | escape }} to cart">
+          <span class="btn-text">Quick Add</span>
+          <span class="btn-loading" aria-hidden="true">
+            <svg class="spinner" viewBox="0 0 24 24" width="18" height="18">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="32" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="btn-success" aria-hidden="true">✓</span>
+        </button>
+      </form>
+    {% elsif product.available == false %}
+      <button class="luxury-quick-buy-btn luxury-quick-buy-btn--sold-out" disabled>
+        Sold Out
+      </button>
     {% endif %}
-    
-    <!-- Quick Buy Button -->
-    <button 
-      class="luxury-quick-buy-btn"
-      data-product-id="{{ product.id }}"
-      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-    >
-      Quick Buy
-    </button>
   </div>
-</div>
+</article>
 
 <style>
-/* Luxury Product Card Styles */
+/* Luxury Product Card Styles - Premium Edition */
 .luxury-product-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1.5rem;
+  padding: 1.25rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
+.luxury-product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.3), rgba(189, 0, 255, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.luxury-product-card:hover::before {
+  opacity: 1;
+}
+
 .luxury-product-card:hover {
-  transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0, 242, 255, 0.5);
-  box-shadow: 0 20px 40px rgba(0, 242, 255, 0.3);
+  transform: translateY(-10px) scale(1.02);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.3),
+    0 0 80px rgba(0, 242, 255, 0.15),
+    0 0 120px rgba(189, 0, 255, 0.1);
 }
 
 /* Badge Styles */
 .luxury-badge {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.25rem;
+  left: 1.25rem;
   padding: 0.5rem 1rem;
   border-radius: 50px;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   z-index: 10;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -150,6 +248,13 @@
   background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(255, 135, 71, 0.3));
   border: 1px solid rgba(255, 107, 107, 0.5);
   color: #FF6B6B;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.luxury-badge-sale {
+  background: linear-gradient(135deg, #FF6B6B, #FF8787);
+  border: none;
+  color: white;
 }
 
 .badge-shimmer {
@@ -157,34 +262,54 @@
 }
 
 @keyframes shimmer {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
-/* Product Image */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Product Image Container */
 .luxury-product-image-container {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
   margin-bottom: 1rem;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
 }
 
-.luxury-product-image-container img {
+.luxury-product-image-container a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.luxury-product-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.luxury-product-card:hover .luxury-product-image-container img {
+.luxury-product-image--hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.luxury-product-card:hover .luxury-product-image:not(.luxury-product-image--hover) {
+  opacity: 0;
   transform: scale(1.1);
+}
+
+.luxury-product-card:hover .luxury-product-image--hover {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .luxury-placeholder-image {
@@ -194,21 +319,54 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, rgba(0, 242, 255, 0.1), rgba(189, 0, 255, 0.1));
-  font-size: 4rem;
-  font-weight: 700;
   color: rgba(255, 255, 255, 0.3);
+}
+
+/* Wishlist Button */
+.luxury-wishlist-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.luxury-product-card:hover .luxury-wishlist-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.luxury-wishlist-btn:hover {
+  background: rgba(255, 107, 107, 0.8);
+  transform: scale(1.1);
+}
+
+.luxury-wishlist-btn:hover svg {
+  fill: white;
 }
 
 /* Product Info */
 .luxury-product-info {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.375rem;
 }
 
 .luxury-product-title {
-  font-family: var(--font-satoshi);
-  font-size: 1rem;
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 0.9375rem;
   font-weight: 600;
   color: white;
   margin: 0;
@@ -233,27 +391,18 @@
 .luxury-product-rating {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
+  gap: 0.125rem;
+  font-size: 0.75rem;
 }
 
-.star-full {
-  color: #D4AF37;
-}
-
-.star-half {
-  color: #D4AF37;
-  opacity: 0.5;
-}
-
-.star-empty {
-  color: rgba(255, 255, 255, 0.2);
-}
+.star-full { color: #D4AF37; }
+.star-half { color: #D4AF37; opacity: 0.5; }
+.star-empty { color: rgba(255, 255, 255, 0.2); }
 
 .review-count {
-  margin-left: 0.25rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.75rem;
+  margin-left: 0.375rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.6875rem;
 }
 
 /* Price */
@@ -266,66 +415,79 @@
 }
 
 .luxury-price-current {
-  font-family: var(--font-satoshi);
-  font-size: 1.25rem;
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 1.125rem;
   font-weight: 700;
-  color: #D4AF37;
+  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .luxury-price-compare {
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.4);
   text-decoration: line-through;
 }
 
 .luxury-price-sale {
-  color: #FF6B6B;
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8787 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.luxury-price-badge {
-  background: linear-gradient(135deg, #FF6B6B, #FF8787);
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.625rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+/* Urgency */
+.luxury-urgency {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0;
+}
+
+.urgency-icon {
+  font-size: 0.875rem;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.urgency-text {
+  font-size: 0.75rem;
+  color: #FF6B6B;
+  font-weight: 600;
 }
 
 /* Social Proof */
 .luxury-social-proof {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.6);
   padding: 0.25rem 0;
 }
 
-/* Low Stock Warning */
-.luxury-low-stock {
-  font-size: 0.75rem;
-  color: #FF6B6B;
-  padding: 0.25rem 0;
-  font-weight: 600;
+/* Quick Buy Form */
+.luxury-quick-buy-form {
+  margin-top: 0.5rem;
 }
 
 /* Quick Buy Button */
 .luxury-quick-buy-btn {
   width: 100%;
-  padding: 0.75rem 1.5rem;
-  margin-top: 0.5rem;
-  font-family: var(--font-satoshi);
-  font-size: 0.875rem;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: white;
   background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+  background-size: 200% 200%;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: 44px;
-  transform: translateY(10px);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(8px);
   opacity: 0;
 }
 
@@ -335,8 +497,39 @@
 }
 
 .luxury-quick-buy-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 32px rgba(0, 242, 255, 0.5);
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 242, 255, 0.4);
+}
+
+.luxury-quick-buy-btn .btn-loading,
+.luxury-quick-buy-btn .btn-success {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.luxury-quick-buy-btn.is-loading .btn-text { opacity: 0; }
+.luxury-quick-buy-btn.is-loading .btn-loading { opacity: 1; }
+.luxury-quick-buy-btn.is-success .btn-text { opacity: 0; }
+.luxury-quick-buy-btn.is-success .btn-success { opacity: 1; }
+
+.luxury-quick-buy-btn .spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.luxury-quick-buy-btn--sold-out {
+  background: rgba(255, 255, 255, 0.1) !important;
+  cursor: not-allowed;
+  opacity: 0.6 !important;
+  transform: translateY(0) !important;
 }
 
 /* Mobile Optimizations */
@@ -346,17 +539,47 @@
   }
   
   .luxury-product-title {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
   }
   
   .luxury-price-current {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
   
   .luxury-quick-buy-btn {
     opacity: 1;
     transform: translateY(0);
-    min-height: 48px;
+    min-height: 44px;
+    padding: 0.625rem 1rem;
+    font-size: 0.75rem;
+  }
+  
+  .luxury-wishlist-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .luxury-badge {
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.375rem 0.625rem;
+    font-size: 0.625rem;
+  }
+  
+  .luxury-social-proof {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .luxury-product-card {
+    padding: 0.75rem;
+  }
+  
+  .luxury-product-image-container {
+    border-radius: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 }
 </style>
+

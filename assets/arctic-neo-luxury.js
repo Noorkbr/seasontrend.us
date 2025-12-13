@@ -556,6 +556,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initProductGrid();
     initTrustWall();
     initMobileMenu();
+    initAjaxCart();
     
     // Wait a bit for external libraries to load
     setTimeout(() => {
@@ -564,6 +565,324 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500);
     
 });
+
+// ============================================
+// CART CONFIGURATION CONSTANTS
+// ============================================
+const CART_CONFIG = {
+    NOTIFICATION_DURATION: 4000,
+    FADE_OUT_DURATION: 300,
+    SUCCESS_RESET_DELAY: 2000
+};
+
+// ============================================
+// AJAX CART FUNCTIONALITY
+// ============================================
+function initAjaxCart() {
+    // Handle all add-to-cart form submissions
+    document.addEventListener('submit', function(e) {
+        const form = e.target.closest('[data-add-to-cart-form]');
+        if (!form) return;
+        
+        e.preventDefault();
+        
+        const button = form.querySelector('[data-add-to-cart]');
+        if (!button || button.disabled) return;
+        
+        addToCart(form, button);
+    });
+    
+    // Also handle direct button clicks (for forms without proper setup)
+    document.addEventListener('click', function(e) {
+        const button = e.target.closest('[data-add-to-cart]');
+        if (!button) return;
+        
+        const form = button.closest('form');
+        if (form && form.hasAttribute('data-add-to-cart-form')) return; // Let form submit handler deal with it
+        
+        e.preventDefault();
+        
+        // Create a simple form data object
+        const variantId = button.dataset.variantId || form?.querySelector('[name="id"]')?.value;
+        if (!variantId) return;
+        
+        addToCartDirect(variantId, 1, button);
+    });
+}
+
+async function addToCart(form, button) {
+    const formData = new FormData(form);
+    const variantId = formData.get('id');
+    const quantity = parseInt(formData.get('quantity')) || 1;
+    
+    if (!variantId) {
+        console.error('No variant ID found');
+        return;
+    }
+    
+    // Set loading state
+    button.classList.add('is-loading');
+    button.disabled = true;
+    
+    try {
+        const response = await fetch(window.routes?.cart_add_url || '/cart/add.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: variantId,
+                quantity: quantity
+            })
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.description || 'Failed to add to cart');
+        }
+        
+        const data = await response.json();
+        
+        // Success state
+        button.classList.remove('is-loading');
+        button.classList.add('is-success');
+        
+        // Update cart count
+        updateCartCount();
+        
+        // Trigger cart animation
+        if (typeof window.triggerCartAnimation === 'function') {
+            window.triggerCartAnimation();
+        }
+        
+        // Show notification
+        showCartNotification(data.title || 'Product', 'added');
+        
+        // Reset button after delay
+        setTimeout(() => {
+            button.classList.remove('is-success');
+            button.disabled = false;
+        }, 2000);
+        
+    } catch (error) {
+        console.error('Add to cart error:', error);
+        button.classList.remove('is-loading');
+        button.disabled = false;
+        
+        // Show error notification
+        showCartNotification(error.message || 'Could not add to cart', 'error');
+    }
+}
+
+async function addToCartDirect(variantId, quantity, button) {
+    // Set loading state
+    if (button) {
+        button.classList.add('is-loading');
+        button.disabled = true;
+    }
+    
+    try {
+        const response = await fetch(window.routes?.cart_add_url || '/cart/add.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: variantId,
+                quantity: quantity
+            })
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.description || 'Failed to add to cart');
+        }
+        
+        const data = await response.json();
+        
+        if (button) {
+            button.classList.remove('is-loading');
+            button.classList.add('is-success');
+        }
+        
+        updateCartCount();
+        
+        if (typeof window.triggerCartAnimation === 'function') {
+            window.triggerCartAnimation();
+        }
+        
+        showCartNotification(data.title || 'Product', 'added');
+        
+        if (button) {
+            setTimeout(() => {
+                button.classList.remove('is-success');
+                button.disabled = false;
+            }, 2000);
+        }
+        
+    } catch (error) {
+        console.error('Add to cart error:', error);
+        if (button) {
+            button.classList.remove('is-loading');
+            button.disabled = false;
+        }
+        showCartNotification(error.message || 'Could not add to cart', 'error');
+    }
+}
+
+async function updateCartCount() {
+    try {
+        const response = await fetch('/cart.js', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        if (!response.ok) return;
+        
+        const cart = await response.json();
+        const cartCountElements = document.querySelectorAll('.arctic-cart-count, .cart-count, [data-cart-count]');
+        
+        cartCountElements.forEach(el => {
+            el.textContent = cart.item_count;
+            el.setAttribute('aria-label', `${cart.item_count} items in cart`);
+        });
+        
+    } catch (error) {
+        console.error('Failed to update cart count:', error);
+    }
+}
+
+function showCartNotification(message, type = 'added') {
+    // Remove existing notification
+    const existing = document.querySelector('.arctic-cart-notification');
+    if (existing) existing.remove();
+    
+    const notification = document.createElement('div');
+    notification.className = `arctic-cart-notification arctic-cart-notification--${type}`;
+    
+    if (type === 'added') {
+        notification.innerHTML = `
+            <span class="notification-icon">✓</span>
+            <span class="notification-text">${message} added to cart!</span>
+            <a href="/cart" class="notification-link">View Cart</a>
+        `;
+    } else if (type === 'error') {
+        notification.innerHTML = `
+            <span class="notification-icon">✕</span>
+            <span class="notification-text">${message}</span>
+        `;
+    }
+    
+    // Add styles if not already in document
+    if (!document.getElementById('arctic-notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'arctic-notification-styles';
+        style.textContent = `
+            .arctic-cart-notification {
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 16px 20px;
+                background: rgba(5, 8, 15, 0.95);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(0, 242, 255, 0.3);
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 242, 255, 0.2);
+                color: white;
+                font-family: var(--font-satoshi, 'Inter', sans-serif);
+                font-size: 14px;
+                animation: slideInRight 0.3s ease;
+                max-width: 90vw;
+            }
+            
+            .arctic-cart-notification--error {
+                border-color: rgba(255, 107, 107, 0.5);
+                box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
+            }
+            
+            .arctic-cart-notification .notification-icon {
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, #00F2FF, #BD00FF);
+                border-radius: 50%;
+                font-size: 12px;
+                font-weight: bold;
+            }
+            
+            .arctic-cart-notification--error .notification-icon {
+                background: linear-gradient(135deg, #FF6B6B, #FF8787);
+            }
+            
+            .arctic-cart-notification .notification-link {
+                color: #00F2FF;
+                text-decoration: none;
+                font-weight: 600;
+                margin-left: 8px;
+                white-space: nowrap;
+            }
+            
+            .arctic-cart-notification .notification-link:hover {
+                text-decoration: underline;
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .arctic-cart-notification {
+                    right: 10px;
+                    left: 10px;
+                    max-width: calc(100vw - 20px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remove after delay
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease forwards';
+        setTimeout(() => notification.remove(), CART_CONFIG.FADE_OUT_DURATION);
+    }, CART_CONFIG.NOTIFICATION_DURATION);
+}
+
+// Expose functions globally for external use
+window.ArcticCart = {
+    addToCart: addToCartDirect,
+    updateCount: updateCartCount,
+    showNotification: showCartNotification
+};
 
 // ============================================
 // MOBILE MENU FUNCTIONALITY
