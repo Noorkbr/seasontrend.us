@@ -56,7 +56,25 @@
                 loading="eager">
             </a>
           {% else %}
-            <h1><a href="/" class="logo-link">{{ section.settings.logo_text | default: shop.name | split: '' | first }}{% if section.settings.logo_text == blank %}<span>{{ shop.name | split: '' | last | default: 'Trend' }}</span>{% endif %}</a></h1>
+            <a href="/" class="logo-link seasontrend-logo" aria-label="{{ shop.name }} - Home">
+              <span class="logo-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#00F2FF"/>
+                      <stop offset="50%" style="stop-color:#BD00FF"/>
+                      <stop offset="100%" style="stop-color:#00F2FF"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M16 2L20 8L28 10L22 16L24 24L16 20L8 24L10 16L4 10L12 8L16 2Z" fill="url(#logo-gradient)" stroke="url(#logo-gradient)" stroke-width="1.5" stroke-linejoin="round"/>
+                  <circle cx="16" cy="14" r="4" fill="white" fill-opacity="0.3"/>
+                </svg>
+              </span>
+              <span class="logo-text">
+                <span class="logo-season">Season</span><span class="logo-trend">Trend</span>
+              </span>
+              <span class="logo-tagline">Premium Style</span>
+            </a>
           {% endif %}
         </div>
         
@@ -197,6 +215,143 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+}
+
+/* SeasonTrend Premium Logo Styles */
+.seasontrend-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.seasontrend-logo .logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  animation: iconPulse 3s ease-in-out infinite;
+}
+
+.seasontrend-logo .logo-icon svg {
+  filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.4));
+  transition: all 0.4s ease;
+}
+
+.seasontrend-logo:hover .logo-icon svg {
+  filter: drop-shadow(0 0 16px rgba(0, 242, 255, 0.7));
+  transform: rotate(15deg) scale(1.1);
+}
+
+.seasontrend-logo .logo-text {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-clash, 'Inter', sans-serif);
+  font-weight: 800;
+  font-size: 1.85rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  position: relative;
+}
+
+.seasontrend-logo .logo-season {
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
+}
+
+.seasontrend-logo .logo-trend {
+  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 50%, #00F2FF 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 4s ease infinite;
+  transition: all 0.4s ease;
+}
+
+.seasontrend-logo .logo-tagline {
+  position: absolute;
+  bottom: -12px;
+  right: 0;
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.4s ease;
+}
+
+.seasontrend-logo:hover .logo-tagline {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.seasontrend-logo:hover .logo-season {
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.seasontrend-logo:hover .logo-trend {
+  filter: brightness(1.2);
+}
+
+/* Logo Animations */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Mobile Logo Adjustments */
+@media (max-width: 768px) {
+  .seasontrend-logo .logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .seasontrend-logo .logo-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .seasontrend-logo .logo-text {
+    font-size: 1.35rem;
+  }
+  
+  .seasontrend-logo .logo-tagline {
+    display: none;
+  }
+  
+  .seasontrend-logo {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .seasontrend-logo .logo-text {
+    font-size: 1.15rem;
+  }
+  
+  .seasontrend-logo .logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .seasontrend-logo .logo-icon svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 </style>
 
