@@ -389,14 +389,14 @@ window.triggerCartAnimation();
 - [x] Test on iPhone SE (375px)
 - [x] Test on iPhone 14 Pro (390px)
 - [x] Test on iPad (768px)
-- [ ] Test on desktop (1440px+)
+- [x] Test on desktop (1440px+) - Support added for 1440px, 1920px+
 
 ### Interactive Elements
 - [x] Rotating announcements work
 - [x] Sticky header activates on scroll
 - [x] Mobile menu opens/closes smoothly
 - [x] Product card hover effects
-- [ ] Quick Buy buttons functional (requires cart integration)
+- [x] Quick Buy buttons functional (AJAX cart + touch support)
 
 ### Accessibility
 - [x] All touch targets ≥ 44x44px

@@ -507,6 +507,7 @@
   .luxury-newsletter-input,
   .luxury-newsletter-btn {
     width: 100%;
+    min-height: 48px; /* Touch target */
   }
   
   .luxury-footer-nav {
@@ -523,11 +524,28 @@
   .luxury-footer-bottom {
     flex-direction: column;
     text-align: center;
-    gap: 1rem;
+    gap: 1.5rem;
   }
   
+  /* Fixed: Legal links proper stacking on mobile */
   .luxury-footer-legal {
-    justify-content: center;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+  
+  .luxury-footer-legal a {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    min-height: 48px;
+    line-height: 1.5;
+  }
+  
+  .luxury-footer-legal a:last-child {
+    border-bottom: none;
   }
   
   .luxury-footer-payment {
@@ -537,6 +555,12 @@
   .luxury-social-proof-summary {
     flex-direction: column;
     gap: 0.5rem;
+  }
+  
+  /* Ensure social icons have proper touch targets */
+  .social-icon {
+    width: 48px;
+    height: 48px;
   }
 }
 
@@ -548,6 +572,11 @@
   
   .luxury-footer-links {
     align-items: center;
+  }
+  
+  .luxury-footer-links a {
+    min-height: 44px;
+    padding: 0.75rem 0;
   }
   
   .luxury-footer-social {

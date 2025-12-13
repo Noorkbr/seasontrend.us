@@ -557,6 +557,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initTrustWall();
     initMobileMenu();
     initAjaxCart();
+    initLazyImageLoading();
     
     // Wait a bit for external libraries to load
     setTimeout(() => {
@@ -565,6 +566,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500);
     
 });
+
+// ============================================
+// LAZY IMAGE LOADING WITH FADE-IN
+// ============================================
+function initLazyImageLoading() {
+    // Handle lazy loaded images - add loaded class when complete
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    
+    images.forEach(img => {
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', function() {
+                this.classList.add('loaded');
+            });
+            img.addEventListener('error', function() {
+                // Show placeholder on error
+                this.classList.add('loaded');
+                this.style.opacity = '0.3';
+            });
+        }
+    });
+    
+    // Use Intersection Observer for better performance
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                    }
+                    if (img.dataset.srcset) {
+                        img.srcset = img.dataset.srcset;
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '100px 0px',
+            threshold: 0.01
+        });
+        
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+}
 
 // ============================================
 // CART CONFIGURATION CONSTANTS
@@ -608,6 +657,21 @@ function initAjaxCart() {
         
         addToCartDirect(variantId, 1, button);
     });
+    
+    // Add touch support for Quick Buy buttons on mobile
+    document.addEventListener('touchend', function(e) {
+        const button = e.target.closest('.quick-buy-btn, .luxury-quick-buy-btn');
+        if (!button) return;
+        
+        // Prevent ghost clicks
+        e.preventDefault();
+        
+        const form = button.closest('form[data-add-to-cart-form]');
+        if (form) {
+            const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+            form.dispatchEvent(submitEvent);
+        }
+    }, { passive: false });
 }
 
 async function addToCart(form, button) {

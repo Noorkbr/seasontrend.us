@@ -1068,6 +1068,180 @@ html, body {
     }
 }
 
+/* ============================================
+   LARGE DESKTOP SUPPORT (1440px+)
+   ============================================ */
+
+/* Large Desktop (1280px - 1440px) */
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    
+    .holographic-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        max-width: 1400px;
+    }
+    
+    .product-grid-section {
+        padding: 6rem 2rem;
+    }
+    
+    .hero-portal {
+        min-height: 100vh;
+    }
+    
+    .liquid-headline {
+        font-size: 6rem;
+    }
+    
+    .product-float {
+        width: 500px;
+        height: 500px;
+    }
+}
+
+/* Extra Large Desktop (1440px - 1920px) */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+        padding: 0 3rem;
+    }
+    
+    .holographic-grid {
+        max-width: 1600px;
+        gap: 2.5rem;
+    }
+    
+    .glass-product-card {
+        padding: 1.5rem;
+    }
+    
+    .product-title {
+        font-size: 1.125rem;
+    }
+    
+    .product-price {
+        font-size: 1.375rem;
+    }
+    
+    .quick-buy-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+    
+    .arctic-section-title {
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+    }
+    
+    .luxury-footer-nav {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3rem;
+    }
+}
+
+/* Ultra-wide Desktop (1920px+) */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+        padding: 0 4rem;
+    }
+    
+    .holographic-grid {
+        max-width: 1800px;
+        gap: 3rem;
+    }
+    
+    .glass-product-card {
+        padding: 2rem;
+        border-radius: 2rem;
+    }
+    
+    .product-image-container {
+        border-radius: 1.25rem;
+    }
+    
+    .product-title {
+        font-size: 1.25rem;
+    }
+    
+    .product-price {
+        font-size: 1.5rem;
+    }
+    
+    .liquid-headline {
+        font-size: 7rem;
+    }
+    
+    .hero-content {
+        max-width: 1200px;
+    }
+    
+    .product-float {
+        width: 600px;
+        height: 600px;
+    }
+    
+    .trust-wall-section {
+        padding: 8rem 4rem;
+    }
+    
+    .luxury-footer {
+        padding: 6rem 4rem 3rem;
+    }
+    
+    .luxury-newsletter-section {
+        padding: 3.5rem;
+    }
+}
+
+/* ============================================
+   TOUCH TARGET MINIMUM SIZE (44px)
+   ============================================ */
+
+/* All interactive elements minimum touch target */
+button,
+a.btn,
+.btn,
+.glass-pill-btn,
+.quick-buy-btn,
+.luxury-cta-primary,
+.luxury-quick-buy-btn,
+.arctic-icon-btn,
+.arctic-cta-btn,
+.social-icon,
+input[type="submit"],
+input[type="button"],
+.product-form__submit {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Ensure proper padding for hit area */
+.arctic-nav-menu a {
+    padding: 0.75rem 0.5rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.luxury-footer-links a {
+    padding: 0.5rem 0;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.luxury-footer-legal a {
+    padding: 0.5rem 0.75rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+}
+
 /* Add padding to body */
 body {
     padding-top: var(--header-height);
@@ -1281,5 +1455,237 @@ button:focus-visible {
     }
     50% {
         filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.5));
+    }
+}
+
+/* ============================================
+   GLASSMORPHISM CROSS-BROWSER FALLBACKS
+   ============================================ */
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(20px)) {
+    .arctic-header {
+        background: rgba(5, 8, 15, 0.98);
+    }
+    
+    .arctic-header.scrolled {
+        background: #05080F;
+    }
+    
+    .glass-product-card {
+        background: rgba(15, 20, 35, 0.95);
+        border: 1px solid rgba(0, 242, 255, 0.15);
+    }
+    
+    .arctic-nav-menu {
+        background: rgba(5, 8, 15, 0.98);
+    }
+    
+    .trust-badge-item {
+        background: rgba(15, 20, 35, 0.95);
+    }
+    
+    .luxury-newsletter-section {
+        background: rgba(15, 20, 35, 0.95);
+    }
+    
+    .verified-bubble {
+        background: rgba(5, 8, 15, 0.95);
+    }
+    
+    .social-icon {
+        background: rgba(15, 20, 35, 0.95);
+    }
+    
+    .luxury-product-card {
+        background: rgba(15, 20, 35, 0.95);
+    }
+    
+    .luxury-badge {
+        background: rgba(5, 8, 15, 0.95);
+    }
+    
+    .luxury-wishlist-btn {
+        background: rgba(5, 8, 15, 0.95);
+    }
+}
+
+/* Enhanced fallback with gradient for visual appeal */
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+    .glass-product-card,
+    .arctic-header,
+    .luxury-product-card {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+}
+
+/* ============================================
+   FOOTER LEGAL LINKS MOBILE FIX
+   ============================================ */
+
+@media (max-width: 768px) {
+    .luxury-footer-legal {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        align-items: center;
+    }
+    
+    .luxury-footer-legal a {
+        width: 100%;
+        text-align: center;
+        padding: 0.875rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .luxury-footer-legal a:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .luxury-footer-legal {
+        margin-top: 1rem;
+    }
+    
+    .luxury-footer-legal a {
+        padding: 1rem;
+        font-size: 0.9375rem;
+    }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZED ANIMATIONS
+   Using only transform and opacity for GPU acceleration
+   ============================================ */
+
+/* Ensure all animations use transform/opacity only */
+.glass-product-card {
+    will-change: transform, opacity;
+}
+
+.glass-product-card:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.quick-buy-btn,
+.luxury-quick-buy-btn,
+.glass-pill-btn,
+.luxury-cta-primary {
+    will-change: transform, opacity;
+}
+
+.quick-buy-btn:hover,
+.luxury-quick-buy-btn:hover,
+.glass-pill-btn:hover,
+.luxury-cta-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* Remove any margin/position based animations that cause layout shift */
+.arctic-icon-btn:hover {
+    transform: translateY(-2px);
+}
+
+.social-icon:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+.trust-badge-item:hover {
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   ENHANCED CONTRAST FOR WCAG AA COMPLIANCE
+   ============================================ */
+
+/* Ensure minimum 4.5:1 contrast for text */
+.product-title a,
+.luxury-product-title a {
+    color: white; /* #FFFFFF on #05080F = 18.86:1 */
+}
+
+.arctic-nav-menu a {
+    color: rgba(255, 255, 255, 0.9); /* High visibility */
+}
+
+.luxury-footer-links a,
+.luxury-footer-legal a {
+    color: rgba(255, 255, 255, 0.7); /* 4.96:1 on #05080F */
+}
+
+.luxury-footer-links a:hover,
+.luxury-footer-legal a:hover {
+    color: #00F2FF;
+}
+
+/* Enhanced focus states for keyboard navigation */
+.quick-buy-btn:focus-visible,
+.luxury-quick-buy-btn:focus-visible,
+.glass-pill-btn:focus-visible {
+    outline: 3px solid #00F2FF;
+    outline-offset: 2px;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+}
+
+.arctic-nav-menu a:focus-visible {
+    outline: 2px solid #00F2FF;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* ============================================
+   IMAGE LOADING PERFORMANCE
+   ============================================ */
+
+/* Placeholder while images load */
+.product-image-container {
+    background: linear-gradient(135deg, rgba(0, 242, 255, 0.05), rgba(189, 0, 255, 0.05));
+}
+
+/* Smooth fade-in for lazy loaded images */
+.product-image-container img {
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.6s ease;
+}
+
+.product-image-container img[loading="lazy"] {
+    opacity: 0;
+}
+
+.product-image-container img.loaded,
+.product-image-container img[loading="lazy"]:not([src=""]) {
+    opacity: 1;
+}
+
+/* ============================================
+   PRINT STYLES (for accessibility)
+   ============================================ */
+
+@media print {
+    .arctic-header,
+    .luxury-footer,
+    .quick-buy-btn,
+    .luxury-quick-buy-btn,
+    .arctic-nav-actions {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+        padding-top: 0 !important;
+    }
+    
+    .glass-product-card {
+        background: white !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+    }
+    
+    .product-title a,
+    .luxury-product-title a {
+        color: black !important;
     }
 }
