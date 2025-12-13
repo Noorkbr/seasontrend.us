@@ -1,6 +1,8 @@
 /* 
  * Arctic Neo-Luxury Design System
  * "Billionaire" aesthetic: Dark void, aurora gradients, glass morphism, intense glows
+ /* * Arctic Neo-Luxury Design System
+ * "Billionaire" aesthetic: Dark void, aurora gradients, glass morphism, intense glows
  */
 
 :root {
@@ -177,9 +179,10 @@
     position: relative;
 }
 
+/* FIXED: Changed minmax from 320px to 160px for mobile 2-column support */
 .holographic-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 2rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -696,8 +699,13 @@
     }
     
     .holographic-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+        padding: 0 10px;
+    }
+    
+    .glass-product-card {
+        padding: 1rem;
     }
     
     .video-scroll-container {
@@ -1407,6 +1415,7 @@
 @media (max-width: 768px) {
     .luxury-footer {
         padding: 3rem 1rem 2rem;
+        padding-bottom: 80px; /* Space for mobile nav bars if needed */
     }
     
     .luxury-newsletter-section {
@@ -1430,6 +1439,7 @@
     .luxury-newsletter-input,
     .luxury-newsletter-btn {
         width: 100%;
+        margin-top: 10px;
     }
     
     .luxury-social-proof-summary {
@@ -1451,10 +1461,15 @@
         gap: 2rem;
         margin-bottom: 2rem;
         padding-bottom: 2rem;
+        text-align: center;
     }
     
     .luxury-footer-column {
         gap: 0.75rem;
+    }
+    
+    .luxury-footer-social {
+        justify-content: center;
     }
     
     .luxury-footer-bottom {

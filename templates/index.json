@@ -14,20 +14,17 @@
       "settings": {
         "hero_headline": "FUTURE. COMFORT.",
         "hero_subheadline": "Experience the next generation of luxury products",
-        "hero_cta_text": "Enter The Future",
-        "hero_cta_link": "/collections/all",
-        "hero_product_title": ""
+        "hero_cta_text": "Shop New Arrivals",
+        "hero_cta_link": "/collections/new-arrivals"
       }
     },
-    "arctic_product_grid_hydnRh": {
+    "arctic-product-grid": {
       "type": "arctic-product-grid",
-      "name": "Holographic Product Grid",
       "settings": {
-        "grid_title": "Featured Products",
-        "collection": "clothing",
-        "products_to_show": 6,
+        "grid_title": "Trending Now",
+        "products_to_show": 8,
         "view_all_text": "View All Products",
-        "view_all_link": "shopify://collections/all"
+        "view_all_link": "/collections/all"
       }
     },
     "arctic-trust-wall": {
@@ -40,7 +37,7 @@
   },
   "order": [
     "arctic-hero-portal",
-    "arctic_product_grid_hydnRh",
+    "arctic-product-grid",
     "arctic-trust-wall"
   ]
 }
