@@ -1,76 +1,140 @@
-<!-- Footer -->
-<footer class="footer">
+<!-- Enhanced Luxury Footer -->
+<footer class="luxury-footer">
   <div class="container">
-    <div class="footer-content">
-      <div class="footer-column">
-        <h3 class="footer-logo">Season<span>Trend</span></h3>
-        <p class="footer-description">
-          {{ section.settings.description | default: "Your trusted destination for trending seasonal products. Quality, style, and service guaranteed." }}
-        </p>
-        <div class="footer-social">
-          {% if section.settings.facebook_url %}
-            <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
-          {% endif %}
-          {% if section.settings.instagram_url %}
-            <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
-          {% endif %}
-          {% if section.settings.twitter_url %}
-            <a href="{{ section.settings.twitter_url }}" target="_blank" rel="noopener" aria-label="Twitter">🐦</a>
-          {% endif %}
-          {% if section.settings.pinterest_url %}
-            <a href="{{ section.settings.pinterest_url }}" target="_blank" rel="noopener" aria-label="Pinterest">📌</a>
-          {% endif %}
+    
+    <!-- Trust Badges Section (Top of Footer) -->
+    <div class="luxury-footer-trust">
+      {% render 'trust-badges' %}
+    </div>
+    
+    <!-- Newsletter Signup -->
+    <div class="luxury-newsletter-section">
+      <div class="luxury-newsletter-content">
+        <div class="luxury-newsletter-text">
+          <h3 class="luxury-newsletter-title">JOIN THE VIP LIST</h3>
+          <p class="luxury-newsletter-subtitle">Get 10% off your first order + exclusive deals</p>
         </div>
-      </div>
-
-      {% for block in section.blocks %}
-        {% if block.type == 'menu' %}
-          <div class="footer-column" {{ block.shopify_attributes }}>
-            <h4>{{ block.settings.title }}</h4>
-            {% if block.settings.menu != blank %}
-              <ul class="footer-links">
-                {% for link in linklists[block.settings.menu].links %}
-                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                {% endfor %}
-              </ul>
-            {% endif %}
+        <form class="luxury-newsletter-form" action="/contact#newsletter" method="post" accept-charset="UTF-8">
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="luxury-newsletter-input-group">
+            <input 
+              type="email" 
+              name="contact[email]" 
+              placeholder="Enter your email"
+              class="luxury-newsletter-input"
+              required
+              aria-label="Email address"
+            >
+            <button type="submit" class="luxury-newsletter-btn">
+              Subscribe
+            </button>
           </div>
-        {% endif %}
-      {% endfor %}
-
-      <div class="footer-column">
-        <h4>Contact Us</h4>
-        <ul class="footer-contact">
-          {% if section.settings.email %}
-            <li>📧 {{ section.settings.email }}</li>
-          {% endif %}
-          {% if section.settings.phone %}
-            <li>📞 {{ section.settings.phone }}</li>
-          {% endif %}
-          {% if section.settings.address %}
-            <li>📍 {{ section.settings.address }}</li>
-          {% endif %}
-        </ul>
+        </form>
       </div>
     </div>
-
-    <div class="footer-bottom">
-      <div class="footer-payment">
-        <span>We Accept:</span>
-        <div class="payment-icons">
-          <span>💳</span>
-          <span>💳</span>
-          <span>💳</span>
-          <span>💳</span>
+    
+    <!-- Social Proof Summary -->
+    <div class="luxury-social-proof-summary">
+      <span class="proof-stars">⭐⭐⭐⭐⭐</span>
+      <span class="proof-text">4.8/5 from 1,247+ reviews</span>
+    </div>
+    
+    <!-- Footer Navigation (4 Columns) -->
+    <div class="luxury-footer-nav">
+      <!-- Column 1: Shop -->
+      <div class="luxury-footer-column">
+        <h4 class="luxury-footer-heading">Shop</h4>
+        <ul class="luxury-footer-links">
+          <li><a href="/collections/all">All Collections</a></li>
+          <li><a href="/collections/new-arrivals">New Arrivals</a></li>
+          <li><a href="/collections/best-sellers">Best Sellers</a></li>
+          <li><a href="/collections/sale">Sale</a></li>
+        </ul>
+      </div>
+      
+      <!-- Column 2: Help -->
+      <div class="luxury-footer-column">
+        <h4 class="luxury-footer-heading">Help</h4>
+        <ul class="luxury-footer-links">
+          <li><a href="/pages/contact">Contact Us</a></li>
+          <li><a href="/pages/shipping">Shipping Info</a></li>
+          <li><a href="/pages/returns">Returns & Exchanges</a></li>
+          <li><a href="/pages/faq">FAQ</a></li>
+        </ul>
+      </div>
+      
+      <!-- Column 3: About -->
+      <div class="luxury-footer-column">
+        <h4 class="luxury-footer-heading">About</h4>
+        <ul class="luxury-footer-links">
+          <li><a href="/pages/about">Our Story</a></li>
+          <li><a href="/pages/reviews">Customer Reviews</a></li>
+          <li><a href="/blogs/news">Blog</a></li>
+          <li><a href="/pages/careers">Careers</a></li>
+        </ul>
+      </div>
+      
+      <!-- Column 4: Connect -->
+      <div class="luxury-footer-column">
+        <h4 class="luxury-footer-heading">Connect</h4>
+        <div class="luxury-footer-social">
+          {% if section.settings.facebook_url %}
+            <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook" class="social-icon">
+              <span>📘</span>
+            </a>
+          {% endif %}
+          {% if section.settings.instagram_url %}
+            <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">
+              <span>📷</span>
+            </a>
+          {% endif %}
+          {% if section.settings.twitter_url %}
+            <a href="{{ section.settings.twitter_url }}" target="_blank" rel="noopener" aria-label="Twitter" class="social-icon">
+              <span>🐦</span>
+            </a>
+          {% endif %}
+          {% if section.settings.pinterest_url %}
+            <a href="{{ section.settings.pinterest_url }}" target="_blank" rel="noopener" aria-label="Pinterest" class="social-icon">
+              <span>📌</span>
+            </a>
+          {% endif %}
+          {% if section.settings.tiktok_url %}
+            <a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">
+              <span>🎵</span>
+            </a>
+          {% endif %}
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="luxury-footer-contact">
+          {% if section.settings.email %}
+            <a href="mailto:{{ section.settings.email }}" class="contact-link">
+              <span class="icon">📧</span>
+              <span>{{ section.settings.email }}</span>
+            </a>
+          {% endif %}
+          {% if section.settings.phone %}
+            <a href="tel:{{ section.settings.phone }}" class="contact-link">
+              <span class="icon">📞</span>
+              <span>{{ section.settings.phone }}</span>
+            </a>
+          {% endif %}
         </div>
       </div>
-      <div class="footer-copyright">
+    </div>
+    
+    <!-- Footer Bottom -->
+    <div class="luxury-footer-bottom">
+      <div class="luxury-footer-copyright">
         <p>© {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ section.settings.copyright_text | default: "All rights reserved." }}</p>
       </div>
-      <div class="footer-legal">
+      
+      <div class="luxury-footer-legal">
         {% if section.settings.show_legal_links %}
           <a href="/pages/privacy-policy">Privacy Policy</a>
+          <span class="separator">•</span>
           <a href="/pages/terms-of-service">Terms of Service</a>
+          <span class="separator">•</span>
           <a href="/pages/refund-policy">Refund Policy</a>
         {% endif %}
       </div>
@@ -82,12 +146,6 @@
 {
   "name": "Footer",
   "settings": [
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Footer Description",
-      "default": "Your trusted destination for trending seasonal products. Quality, style, and service guaranteed."
-    },
     {
       "type": "header",
       "content": "Social Media"
@@ -113,6 +171,11 @@
       "label": "Pinterest URL"
     },
     {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+    {
       "type": "header",
       "content": "Contact Information"
     },
@@ -125,11 +188,6 @@
       "type": "text",
       "id": "phone",
       "label": "Phone"
-    },
-    {
-      "type": "text",
-      "id": "address",
-      "label": "Address"
     },
     {
       "type": "header",
@@ -146,25 +204,6 @@
       "id": "copyright_text",
       "label": "Copyright Text",
       "default": "All rights reserved."
-    }
-  ],
-  "blocks": [
-    {
-      "type": "menu",
-      "name": "Menu Column",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Heading",
-          "default": "Quick Links"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "label": "Menu"
-        }
-      ]
     }
   ],
   "presets": [

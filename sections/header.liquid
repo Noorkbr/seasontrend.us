@@ -1,44 +1,57 @@
 <!-- Arctic Neo-Luxury Header -->
-<header class="arctic-header">
+<header class="arctic-header" id="arctic-header">
+  <!-- Rotating Announcement Bar -->
   <div class="arctic-header-top">
     <div class="container">
-      <div class="arctic-header-content">
-        <div class="arctic-header-left">
-          <span>⚡ {{ section.settings.header_announcement | default: "Free Shipping on Orders Over $50" }}</span>
-        </div>
-        <div class="arctic-header-right">
-          <span>🔒 Secure Checkout</span>
-          <span>📞 24/7 Support</span>
+      <div class="arctic-announcement-bar" id="arctic-announcement-bar">
+        <div class="announcement-track">
+          <div class="announcement-item active">✨ Free Shipping Over $50</div>
+          <div class="announcement-item">🎁 New Arrivals Just Dropped</div>
+          <div class="announcement-item">💎 Shop Best Sellers</div>
+          <div class="announcement-item">🔒 Secure Checkout Guaranteed</div>
         </div>
       </div>
     </div>
   </div>
+  
+  <!-- Main Navigation -->
   <nav class="arctic-navbar">
     <div class="container">
       <div class="arctic-navbar-content">
+        <!-- Logo with Glow Effect -->
         <div class="arctic-logo">
           {% if section.settings.logo %}
-            <a href="/">
+            <a href="/" class="logo-link">
               <img src="{{ section.settings.logo | img_url: 'medium' }}" 
                    alt="{{ shop.name }}"
                    style="max-width: {{ section.settings.logo_width }}px;">
             </a>
           {% else %}
-            <h1><a href="/">Season<span>Trend</span></a></h1>
+            <h1><a href="/" class="logo-link">Season<span>Trend</span></a></h1>
           {% endif %}
         </div>
+        
+        <!-- Enhanced Navigation Menu -->
         <ul class="arctic-nav-menu" id="arctic-nav-menu">
+          <li><a href="/collections/new-arrivals" class="luxury-accent">NEW ARRIVALS</a></li>
+          <li><a href="/collections/best-sellers" class="luxury-accent">BEST SELLERS</a></li>
+          <li><a href="/collections/all">COLLECTIONS</a></li>
           {% for link in linklists.main-menu.links %}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
           {% endfor %}
+          <li><a href="/collections/sale" class="sale-link">SALE</a></li>
         </ul>
+        
+        <!-- Navigation Actions with Enhanced Cart -->
         <div class="arctic-nav-actions">
           <button class="arctic-icon-btn search-btn" aria-label="Search">🔍</button>
-          <a href="/cart" class="arctic-icon-btn cart-btn" aria-label="Cart">
-            🛒 <span class="arctic-cart-count">{{ cart.item_count }}</span>
+          <a href="/cart" class="arctic-icon-btn cart-btn" id="arctic-cart-btn" aria-label="Cart">
+            🛒 <span class="arctic-cart-count" id="arctic-cart-count">{{ cart.item_count }}</span>
           </a>
           <a href="/collections/all" class="arctic-cta-btn">Shop Now</a>
         </div>
+        
+        <!-- Mobile Toggle -->
         <button class="arctic-mobile-toggle" id="arctic-mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       </div>
     </div>

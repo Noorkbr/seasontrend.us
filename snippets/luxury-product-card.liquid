@@ -1,0 +1,362 @@
+{% comment %}
+  Luxury Product Card Snippet
+  Usage: {% render 'luxury-product-card', product: product, show_badge: true, badge_text: 'NEW' %}
+{% endcomment %}
+
+{% assign show_badge = show_badge | default: false %}
+{% assign badge_text = badge_text | default: 'NEW' %}
+{% assign badge_type = badge_type | default: 'new' %}
+
+<div class="luxury-product-card">
+  <!-- Badge (NEW or HOT) -->
+  {% if show_badge %}
+    <div class="luxury-badge luxury-badge-{{ badge_type }}">
+      {% if badge_type == 'new' %}
+        <span class="badge-shimmer">✨ {{ badge_text }}</span>
+      {% elsif badge_type == 'hot' %}
+        <span class="badge-fire">🔥 {{ badge_text }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  <!-- Product Image -->
+  <div class="luxury-product-image-container">
+    <a href="{{ product.url }}">
+      {% if product.featured_image %}
+        <img 
+          src="{{ product.featured_image | img_url: 'large' }}"
+          alt="{{ product.featured_image.alt | escape }}"
+          loading="lazy"
+          width="400"
+          height="400"
+        >
+      {% else %}
+        <div class="luxury-placeholder-image">
+          <span>{{ product.title | slice: 0 }}</span>
+        </div>
+      {% endif %}
+    </a>
+  </div>
+  
+  <!-- Product Info -->
+  <div class="luxury-product-info">
+    <h3 class="luxury-product-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+    
+    <!-- Star Rating (if available) -->
+    {% if product.metafields.reviews.rating %}
+      <div class="luxury-product-rating">
+        {% assign rating = product.metafields.reviews.rating | times: 1.0 %}
+        {% assign full_stars = rating | floor %}
+        {% assign has_half = rating | modulo: 1 %}
+        
+        {% for i in (1..5) %}
+          {% if i <= full_stars %}
+            <span class="star-full">⭐</span>
+          {% elsif i == full_stars | plus: 1 and has_half >= 0.5 %}
+            <span class="star-half">⭐</span>
+          {% else %}
+            <span class="star-empty">☆</span>
+          {% endif %}
+        {% endfor %}
+        
+        {% if product.metafields.reviews.count %}
+          <span class="review-count">({{ product.metafields.reviews.count }})</span>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    <!-- Price -->
+    <div class="luxury-product-price">
+      {% if product.compare_at_price > product.price %}
+        <span class="luxury-price-compare">{{ product.compare_at_price | money }}</span>
+        <span class="luxury-price-current luxury-price-sale">{{ product.price | money }}</span>
+        <span class="luxury-price-badge">SAVE {{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</span>
+      {% else %}
+        <span class="luxury-price-current">{{ product.price | money }}</span>
+      {% endif %}
+    </div>
+    
+    <!-- Social Proof (if available) -->
+    {% if product.metafields.custom.sold_count %}
+      <div class="luxury-social-proof">
+        <span>🔥 {{ product.metafields.custom.sold_count }} sold today</span>
+      </div>
+    {% endif %}
+    
+    <!-- Low Stock Warning -->
+    {% if product.selected_or_first_available_variant.inventory_quantity < 10 and product.selected_or_first_available_variant.inventory_quantity > 0 %}
+      <div class="luxury-low-stock">
+        ⚠️ Only {{ product.selected_or_first_available_variant.inventory_quantity }} left in stock!
+      </div>
+    {% endif %}
+    
+    <!-- Quick Buy Button -->
+    <button 
+      class="luxury-quick-buy-btn"
+      data-product-id="{{ product.id }}"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+    >
+      Quick Buy
+    </button>
+  </div>
+</div>
+
+<style>
+/* Luxury Product Card Styles */
+.luxury-product-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.luxury-product-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 242, 255, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 242, 255, 0.3);
+}
+
+/* Badge Styles */
+.luxury-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.luxury-badge-new {
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.3), rgba(189, 0, 255, 0.3));
+  border: 1px solid rgba(0, 242, 255, 0.5);
+  color: #00F2FF;
+}
+
+.luxury-badge-hot {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.3), rgba(255, 135, 71, 0.3));
+  border: 1px solid rgba(255, 107, 107, 0.5);
+  color: #FF6B6B;
+}
+
+.badge-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Product Image */
+.luxury-product-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.luxury-product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.luxury-product-card:hover .luxury-product-image-container img {
+  transform: scale(1.1);
+}
+
+.luxury-placeholder-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.1), rgba(189, 0, 255, 0.1));
+  font-size: 4rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Product Info */
+.luxury-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.luxury-product-title {
+  font-family: var(--font-satoshi);
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.luxury-product-title a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.luxury-product-title a:hover {
+  color: #00F2FF;
+}
+
+/* Rating */
+.luxury-product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.star-full {
+  color: #D4AF37;
+}
+
+.star-half {
+  color: #D4AF37;
+  opacity: 0.5;
+}
+
+.star-empty {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.review-count {
+  margin-left: 0.25rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+}
+
+/* Price */
+.luxury-product-price {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.25rem 0;
+}
+
+.luxury-price-current {
+  font-family: var(--font-satoshi);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #D4AF37;
+}
+
+.luxury-price-compare {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: line-through;
+}
+
+.luxury-price-sale {
+  color: #FF6B6B;
+}
+
+.luxury-price-badge {
+  background: linear-gradient(135deg, #FF6B6B, #FF8787);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Social Proof */
+.luxury-social-proof {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.25rem 0;
+}
+
+/* Low Stock Warning */
+.luxury-low-stock {
+  font-size: 0.75rem;
+  color: #FF6B6B;
+  padding: 0.25rem 0;
+  font-weight: 600;
+}
+
+/* Quick Buy Button */
+.luxury-quick-buy-btn {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-satoshi);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 44px;
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+.luxury-product-card:hover .luxury-quick-buy-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.luxury-quick-buy-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(0, 242, 255, 0.5);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .luxury-product-card {
+    padding: 1rem;
+  }
+  
+  .luxury-product-title {
+    font-size: 0.875rem;
+  }
+  
+  .luxury-price-current {
+    font-size: 1.125rem;
+  }
+  
+  .luxury-quick-buy-btn {
+    opacity: 1;
+    transform: translateY(0);
+    min-height: 48px;
+  }
+}
+</style>
