@@ -1,13 +1,10 @@
-<!-- Enhanced Luxury Footer -->
 <footer class="luxury-footer">
   <div class="container">
     
-    <!-- Trust Badges Section (Top of Footer) -->
     <div class="luxury-footer-trust">
       {% render 'trust-badges' %}
     </div>
     
-    <!-- Newsletter Signup -->
     <div class="luxury-newsletter-section">
       <div class="luxury-newsletter-content">
         <div class="luxury-newsletter-text">
@@ -33,15 +30,12 @@
       </div>
     </div>
     
-    <!-- Social Proof Summary -->
     <div class="luxury-social-proof-summary">
       <span class="proof-stars">⭐⭐⭐⭐⭐</span>
       <span class="proof-text">4.8/5 from 1,247+ reviews</span>
     </div>
     
-    <!-- Footer Navigation (4 Columns) -->
     <div class="luxury-footer-nav">
-      <!-- Column 1: Shop -->
       <div class="luxury-footer-column">
         <h4 class="luxury-footer-heading">Shop</h4>
         <ul class="luxury-footer-links">
@@ -52,7 +46,6 @@
         </ul>
       </div>
       
-      <!-- Column 2: Help -->
       <div class="luxury-footer-column">
         <h4 class="luxury-footer-heading">Help</h4>
         <ul class="luxury-footer-links">
@@ -63,7 +56,6 @@
         </ul>
       </div>
       
-      <!-- Column 3: About -->
       <div class="luxury-footer-column">
         <h4 class="luxury-footer-heading">About</h4>
         <ul class="luxury-footer-links">
@@ -74,7 +66,6 @@
         </ul>
       </div>
       
-      <!-- Column 4: Connect -->
       <div class="luxury-footer-column">
         <h4 class="luxury-footer-heading">Connect</h4>
         <div class="luxury-footer-social">
@@ -105,7 +96,6 @@
           {% endif %}
         </div>
         
-        <!-- Contact Info -->
         <div class="luxury-footer-contact">
           {% if section.settings.email %}
             <a href="mailto:{{ section.settings.email }}" class="contact-link">
@@ -123,7 +113,6 @@
       </div>
     </div>
     
-    <!-- Footer Bottom -->
     <div class="luxury-footer-bottom">
       <div class="luxury-footer-copyright">
         <p>© {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ section.settings.copyright_text | default: "All rights reserved." }}</p>

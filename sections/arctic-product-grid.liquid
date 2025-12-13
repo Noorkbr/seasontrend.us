@@ -17,7 +17,6 @@
                 {% if product.featured_image %}
                   <img src="{{ product.featured_image | image_url: width: 600 }}" 
                        alt="{{ product.title | escape }}"
-                       loading="lazy"
                        width="600"
                        height="600">
                 {% else %}
@@ -51,11 +50,8 @@
                 <span style="font-size: 2rem;">🛍️</span>
               </div>
             </div>
-            
             <h3 class="product-title">Example Product {{ i }}</h3>
-            
             <div class="product-price">$99.00</div>
-            
             <button class="quick-buy-btn">Quick Buy</button>
           </div>
         {% endfor %}
@@ -77,10 +73,6 @@
   "name": "Holographic Product Grid",
   "settings": [
     {
-      "type": "header",
-      "content": "Grid Settings"
-    },
-    {
       "type": "text",
       "id": "grid_title",
       "label": "Section Title",
@@ -89,14 +81,12 @@
     {
       "type": "collection",
       "id": "collection",
-      "label": "Collection",
-      "info": "Select collection to display products from"
+      "label": "Collection"
     },
     {
       "type": "product_list",
       "id": "product_list",
-      "label": "Manual Product Selection",
-      "info": "Overrides collection if selected"
+      "label": "Manual Product Selection"
     },
     {
       "type": "range",
@@ -108,10 +98,6 @@
       "default": 8
     },
     {
-      "type": "header",
-      "content": "View All Button"
-    },
-    {
       "type": "text",
       "id": "view_all_text",
       "label": "Button Text",
@@ -120,8 +106,7 @@
     {
       "type": "url",
       "id": "view_all_link",
-      "label": "Button Link",
-      "info": "Link to collection page"
+      "label": "Button Link"
     }
   ],
   "presets": [
