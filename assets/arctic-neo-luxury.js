@@ -1,10 +1,89 @@
-/**
- * Arctic Neo-Luxury Interactive Features
- * Requires: GSAP (GreenSock) and Matter.js
- */
-
 // Wait for DOM and external libraries to load
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // ============================================
+    // LUXURY HEADER ENHANCEMENTS
+    // ============================================
+    
+    // Rotating Announcement Bar
+    function initAnnouncementRotation() {
+        const announcementBar = document.getElementById('arctic-announcement-bar');
+        if (!announcementBar) return;
+        
+        const items = announcementBar.querySelectorAll('.announcement-item');
+        if (items.length === 0) return;
+        
+        let currentIndex = 0;
+        let isPaused = false;
+        
+        function rotateAnnouncement() {
+            if (isPaused) return;
+            
+            // Hide current
+            items[currentIndex].classList.remove('active');
+            
+            // Show next
+            currentIndex = (currentIndex + 1) % items.length;
+            items[currentIndex].classList.add('active');
+        }
+        
+        // Rotate every 4 seconds
+        const rotationInterval = setInterval(rotateAnnouncement, 4000);
+        
+        // Pause on hover
+        announcementBar.addEventListener('mouseenter', () => {
+            isPaused = true;
+        });
+        
+        announcementBar.addEventListener('mouseleave', () => {
+            isPaused = false;
+        });
+    }
+    
+    // Sticky Header on Scroll
+    function initStickyHeader() {
+        const header = document.getElementById('arctic-header');
+        if (!header) return;
+        
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    }
+    
+    // Cart Badge Pulse Animation
+    function initCartAnimation() {
+        const cartBtn = document.getElementById('arctic-cart-btn');
+        const cartCount = document.getElementById('arctic-cart-count');
+        
+        if (!cartBtn || !cartCount) return;
+        
+        // Watch for cart updates (this would be triggered by cart add events)
+        // For now, we'll just set up the animation classes
+        window.triggerCartAnimation = function() {
+            cartBtn.classList.add('bounce');
+            cartCount.classList.add('pulse');
+            
+            setTimeout(() => {
+                cartBtn.classList.remove('bounce');
+                cartCount.classList.remove('pulse');
+            }, 600);
+        };
+    }
+    
+    // Initialize Luxury Header Features
+    initAnnouncementRotation();
+    initStickyHeader();
+    initCartAnimation();
     
     // ============================================
     // SECTION 1: PORTAL HERO - Particle Canvas & Magnetic Button

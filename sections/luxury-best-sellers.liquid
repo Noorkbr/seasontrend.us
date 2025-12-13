@@ -1,0 +1,158 @@
+<!-- Luxury Best Sellers Section -->
+<section class="luxury-section luxury-best-sellers" id="luxury-best-sellers">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="luxury-section-header">
+      <h2 class="luxury-section-title">
+        <span class="regular-text">{{ section.settings.section_title_prefix | default: "CUSTOMER" }}</span>
+        <span class="gold-accent">{{ section.settings.section_title_accent | default: "FAVORITES" }}</span>
+      </h2>
+      <p class="luxury-section-subtitle">
+        {{ section.settings.section_subtitle | default: "Our most loved products" }}
+      </p>
+    </div>
+    
+    <!-- Product Grid -->
+    <div class="luxury-product-grid">
+      {% if section.settings.collection != blank %}
+        {% assign collection = collections[section.settings.collection] %}
+        {% assign products_to_show = section.settings.products_to_show | default: 8 %}
+        
+        {% for product in collection.products limit: products_to_show %}
+          {% render 'luxury-product-card', 
+            product: product, 
+            show_badge: true, 
+            badge_text: 'HOT',
+            badge_type: 'hot' 
+          %}
+        {% endfor %}
+      {% else %}
+        <!-- Fallback: Show all products if no collection selected -->
+        {% assign products_to_show = section.settings.products_to_show | default: 8 %}
+        {% for product in collections.all.products limit: products_to_show %}
+          {% render 'luxury-product-card', 
+            product: product, 
+            show_badge: true, 
+            badge_text: 'HOT',
+            badge_type: 'hot' 
+          %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    <!-- View All Button -->
+    {% if section.settings.show_view_all %}
+      <div class="luxury-view-all">
+        <a href="{{ section.settings.view_all_link | default: '/collections/best-sellers' }}" 
+           class="luxury-cta-gold">
+          {{ section.settings.view_all_text | default: "Shop All Best Sellers" }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+/* Best Sellers Specific Styles */
+.luxury-best-sellers .luxury-section-title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.luxury-best-sellers .regular-text {
+  color: white;
+}
+
+.luxury-best-sellers .gold-accent {
+  background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+/* Additional styles for best sellers emphasis */
+.luxury-best-sellers .luxury-product-card {
+  border-color: rgba(212, 175, 55, 0.2);
+}
+
+.luxury-best-sellers .luxury-product-card:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .luxury-best-sellers .luxury-section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Luxury Best Sellers",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title_prefix",
+      "label": "Section Title Prefix",
+      "default": "CUSTOMER"
+    },
+    {
+      "type": "text",
+      "id": "section_title_accent",
+      "label": "Section Title Accent (Gold)",
+      "default": "FAVORITES"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Our most loved products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select the best sellers collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 4,
+      "label": "Products to Show",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show View All Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Button Text",
+      "default": "Shop All Best Sellers"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Button Link",
+      "default": "/collections/best-sellers"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury Best Sellers"
+    }
+  ]
+}
+{% endschema %}

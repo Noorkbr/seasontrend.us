@@ -1,0 +1,252 @@
+<!-- Luxury New Arrivals Section -->
+<section class="luxury-section luxury-new-arrivals" id="luxury-new-arrivals">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="luxury-section-header">
+      <h2 class="luxury-section-title holographic-text">
+        {{ section.settings.section_title | default: "JUST DROPPED" }}
+      </h2>
+      <p class="luxury-section-subtitle">
+        {{ section.settings.section_subtitle | default: "Fresh picks curated for you" }}
+      </p>
+    </div>
+    
+    <!-- Product Grid -->
+    <div class="luxury-product-grid">
+      {% if section.settings.collection != blank %}
+        {% assign collection = collections[section.settings.collection] %}
+        {% assign products_to_show = section.settings.products_to_show | default: 8 %}
+        
+        {% for product in collection.products limit: products_to_show %}
+          {% render 'luxury-product-card', 
+            product: product, 
+            show_badge: true, 
+            badge_text: 'NEW',
+            badge_type: 'new' 
+          %}
+        {% endfor %}
+      {% else %}
+        <!-- Fallback: Show all products if no collection selected -->
+        {% assign products_to_show = section.settings.products_to_show | default: 8 %}
+        {% for product in collections.all.products limit: products_to_show %}
+          {% render 'luxury-product-card', 
+            product: product, 
+            show_badge: true, 
+            badge_text: 'NEW',
+            badge_type: 'new' 
+          %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    <!-- View All Button -->
+    {% if section.settings.show_view_all %}
+      <div class="luxury-view-all">
+        <a href="{{ section.settings.view_all_link | default: '/collections/new-arrivals' }}" 
+           class="luxury-cta-secondary">
+          <span>{{ section.settings.view_all_text | default: "Explore All New Arrivals" }}</span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+/* Luxury Section Base Styles */
+.luxury-section {
+  background: var(--arctic-void);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.luxury-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(0, 242, 255, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 80% 50%, rgba(189, 0, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Section Header */
+.luxury-section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.luxury-section-title {
+  font-family: var(--font-clash);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0 0 1rem;
+}
+
+.holographic-text {
+  background: linear-gradient(135deg, #00F2FF 0%, #0EA5E9 50%, #BD00FF 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: holographicShift 4s ease-in-out infinite;
+}
+
+@keyframes holographicShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.luxury-section-subtitle {
+  font-family: var(--font-satoshi);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* Product Grid */
+.luxury-product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* View All Button */
+.luxury-view-all {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+  .luxury-product-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .luxury-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .luxury-section-header {
+    margin-bottom: 3rem;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .luxury-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .luxury-section {
+    padding: 3rem 1rem;
+  }
+  
+  .luxury-section-header {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+  
+  .luxury-section-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .luxury-section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .luxury-view-all {
+    margin-top: 2rem;
+  }
+  
+  .luxury-cta-secondary {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .luxury-product-grid {
+    gap: 0.75rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Luxury New Arrivals",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "JUST DROPPED"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Fresh picks curated for you"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select the new arrivals collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 4,
+      "label": "Products to Show",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show View All Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Button Text",
+      "default": "Explore All New Arrivals"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Button Link",
+      "default": "/collections/new-arrivals"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury New Arrivals"
+    }
+  ]
+}
+{% endschema %}
