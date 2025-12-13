@@ -1,24 +1,24 @@
-<!-- Arctic Neo-Luxury Header -->
 <header class="arctic-header" id="arctic-header">
-  <!-- Rotating Announcement Bar -->
   <div class="arctic-header-top">
     <div class="container">
       <div class="arctic-announcement-bar" id="arctic-announcement-bar">
         <div class="announcement-track">
-          <div class="announcement-item active">✨ Free Shipping Over $50</div>
-          <div class="announcement-item">🎁 New Arrivals Just Dropped</div>
-          <div class="announcement-item">💎 Shop Best Sellers</div>
-          <div class="announcement-item">🔒 Secure Checkout Guaranteed</div>
+          {% for block in section.blocks %}
+            <div class="announcement-item {% if forloop.first %}active{% endif %}">
+              {{ block.settings.text }}
+            </div>
+          {% endfor %}
+          {% if section.blocks.size == 0 %}
+            <div class="announcement-item active">Welcome to SeasonTrend</div>
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
   
-  <!-- Main Navigation -->
   <nav class="arctic-navbar">
     <div class="container">
       <div class="arctic-navbar-content">
-        <!-- Logo with Glow Effect -->
         <div class="arctic-logo">
           {% if section.settings.logo %}
             <a href="/" class="logo-link">
@@ -31,7 +31,6 @@
           {% endif %}
         </div>
         
-        <!-- Enhanced Navigation Menu -->
         <ul class="arctic-nav-menu" id="arctic-nav-menu">
           <li><a href="/collections/new-arrivals" class="luxury-accent">NEW ARRIVALS</a></li>
           <li><a href="/collections/best-sellers" class="luxury-accent">BEST SELLERS</a></li>
@@ -42,7 +41,6 @@
           <li><a href="/collections/sale" class="sale-link">SALE</a></li>
         </ul>
         
-        <!-- Navigation Actions with Enhanced Cart -->
         <div class="arctic-nav-actions">
           <button class="arctic-icon-btn search-btn" aria-label="Search">🔍</button>
           <a href="/cart" class="arctic-icon-btn cart-btn" id="arctic-cart-btn" aria-label="Cart">
@@ -51,7 +49,6 @@
           <a href="/collections/all" class="arctic-cta-btn">Shop Now</a>
         </div>
         
-        <!-- Mobile Toggle -->
         <button class="arctic-mobile-toggle" id="arctic-mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       </div>
     </div>
@@ -62,12 +59,6 @@
 {
   "name": "Header",
   "settings": [
-    {
-      "type": "text",
-      "id": "header_announcement",
-      "label": "Announcement Text",
-      "default": "Free Shipping on Orders Over $50"
-    },
     {
       "type": "image_picker",
       "id": "logo",
@@ -82,6 +73,20 @@
       "unit": "px",
       "label": "Logo Width",
       "default": 150
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping Over $50"
+        }
+      ]
     }
   ]
 }
