@@ -1072,3 +1072,214 @@ html, body {
 body {
     padding-top: var(--header-height);
 }
+
+/* ============================================
+   GLOBAL FORM STYLING - DARK THEME
+   ============================================ */
+
+/* All inputs, selects, textareas */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+select,
+textarea {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: rgba(0, 242, 255, 0.5) !important;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+select option {
+    background: #05080F;
+    color: white;
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+    outline: 2px solid rgba(0, 242, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* Labels */
+label {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 14px;
+}
+
+/* ============================================
+   BUTTON MICRO-INTERACTIONS
+   ============================================ */
+
+/* Button ripple effect */
+.luxury-cta-primary,
+.glass-pill-btn,
+.quick-buy-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.luxury-cta-primary::after,
+.glass-pill-btn::after,
+.quick-buy-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.luxury-cta-primary:active::after,
+.glass-pill-btn:active::after,
+.quick-buy-btn:active::after {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+    transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+}
+
+/* Sold out button styling */
+.quick-buy-btn--sold-out {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+}
+
+.quick-buy-btn--sold-out:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Button loading spinner */
+@keyframes button-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spinner {
+    animation: button-spin 1s linear infinite;
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+
+/* High contrast focus state */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #00F2FF;
+    outline-offset: 3px;
+}
+
+/* Skip link */
+.skip-to-content-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 0 0 12px 12px;
+    z-index: 10000;
+    font-weight: 600;
+    transition: top 0.3s ease;
+}
+
+.skip-to-content-link:focus {
+    top: 0;
+}
+
+/* Reduced motion preference - selective approach */
+@media (prefers-reduced-motion: reduce) {
+    /* Disable decorative animations only */
+    .liquid-headline,
+    .urgency-icon,
+    .viewer-dot,
+    .urgency-badge-live,
+    .product-badge--hot,
+    .shipping-progress-glow {
+        animation: none !important;
+    }
+    
+    /* Reduce but don't eliminate transitions */
+    .glass-product-card,
+    .trust-card,
+    .quick-buy-btn,
+    .luxury-cta-primary {
+        transition-duration: 0.1s !important;
+    }
+    
+    /* Keep essential UI feedback animations but make them shorter */
+    .spinner {
+        animation-duration: 2s !important;
+    }
+}
+
+/* ============================================
+   ADDITIONAL GLOW EFFECTS
+   ============================================ */
+
+/* Text glow on hover */
+.product-title a:hover,
+.cart-item__title a:hover {
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+}
+
+/* Card hover glow enhancement */
+.glass-product-card:hover,
+.trust-card:hover,
+.glass-panel:hover {
+    box-shadow: 
+        0 0 30px rgba(0, 242, 255, 0.1),
+        0 0 60px rgba(189, 0, 255, 0.05);
+}
+
+/* Price glow animation */
+.product-price__current,
+.cart-subtotal__price {
+    animation: price-glow 3s ease-in-out infinite;
+}
+
+@keyframes price-glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.5));
+    }
+}
