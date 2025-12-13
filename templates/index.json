@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "arctic-hero-portal": {
@@ -6,16 +15,18 @@
         "hero_headline": "FUTURE. COMFORT.",
         "hero_subheadline": "Experience the next generation of luxury products",
         "hero_cta_text": "Enter The Future",
-        "hero_cta_link": "/collections/all"
+        "hero_cta_link": "/collections/all",
+        "hero_product_title": ""
       }
     },
     "arctic-product-grid": {
       "type": "arctic-product-grid",
       "settings": {
         "grid_title": "The Collection",
+        "collection": "all-products",
         "products_to_show": 6,
         "view_all_text": "View All Products",
-        "view_all_link": "/collections/all"
+        "view_all_link": "shopify://collections/all"
       }
     },
     "arctic-trust-wall": {
@@ -36,7 +47,11 @@
         "footer_col1_title": "SeasonTrend",
         "footer_col1_text": "Arctic Neo-Luxury for the modern trendsetter. Experience the future of comfort.",
         "footer_col2_title": "Quick Links",
+        "footer_menu": "",
         "footer_col3_title": "Stay Connected",
+        "social_instagram": "",
+        "social_tiktok": "",
+        "social_twitter": "",
         "copyright_text": "© 2024 SeasonTrend. All rights reserved."
       }
     }
