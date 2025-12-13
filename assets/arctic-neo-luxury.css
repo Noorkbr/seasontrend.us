@@ -1465,3 +1465,18 @@
         display: none;
     }
 }
+
+/* ============================================
+   BODY SPACING FOR FIXED HEADER
+   ============================================ */
+
+/* Add padding to body to account for fixed header */
+body {
+    padding-top: 120px; /* Adjust based on header height */
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 100px; /* Smaller padding on mobile */
+    }
+}

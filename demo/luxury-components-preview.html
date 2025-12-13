@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeasonTrend Luxury Theme - Component Preview</title>
+    <link rel="stylesheet" href="../assets/arctic-neo-luxury.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #05080F;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .preview-section {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .preview-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #00F2FF;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .button-showcase {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preview Header -->
+    <header style="padding: 2rem; text-align: center; background: linear-gradient(135deg, rgba(0, 242, 255, 0.1) 0%, rgba(189, 0, 255, 0.1) 100%);">
+        <h1 style="font-size: 3rem; background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            SeasonTrend Luxury Theme
+        </h1>
+        <p style="color: rgba(255, 255, 255, 0.7); font-size: 1.25rem;">Component Preview</p>
+    </header>
+
+    <!-- Buttons Preview -->
+    <section class="preview-section">
+        <h2 class="preview-title">Luxury CTA Buttons</h2>
+        <div class="button-showcase">
+            <button class="luxury-cta-primary">Primary Button</button>
+            <button class="luxury-cta-secondary"><span>Secondary Button</span></button>
+            <button class="luxury-cta-gold">Gold Accent Button</button>
+            <button class="quick-buy-btn-luxury">Quick Buy Button</button>
+        </div>
+    </section>
+
+    <!-- Typography Preview -->
+    <section class="preview-section">
+        <h2 class="preview-title">Typography Showcase</h2>
+        <div class="container" style="text-align: center;">
+            <h1 class="holographic-text" style="font-size: 4rem; margin-bottom: 1rem;">JUST DROPPED</h1>
+            <p style="font-size: 1.25rem; color: rgba(255, 255, 255, 0.7);">Fresh picks curated for you</p>
+        </div>
+    </section>
+
+    <!-- Newsletter Preview -->
+    <section class="preview-section">
+        <h2 class="preview-title">Newsletter Section</h2>
+        <div class="luxury-newsletter-section">
+            <div class="luxury-newsletter-content">
+                <div class="luxury-newsletter-text">
+                    <h3 class="luxury-newsletter-title">JOIN THE VIP LIST</h3>
+                    <p class="luxury-newsletter-subtitle">Get 10% off your first order + exclusive deals</p>
+                </div>
+                <form class="luxury-newsletter-form" onsubmit="event.preventDefault(); alert('Newsletter signup would be processed here!');">
+                    <div class="luxury-newsletter-input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Enter your email"
+                            class="luxury-newsletter-input"
+                            required
+                        >
+                        <button type="submit" class="luxury-newsletter-btn">
+                            Subscribe
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Preview -->
+    <section class="preview-section">
+        <h2 class="preview-title">Social Proof</h2>
+        <div class="luxury-social-proof-summary">
+            <span class="proof-stars">⭐⭐⭐⭐⭐</span>
+            <span class="proof-text">4.8/5 from 1,247+ reviews</span>
+        </div>
+    </section>
+
+    <!-- Product Card Preview -->
+    <section class="preview-section">
+        <h2 class="preview-title">Luxury Product Card</h2>
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto;">
+                <div class="luxury-product-card">
+                    <div class="luxury-badge luxury-badge-new">
+                        <span class="badge-shimmer">✨ NEW</span>
+                    </div>
+                    <div class="luxury-product-image-container">
+                        <div class="luxury-placeholder-image">
+                            <span>P</span>
+                        </div>
+                    </div>
+                    <div class="luxury-product-info">
+                        <h3 class="luxury-product-title">
+                            <a href="#">Premium Winter Collection Item</a>
+                        </h3>
+                        <div class="luxury-product-rating">
+                            <span class="star-full">⭐</span>
+                            <span class="star-full">⭐</span>
+                            <span class="star-full">⭐</span>
+                            <span class="star-full">⭐</span>
+                            <span class="star-half">⭐</span>
+                            <span class="review-count">(127)</span>
+                        </div>
+                        <div class="luxury-product-price">
+                            <span class="luxury-price-compare">$199.99</span>
+                            <span class="luxury-price-current luxury-price-sale">$149.99</span>
+                            <span class="luxury-price-badge">SAVE 25%</span>
+                        </div>
+                        <div class="luxury-social-proof">
+                            <span>🔥 42 sold today</span>
+                        </div>
+                        <button class="luxury-quick-buy-btn">Quick Buy</button>
+                    </div>
+                </div>
+                
+                <div class="luxury-product-card">
+                    <div class="luxury-badge luxury-badge-hot">
+                        <span class="badge-fire">🔥 HOT</span>
+                    </div>
+                    <div class="luxury-product-image-container">
+                        <div class="luxury-placeholder-image">
+                            <span>B</span>
+                        </div>
+                    </div>
+                    <div class="luxury-product-info">
+                        <h3 class="luxury-product-title">
+                            <a href="#">Best Seller Product Title Here</a>
+                        </h3>
+                        <div class="luxury-product-rating">
+                            <span class="star-full">⭐</span>
+                            <span class="star-full">⭐</span>
+                            <span class="star-full">⭐</span>
+                            <span class="star-full">⭐</span>
+                            <span class="star-full">⭐</span>
+                            <span class="review-count">(203)</span>
+                        </div>
+                        <div class="luxury-product-price">
+                            <span class="luxury-price-current">$89.99</span>
+                        </div>
+                        <div class="luxury-low-stock">
+                            ⚠️ Only 3 left in stock!
+                        </div>
+                        <button class="luxury-quick-buy-btn">Quick Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Note -->
+    <footer style="padding: 3rem 2rem; text-align: center; background: rgba(0, 0, 0, 0.3);">
+        <p style="color: rgba(255, 255, 255, 0.6);">
+            This is a component preview for the SeasonTrend Luxury Theme.<br>
+            All components are fully responsive and optimized for mobile devices.
+        </p>
+    </footer>
+
+    <script src="../assets/arctic-neo-luxury.js"></script>
+    <script>
+        // Add hover effect demonstration
+        document.querySelectorAll('.luxury-product-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const btn = card.querySelector('.luxury-quick-buy-btn');
+                if (btn) {
+                    btn.style.transform = 'translateY(0)';
+                    btn.style.opacity = '1';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
