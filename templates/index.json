@@ -36,31 +36,11 @@
         "trust_wall_title": "Real Customers, Real Results",
         "trust_wall_description": "Join thousands of satisfied customers experiencing the future"
       }
-    },
-    "arctic-snowglobe-footer": {
-      "type": "arctic-snowglobe-footer",
-      "settings": {
-        "discount_code": "ARCTIC25",
-        "discount_label": "Your Exclusive Discount!",
-        "discount_cta_text": "Shop Now",
-        "discount_cta_link": "/collections/all",
-        "show_shake_hint": true,
-        "footer_col1_title": "SeasonTrend",
-        "footer_col1_text": "Arctic Neo-Luxury for the modern trendsetter. Experience the future of comfort.",
-        "footer_col2_title": "Quick Links",
-        "footer_menu": "",
-        "footer_col3_title": "Stay Connected",
-        "social_instagram": "",
-        "social_tiktok": "",
-        "social_twitter": "",
-        "copyright_text": "© 2024 SeasonTrend. All rights reserved."
-      }
     }
   },
   "order": [
     "arctic-hero-portal",
     "arctic_product_grid_hydnRh",
-    "arctic-trust-wall",
-    "arctic-snowglobe-footer"
+    "arctic-trust-wall"
   ]
 }
