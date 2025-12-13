@@ -109,9 +109,9 @@
           <div class="product-form__item product-form__item--quantity">
             <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
             <div class="quantity-selector">
-              <button type="button" class="quantity-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'));">−</button>
-              <input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-form__input">
-              <button type="button" class="quantity-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'));">+</button>
+              <button type="button" class="quantity-btn" aria-label="Decrease quantity" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'));">−</button>
+              <input type="number" id="Quantity" name="quantity" value="1" min="1" aria-label="Product quantity" class="product-form__input">
+              <button type="button" class="quantity-btn" aria-label="Increase quantity" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'));">+</button>
             </div>
           </div>
 
@@ -122,9 +122,9 @@
             </button>
           </div>
           
-          <!-- Buy Now Button -->
-          <button type="button" class="buy-now-btn" onclick="this.form.submit();">
-            <span>⚡ Buy It Now</span>
+          <!-- Quick Add Button - adds to cart with visual feedback -->
+          <button type="button" class="buy-now-btn" onclick="window.location.href='/cart';" aria-label="Go to cart">
+            <span>🛒 View Cart</span>
           </button>
         </form>
 

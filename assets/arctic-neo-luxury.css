@@ -1224,14 +1224,29 @@ button:focus-visible {
     top: 0;
 }
 
-/* Reduced motion preference */
+/* Reduced motion preference - selective approach */
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    /* Disable decorative animations only */
+    .liquid-headline,
+    .urgency-icon,
+    .viewer-dot,
+    .urgency-badge-live,
+    .product-badge--hot,
+    .shipping-progress-glow {
+        animation: none !important;
+    }
+    
+    /* Reduce but don't eliminate transitions */
+    .glass-product-card,
+    .trust-card,
+    .quick-buy-btn,
+    .luxury-cta-primary {
+        transition-duration: 0.1s !important;
+    }
+    
+    /* Keep essential UI feedback animations but make them shorter */
+    .spinner {
+        animation-duration: 2s !important;
     }
 }
 

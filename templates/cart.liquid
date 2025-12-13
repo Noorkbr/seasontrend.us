@@ -64,14 +64,15 @@
               <div class="cart-item__quantity">
                 <label for="updates_{{ item.key }}">{{ 'products.product.quantity' | t }}</label>
                 <div class="quantity-control">
-                  <button type="button" class="quantity-btn quantity-minus" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'));">−</button>
+                  <button type="button" class="quantity-btn quantity-minus" aria-label="Decrease quantity" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'));">−</button>
                   <input type="number" 
                          name="updates[]" 
                          id="updates_{{ item.key }}" 
                          value="{{ item.quantity }}" 
                          min="0" 
+                         aria-label="Quantity for {{ item.product.title }}"
                          data-quantity-input>
-                  <button type="button" class="quantity-btn quantity-plus" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'));">+</button>
+                  <button type="button" class="quantity-btn quantity-plus" aria-label="Increase quantity" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'));">+</button>
                 </div>
               </div>
 
@@ -767,41 +768,49 @@
 </style>
 
 <script>
-// Cart urgency timer countdown
+// Cart urgency timer countdown - session-based timer that persists
 (function() {
   const timerElement = document.getElementById('cart-urgency-timer');
   if (!timerElement) return;
   
-  let minutes = 15;
-  let seconds = 0;
+  // Use session storage to persist timer across page loads
+  let endTime = sessionStorage.getItem('cartTimerEnd');
   
-  setInterval(function() {
-    if (seconds === 0) {
-      if (minutes === 0) {
-        minutes = 15;
-        seconds = 0;
-      } else {
-        minutes--;
-        seconds = 59;
-      }
-    } else {
-      seconds--;
+  if (!endTime) {
+    // Set timer for 15 minutes from now
+    endTime = Date.now() + (15 * 60 * 1000);
+    sessionStorage.setItem('cartTimerEnd', endTime);
+  }
+  
+  const timerInterval = setInterval(function() {
+    const now = Date.now();
+    const remaining = Math.max(0, endTime - now);
+    
+    if (remaining === 0) {
+      // Timer expired - show expired message instead of looping
+      timerElement.textContent = 'Expired';
+      timerElement.parentElement.querySelector('.urgency-text').textContent = 'Your cart reservation has expired. Items may be unavailable.';
+      clearInterval(timerInterval);
+      return;
     }
+    
+    const minutes = Math.floor(remaining / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
     
     timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
   }, 1000);
 })();
 
-// Simulate viewer count changes
+// Simulate viewer count changes with randomization
 (function() {
   const viewerCount = document.getElementById('cart-viewer-count');
   if (!viewerCount) return;
   
   setInterval(function() {
     const currentCount = parseInt(viewerCount.textContent);
-    const change = Math.random() > 0.5 ? 1 : -1;
+    const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
     const newCount = Math.max(5, Math.min(50, currentCount + change));
     viewerCount.textContent = newCount;
-  }, 8000);
+  }, 8000 + Math.random() * 4000); // Random interval between 8-12 seconds
 })();
 </script>
