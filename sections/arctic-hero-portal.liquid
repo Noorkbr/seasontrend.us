@@ -1,20 +1,44 @@
+{% comment %}
+  Arctic Hero Portal Section
+  ==========================
+  Immersive hero with particle effects, parallax layers, and floating product.
+  
+  MERCHANT CUSTOMIZATION (via Shopify Theme Editor):
+  - Edit headline and subheadline text
+  - Upload featured product image (with 3D rotation effect)
+  - Customize CTA button text and link
+  - All animations handled automatically
+  
+  To edit: Theme Editor > Home page > Arctic Hero Portal
+{% endcomment %}
+
 <!-- SECTION 1: Arctic Neo-Luxury Portal Hero -->
 <section class="hero-portal" id="arctic-hero">
   <!-- Particle Canvas for 3D Neon Snowflakes -->
-  <canvas id="particle-canvas"></canvas>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
   
   <!-- Parallax Aurora Layers -->
-  <div class="parallax-layer layer-1"></div>
-  <div class="parallax-layer layer-2"></div>
+  <div class="parallax-layer layer-1" aria-hidden="true"></div>
+  <div class="parallax-layer layer-2" aria-hidden="true"></div>
   
   <!-- Floating Product (3D Rotation with Mouse) -->
-  <div class="product-float float-soft">
+  <div class="product-float float-soft" aria-hidden="true">
     {% if section.settings.hero_product_image %}
-      <img src="{{ section.settings.hero_product_image | img_url: '800x800' }}" 
-           alt="{{ section.settings.hero_product_title | default: 'Featured Product' }}">
+      <img 
+        src="{{ section.settings.hero_product_image | image_url: width: 800 }}"
+        srcset="{{ section.settings.hero_product_image | image_url: width: 400 }} 400w,
+                {{ section.settings.hero_product_image | image_url: width: 600 }} 600w,
+                {{ section.settings.hero_product_image | image_url: width: 800 }} 800w"
+        sizes="(max-width: 480px) 200px, (max-width: 768px) 300px, 500px"
+        alt="{{ section.settings.hero_product_title | default: 'Featured Product' | escape }}"
+        width="800"
+        height="800"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async">
     {% else %}
       <!-- Placeholder gradient sphere -->
-      <div style="width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%); filter: blur(20px);"></div>
+      <div class="hero-product-placeholder"></div>
     {% endif %}
   </div>
   
@@ -25,24 +49,60 @@
     </h1>
     
     {% if section.settings.hero_subheadline %}
-      <p style="font-family: var(--font-satoshi); font-size: 1.25rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem; letter-spacing: 0.05em;">
+      <p class="hero-subheadline">
         {{ section.settings.hero_subheadline }}
       </p>
     {% endif %}
     
-    <button class="glass-pill-btn" id="heroCTA" onclick="window.location.href='{{ section.settings.hero_cta_link | default: '/collections/all' }}'">
-      {{ section.settings.hero_cta_text | default: "Enter The Future" }}
-    </button>
+    {% if section.settings.hero_cta_text %}
+      <a href="{{ section.settings.hero_cta_link | default: '/collections/all' }}" class="glass-pill-btn" id="heroCTA">
+        {{ section.settings.hero_cta_text | default: "Enter The Future" }}
+      </a>
+    {% endif %}
   </div>
 </section>
 
 <style>
-/* Section-specific adjustments can go here if needed */
-</style>
+/* Hero Subheadline */
+.hero-subheadline {
+  font-family: var(--font-satoshi, 'Inter', sans-serif);
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-<script>
-// Section-specific initialization can go here
-</script>
+/* Product Placeholder */
+.hero-product-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.3) 0%, rgba(189, 0, 255, 0.3) 100%);
+  filter: blur(30px);
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}
+
+/* Ensure hero CTA is a link */
+a.glass-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
 
 {% schema %}
 {

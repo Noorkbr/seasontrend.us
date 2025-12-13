@@ -1,91 +1,135 @@
 {% paginate collection.products by 12 %}
-<div class="collection-template">
+{% comment %}
+  Collection Template
+  ===================
+  Product collection page with Arctic Neo-Luxury styling.
+  Responsive grid with optimized images and AJAX add-to-cart.
+{% endcomment %}
+
+<div class="collection-template arctic-collection">
   <div class="container">
     <header class="collection-header">
       <h1 class="collection-title">{{ collection.title }}</h1>
       {% if collection.description != blank %}
-        <div class="collection-description rte">
+        <div class="collection-description">
           {{ collection.description }}
         </div>
+      {% endif %}
+      {% if collection.products_count > 0 %}
+        <p class="collection-count">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</p>
       {% endif %}
     </header>
 
     {% if collection.products.size > 0 %}
-      <div class="collection-grid">
+      <div class="collection-grid holographic-grid">
         {% for product in collection.products %}
-          <div class="product-card" data-product-id="{{ product.id }}">
+          <article class="glass-product-card" data-product-id="{{ product.id }}">
+            {% if product.compare_at_price_max > product.price %}
+              <div class="product-badge product-badge--sale">
+                {% assign savings = product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max %}
+                -{{ savings }}%
+              </div>
+            {% endif %}
+            
             <a href="{{ product.url }}" class="product-card__link">
-              <div class="product-card__image">
+              <div class="product-image-container">
                 {% if product.featured_image %}
-                  <img src="{{ product.featured_image | img_url: 'large' }}" 
-                       alt="{{ product.featured_image.alt | escape }}"
-                       loading="lazy">
+                  <img 
+                    src="{{ product.featured_image | image_url: width: 400 }}"
+                    srcset="{{ product.featured_image | image_url: width: 200 }} 200w,
+                            {{ product.featured_image | image_url: width: 400 }} 400w,
+                            {{ product.featured_image | image_url: width: 600 }} 600w"
+                    sizes="(max-width: 480px) 45vw, (max-width: 768px) 30vw, 25vw"
+                    alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                    width="400"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                    class="product-image">
                 {% else %}
-                  <div class="product-card__image-placeholder">
-                    No image available
+                  <div class="product-image-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <rect x="3" y="3" width="18" height="18" rx="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <path d="M21 15l-5-5L5 21"/>
+                    </svg>
                   </div>
-                {% endif %}
-                
-                {% if product.compare_at_price_max > product.price %}
-                  <span class="product-card__badge">Sale</span>
                 {% endif %}
               </div>
               
-              <div class="product-card__info">
-                <h3 class="product-card__title">{{ product.title }}</h3>
+              <div class="product-info">
+                <h3 class="product-title">{{ product.title }}</h3>
                 
-                <div class="product-card__prices">
+                <div class="product-price">
+                  <span class="product-price__current">{{ product.price | money }}</span>
                   {% if product.compare_at_price_max > product.price %}
-                    <span class="product-card__price product-card__price--sale">
-                      {{ product.price | money }}
-                    </span>
-                    <span class="product-card__price product-card__price--compare">
-                      {{ product.compare_at_price_max | money }}
-                    </span>
-                  {% else %}
-                    <span class="product-card__price">
-                      {{ product.price | money }}
-                    </span>
+                    <span class="product-price__compare">{{ product.compare_at_price_max | money }}</span>
                   {% endif %}
                 </div>
-
-                {% if product.available %}
-                  <button class="product-card__btn btn btn-primary">
-                    {{ 'products.product.add_to_cart' | t }}
-                  </button>
-                {% else %}
-                  <button class="product-card__btn btn btn-secondary" disabled>
-                    {{ 'products.product.sold_out' | t }}
-                  </button>
-                {% endif %}
               </div>
             </a>
-          </div>
+
+            {% if product.available %}
+              <form class="product-form" data-add-to-cart-form>
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="quantity" value="1">
+                <button 
+                  type="submit" 
+                  class="quick-buy-btn"
+                  data-add-to-cart
+                  data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                  <span class="btn-text">{{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}</span>
+                  <span class="btn-loading" aria-hidden="true">
+                    <svg class="spinner" viewBox="0 0 24 24" width="20" height="20">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="32" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                  <span class="btn-success" aria-hidden="true">✓</span>
+                </button>
+              </form>
+            {% else %}
+              <button class="quick-buy-btn quick-buy-btn--sold-out" disabled>
+                {{ 'products.product.sold_out' | t | default: 'Sold Out' }}
+              </button>
+            {% endif %}
+          </article>
         {% endfor %}
       </div>
 
       {% if paginate.pages > 1 %}
-        <div class="pagination">
+        <nav class="pagination" aria-label="Pagination">
           {% if paginate.previous %}
-            <a href="{{ paginate.previous.url }}" class="pagination__item">← Previous</a>
+            <a href="{{ paginate.previous.url }}" class="pagination__item pagination__item--prev" aria-label="Previous page">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              Previous
+            </a>
           {% endif %}
           
           {% for part in paginate.parts %}
             {% if part.is_link %}
               <a href="{{ part.url }}" class="pagination__item">{{ part.title }}</a>
             {% else %}
-              <span class="pagination__item pagination__item--current">{{ part.title }}</span>
+              <span class="pagination__item pagination__item--current" aria-current="page">{{ part.title }}</span>
             {% endif %}
           {% endfor %}
           
           {% if paginate.next %}
-            <a href="{{ paginate.next.url }}" class="pagination__item">Next →</a>
+            <a href="{{ paginate.next.url }}" class="pagination__item pagination__item--next" aria-label="Next page">
+              Next
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </a>
           {% endif %}
-        </div>
+        </nav>
       {% endif %}
     {% else %}
       <div class="collection-empty">
-        <p>{{ 'collections.general.no_matches' | t }}</p>
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity: 0.3; margin-bottom: 1rem;">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+        <p>{{ 'collections.general.no_matches' | t | default: 'No products found in this collection.' }}</p>
+        <a href="/collections/all" class="glass-pill-btn" style="margin-top: 1.5rem;">
+          Browse All Products
+        </a>
       </div>
     {% endif %}
   </div>
@@ -94,166 +138,128 @@
 {% endpaginate %}
 
 <style>
-.collection-template {
-  padding: 60px 0;
+/* Arctic Collection Styles */
+.arctic-collection {
+  background: var(--arctic-void, #05080F);
+  min-height: 60vh;
+  padding: 4rem 0;
 }
 
 .collection-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 4rem;
 }
 
 .collection-title {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-clash, 'Playfair Display', serif);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  color: white;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
 }
 
 .collection-description {
-  max-width: 800px;
-  margin: 0 auto;
-  color: #666;
-  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.125rem;
+  line-height: 1.7;
 }
 
+.collection-count {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Collection Grid */
 .collection-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 30px;
-  margin-bottom: 60px;
+  margin-bottom: 4rem;
 }
 
-.product-card {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #e5e7eb;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
+/* Product Card Link */
 .product-card__link {
   text-decoration: none;
   color: inherit;
   display: block;
 }
 
-.product-card__image {
-  position: relative;
-  padding-top: 100%;
-  overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.product-card__image img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.product-card__image-placeholder {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-align: center;
-}
-
-.product-card__badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #ec4899;
-  color: white;
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.product-card__info {
-  padding: 20px;
-}
-
-.product-card__title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  min-height: 44px;
-  line-height: 1.4;
-}
-
-.product-card__prices {
-  margin-bottom: 15px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.product-card__price--sale {
-  color: #ec4899;
-  margin-right: 10px;
-}
-
-.product-card__price--compare {
-  text-decoration: line-through;
-  color: #999;
-  font-size: 16px;
-}
-
-.product-card__btn {
-  width: 100%;
-}
-
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 40px;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .pagination__item {
-  padding: 10px 15px;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
-  color: #1f2937;
-  transition: all 0.2s;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
 }
 
 .pagination__item:hover {
-  border-color: #6366f1;
-  color: #6366f1;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 242, 255, 0.3);
+  color: white;
 }
 
 .pagination__item--current {
-  background: #6366f1;
+  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+  border-color: transparent;
   color: white;
-  border-color: #6366f1;
+  font-weight: 600;
 }
 
+.pagination__item--prev,
+.pagination__item--next {
+  font-weight: 500;
+}
+
+/* Empty State */
 .collection-empty {
   text-align: center;
-  padding: 80px 20px;
-  color: #666;
+  padding: 4rem 2rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
+.collection-empty p {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .collection-title {
-    font-size: 32px;
+  .arctic-collection {
+    padding: 3rem 1rem;
   }
   
-  .collection-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 20px;
+  .collection-header {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+  
+  .collection-description {
+    margin-left: 0;
+  }
+  
+  .pagination {
+    gap: 0.25rem;
+  }
+  
+  .pagination__item {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
   }
 }
 </style>

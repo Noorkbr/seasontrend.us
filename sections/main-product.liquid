@@ -1,3 +1,19 @@
+{% comment %}
+  Main Product Section
+  ====================
+  Full product page layout with images, description, and add-to-cart.
+  
+  MERCHANT CUSTOMIZATION:
+  - Product data comes from Shopify product settings
+  - Customize via Shopify admin > Products
+  
+  Features:
+  - AJAX add-to-cart with loading states
+  - Responsive image gallery
+  - Quantity selector
+  - Variant support
+{% endcomment %}
+
 <section class="main-product-section" style="padding: 60px 0; background: var(--arctic-void);">
   <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
     <div class="product-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;">
@@ -5,9 +21,17 @@
       <div class="product-images" style="position: sticky; top: 140px;">
         <div class="main-image" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; overflow: hidden; margin-bottom: 20px; aspect-ratio: 1;">
           {% if product.featured_image %}
-            <img src="{{ product.featured_image | image_url: width: 1000 }}" 
-                 alt="{{ product.featured_image.alt | escape }}"
-                 style="width: 100%; height: 100%; object-fit: cover;">
+            <img 
+              src="{{ product.featured_image | image_url: width: 1000 }}"
+              srcset="{{ product.featured_image | image_url: width: 500 }} 500w,
+                      {{ product.featured_image | image_url: width: 800 }} 800w,
+                      {{ product.featured_image | image_url: width: 1000 }} 1000w"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              alt="{{ product.featured_image.alt | default: product.title | escape }}"
+              width="1000"
+              height="1000"
+              loading="eager"
+              style="width: 100%; height: 100%; object-fit: cover;">
           {% else %}
             <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
               <span style="font-size: 80px;">📦</span>
@@ -19,9 +43,13 @@
           <div class="thumbnail-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px;">
             {% for image in product.images limit: 6 %}
               <div class="thumbnail" style="aspect-ratio: 1; border-radius: 12px; overflow: hidden; cursor: pointer; border: 2px solid rgba(255, 255, 255, 0.1);">
-                <img src="{{ image | image_url: width: 200 }}" 
-                     alt="{{ image.alt | escape }}"
-                     style="width: 100%; height: 100%; object-fit: cover;">
+                <img 
+                  src="{{ image | image_url: width: 200 }}" 
+                  alt="{{ image.alt | default: product.title | escape }}"
+                  width="200"
+                  height="200"
+                  loading="lazy"
+                  style="width: 100%; height: 100%; object-fit: cover;">
               </div>
             {% endfor %}
           </div>
@@ -35,24 +63,79 @@
           <span style="font-family: 'Inter', sans-serif; font-size: 48px; font-weight: 700; background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
             {{ product.price | money }}
           </span>
+          {% if product.compare_at_price > product.price %}
+            <span style="font-size: 24px; text-decoration: line-through; color: rgba(255, 255, 255, 0.5); margin-left: 16px;">
+              {{ product.compare_at_price | money }}
+            </span>
+            <span style="display: inline-block; margin-left: 12px; padding: 4px 12px; background: linear-gradient(135deg, #FF6B6B, #FF8787); border-radius: 50px; font-size: 14px; font-weight: 600; color: white;">
+              {% assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+              SAVE {{ savings }}%
+            </span>
+          {% endif %}
         </div>
 
-        <div class="product-description" style="font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.8; color: rgba(255, 255, 255, 0.8); margin-bottom: 32px; padding: 24px; background: rgba(255, 255, 255, 0.05); border-radius: 16px;">
-          {{ product.description }}
-        </div>
-
-        <form method="post" action="/cart/add" id="AddToCartForm" style="margin-bottom: 32px;">
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-          
-          <div style="margin-bottom: 24px;">
-            <label style="color: white; margin-bottom: 10px; display: block;">Quantity</label>
-            <input type="number" name="quantity" value="1" min="1" style="width: 100px; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white;">
+        {% if product.description != blank %}
+          <div class="product-description" style="font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.8; color: rgba(255, 255, 255, 0.8); margin-bottom: 32px; padding: 24px; background: rgba(255, 255, 255, 0.05); border-radius: 16px;">
+            {{ product.description }}
           </div>
+        {% endif %}
 
-          <button type="submit" name="add" class="luxury-cta-primary" style="width: 100%; font-size: 1.2rem;">
-            Add to Cart
+        {% if product.available %}
+          <form class="product-form" id="AddToCartForm" data-add-to-cart-form style="margin-bottom: 32px;">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            
+            {% if product.variants.size > 1 %}
+              <div style="margin-bottom: 24px;">
+                {% for option in product.options_with_values %}
+                  <div style="margin-bottom: 16px;">
+                    <label style="color: white; margin-bottom: 10px; display: block; font-weight: 600;">{{ option.name }}</label>
+                    <select name="option{{ forloop.index }}" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 16px;">
+                      {% for value in option.values %}
+                        <option value="{{ value }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+            
+            <div style="margin-bottom: 24px;">
+              <label for="product-quantity" style="color: white; margin-bottom: 10px; display: block; font-weight: 600;">Quantity</label>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <button type="button" class="quantity-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'));" style="width: 44px; height: 44px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 20px; cursor: pointer;">−</button>
+                <input type="number" name="quantity" id="product-quantity" value="1" min="1" max="99" style="width: 80px; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; text-align: center; font-size: 16px;">
+                <button type="button" class="quantity-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'));" style="width: 44px; height: 44px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 20px; cursor: pointer;">+</button>
+              </div>
+            </div>
+
+            <button type="submit" name="add" class="luxury-cta-primary" data-add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}" style="width: 100%; font-size: 1.2rem; min-height: 56px;">
+              <span class="btn-text">{{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}</span>
+              <span class="btn-loading" style="display: none;">
+                <svg class="spinner" viewBox="0 0 24 24" width="24" height="24" style="animation: spin 1s linear infinite;">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="32" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="btn-success" style="display: none;">✓ Added!</span>
+            </button>
+          </form>
+        {% else %}
+          <button class="luxury-cta-primary" disabled style="width: 100%; font-size: 1.2rem; min-height: 56px; opacity: 0.6; cursor: not-allowed;">
+            {{ 'products.product.sold_out' | t | default: 'Sold Out' }}
           </button>
-        </form>
+        {% endif %}
+        
+        {%- comment -%} Trust indicators {%- endcomment -%}
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+          <div style="display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">
+            <span>🚚</span> Free Shipping Over $50
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">
+            <span>↩️</span> 30-Day Returns
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">
+            <span>🔒</span> Secure Checkout
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -62,6 +145,35 @@
 @media (max-width: 1024px) {
   .product-layout { grid-template-columns: 1fr !important; gap: 40px !important; }
   .product-images { position: static !important; }
+}
+
+@media (max-width: 768px) {
+  .main-product-section { padding: 40px 0 !important; }
+  .product-info h1 { font-size: 32px !important; }
+  .product-price span:first-child { font-size: 32px !important; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Button states for product page */
+.luxury-cta-primary .btn-loading,
+.luxury-cta-primary .btn-success {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.luxury-cta-primary.is-loading .btn-text { opacity: 0; }
+.luxury-cta-primary.is-loading .btn-loading { display: flex !important; }
+.luxury-cta-primary.is-success .btn-text { opacity: 0; }
+.luxury-cta-primary.is-success .btn-success { display: inline !important; }
+
+.quantity-btn:hover {
+  background: rgba(255,255,255,0.2);
 }
 </style>
 
