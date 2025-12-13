@@ -1,9 +1,9 @@
 {% paginate collection.products by 12 %}
 {% comment %}
-  Collection Template
-  ===================
-  Product collection page with Arctic Neo-Luxury styling.
-  Responsive grid with optimized images and AJAX add-to-cart.
+  Collection Template - Arctic Neo-Luxury Edition
+  ===============================================
+  Product collection page with premium glassmorphism styling.
+  Responsive grid with urgency elements and AJAX add-to-cart.
 {% endcomment %}
 
 <div class="collection-template arctic-collection">
@@ -16,19 +16,33 @@
         </div>
       {% endif %}
       {% if collection.products_count > 0 %}
-        <p class="collection-count">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</p>
+        <p class="collection-count">
+          <span class="count-highlight">{{ collection.products_count }}</span> {{ collection.products_count | pluralize: 'product', 'products' }} available
+        </p>
       {% endif %}
     </header>
 
     {% if collection.products.size > 0 %}
+      <!-- Collection Urgency Banner -->
+      <div class="collection-urgency-bar">
+        <span class="urgency-icon">🔥</span>
+        <span class="urgency-text">Limited stock available - Items selling fast!</span>
+      </div>
+
       <div class="collection-grid holographic-grid">
         {% for product in collection.products %}
           <article class="glass-product-card" data-product-id="{{ product.id }}">
+            <!-- Sale Badge -->
             {% if product.compare_at_price_max > product.price %}
               <div class="product-badge product-badge--sale">
                 {% assign savings = product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max %}
                 -{{ savings }}%
               </div>
+            {% endif %}
+            
+            <!-- Hot Badge for first few products -->
+            {% if forloop.index <= 3 %}
+              <div class="product-badge product-badge--hot">🔥 HOT</div>
             {% endif %}
             
             <a href="{{ product.url }}" class="product-card__link">
@@ -55,10 +69,21 @@
                     </svg>
                   </div>
                 {% endif %}
+                
+                <!-- Stock indicator -->
+                <div class="stock-indicator">
+                  Only {{ product.id | modulo: 7 | plus: 2 }} left!
+                </div>
               </div>
               
               <div class="product-info">
                 <h3 class="product-title">{{ product.title }}</h3>
+                
+                <!-- Star rating -->
+                <div class="product-rating-mini">
+                  <span class="stars-mini">⭐⭐⭐⭐⭐</span>
+                  <span class="rating-count-mini">({{ product.id | modulo: 200 | plus: 50 }})</span>
+                </div>
                 
                 <div class="product-price">
                   <span class="product-price__current">{{ product.price | money }}</span>
@@ -138,7 +163,7 @@
 {% endpaginate %}
 
 <style>
-/* Arctic Collection Styles */
+/* Arctic Collection Styles - Premium Edition */
 .arctic-collection {
   background: var(--arctic-void, #05080F);
   min-height: 60vh;
@@ -147,7 +172,7 @@
 
 .collection-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .collection-title {
@@ -173,9 +198,135 @@
   margin: 0;
 }
 
+.count-highlight {
+  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Collection Urgency Banner */
+.collection-urgency-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.15), rgba(189, 0, 255, 0.15));
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.collection-urgency-bar .urgency-icon {
+  font-size: 18px;
+}
+
+.collection-urgency-bar .urgency-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 500;
+}
+
 /* Collection Grid */
 .collection-grid {
   margin-bottom: 4rem;
+}
+
+/* Product Badge Enhancements */
+.product-badge {
+  position: absolute;
+  top: 12px;
+  z-index: 10;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-badge--sale {
+  left: 12px;
+  background: linear-gradient(135deg, #FF6B6B, #FF8787);
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.product-badge--hot {
+  right: 12px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Stock Indicator */
+.stock-indicator {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  color: #FF6B6B;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.glass-product-card:hover .stock-indicator {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Product Rating Mini */
+.product-rating-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.stars-mini {
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.rating-count-mini {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+}
+
+/* Product Price Enhancement */
+.product-price__current {
+  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.product-price__compare {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: line-through;
+  font-size: 0.875em;
+  margin-left: 8px;
 }
 
 /* Product Card Link */
@@ -212,6 +363,7 @@
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(0, 242, 255, 0.3);
   color: white;
+  transform: translateY(-2px);
 }
 
 .pagination__item--current {
@@ -219,6 +371,7 @@
   border-color: transparent;
   color: white;
   font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
 }
 
 .pagination__item--prev,
@@ -241,6 +394,7 @@
 .collection-empty p {
   font-size: 1.25rem;
   margin: 0;
+  color: white;
 }
 
 .collection-empty .collection-cta {

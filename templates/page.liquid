@@ -1,4 +1,4 @@
-<div class="page-template">
+<div class="page-template arctic-page">
   <div class="container">
     <header class="page-header">
       <h1 class="page-title">{{ page.title }}</h1>
@@ -11,7 +11,8 @@
 </div>
 
 <style>
-.page-template {
+.arctic-page {
+  background: var(--arctic-void, #05080F);
   padding: 60px 0;
   min-height: 60vh;
 }
@@ -22,31 +23,40 @@
 }
 
 .page-title {
-  font-size: 48px;
+  font-size: clamp(32px, 6vw, 48px);
   font-weight: 700;
   font-family: 'Playfair Display', serif;
+  color: white;
 }
 
 .page-content {
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
 }
 
 .page-content h2 {
   font-size: 32px;
   font-weight: 700;
   margin: 40px 0 20px;
+  color: white;
 }
 
 .page-content h3 {
   font-size: 24px;
   font-weight: 600;
   margin: 30px 0 15px;
+  color: white;
 }
 
 .page-content p {
   margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .page-content ul,
@@ -57,24 +67,27 @@
 
 .page-content li {
   margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .page-content a {
-  color: #6366f1;
+  color: #00F2FF;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .page-content a:hover {
+  color: #BD00FF;
   text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-  .page-title {
-    font-size: 32px;
+  .arctic-page {
+    padding: 40px 16px;
   }
   
   .page-content {
-    padding: 0 20px;
+    padding: 24px 20px;
   }
 }
 </style>

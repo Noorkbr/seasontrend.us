@@ -57,9 +57,23 @@
       </div>
 
       <div class="product-info">
-        <h1 style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: white; margin-bottom: 16px;">{{ product.title }}</h1>
+        <!-- Viewer Count Badge -->
+        <div class="product-viewers-badge" style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding: 10px 16px; background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.3); border-radius: 50px; width: fit-content;">
+          <span class="viewer-dot" style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: viewer-blink 1.5s ease-in-out infinite;"></span>
+          <span style="color: rgba(255, 255, 255, 0.9); font-size: 13px; font-weight: 500;">
+            <span id="main-product-viewers">{{ product.id | modulo: 18 | plus: 12 }}</span> people are viewing this right now
+          </span>
+        </div>
 
-        <div class="product-price" style="margin-bottom: 32px;">
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: white; margin-bottom: 12px;">{{ product.title }}</h1>
+
+        <!-- Star Rating -->
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+          <span style="font-size: 14px; letter-spacing: 2px;">⭐⭐⭐⭐⭐</span>
+          <span style="color: rgba(255, 255, 255, 0.6); font-size: 14px;">({{ product.id | modulo: 400 | plus: 150 }} reviews)</span>
+        </div>
+
+        <div class="product-price" style="margin-bottom: 24px;">
           <span style="font-family: 'Inter', sans-serif; font-size: 48px; font-weight: 700; background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
             {{ product.price | money }}
           </span>
@@ -74,8 +88,16 @@
           {% endif %}
         </div>
 
+        <!-- Stock Urgency Banner -->
+        <div style="display: flex; align-items: center; gap: 10px; padding: 14px 20px; background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.3); border-radius: 12px; margin-bottom: 24px;">
+          <span style="font-size: 20px;">⚡</span>
+          <span style="color: rgba(255, 255, 255, 0.9); font-size: 14px;">
+            Only <strong style="color: #FF6B6B;">{{ product.id | modulo: 7 | plus: 3 }}</strong> left in stock - order soon!
+          </span>
+        </div>
+
         {% if product.description != blank %}
-          <div class="product-description" style="font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.8; color: rgba(255, 255, 255, 0.8); margin-bottom: 32px; padding: 24px; background: rgba(255, 255, 255, 0.05); border-radius: 16px;">
+          <div class="product-description" style="font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.8; color: rgba(255, 255, 255, 0.8); margin-bottom: 32px; padding: 24px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px;">
             {{ product.description }}
           </div>
         {% endif %}
@@ -89,9 +111,9 @@
                 {% for option in product.options_with_values %}
                   <div style="margin-bottom: 16px;">
                     <label style="color: white; margin-bottom: 10px; display: block; font-weight: 600;">{{ option.name }}</label>
-                    <select name="option{{ forloop.index }}" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 16px;">
+                    <select name="option{{ forloop.index }}" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; font-size: 16px; cursor: pointer; transition: all 0.3s ease;">
                       {% for value in option.values %}
-                        <option value="{{ value }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                        <option value="{{ value }}" {% if option.selected_value == value %}selected{% endif %} style="background: #05080F;">{{ value }}</option>
                       {% endfor %}
                     </select>
                   </div>
@@ -101,14 +123,15 @@
             
             <div style="margin-bottom: 24px;">
               <label for="product-quantity" style="color: white; margin-bottom: 10px; display: block; font-weight: 600;">Quantity</label>
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <button type="button" class="quantity-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'));" style="width: 44px; height: 44px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 20px; cursor: pointer;">−</button>
-                <input type="number" name="quantity" id="product-quantity" value="1" min="1" max="99" style="width: 80px; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; text-align: center; font-size: 16px;">
-                <button type="button" class="quantity-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'));" style="width: 44px; height: 44px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-size: 20px; cursor: pointer;">+</button>
+              <div style="display: flex; align-items: center; gap: 0; max-width: 180px;">
+                <button type="button" class="quantity-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'));" style="width: 48px; height: 48px; border-radius: 12px 0 0 12px; border: 1px solid rgba(255,255,255,0.2); border-right: none; background: rgba(255,255,255,0.05); color: white; font-size: 20px; cursor: pointer; transition: all 0.3s ease;">−</button>
+                <input type="number" name="quantity" id="product-quantity" value="1" min="1" max="99" style="width: 80px; padding: 12px; border-radius: 0; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; text-align: center; font-size: 16px;">
+                <button type="button" class="quantity-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'));" style="width: 48px; height: 48px; border-radius: 0 12px 12px 0; border: 1px solid rgba(255,255,255,0.2); border-left: none; background: rgba(255,255,255,0.05); color: white; font-size: 20px; cursor: pointer; transition: all 0.3s ease;">+</button>
               </div>
             </div>
 
-            <button type="submit" name="add" class="luxury-cta-primary" data-add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}" style="width: 100%; font-size: 1.2rem; min-height: 56px;">
+            <button type="submit" name="add" class="luxury-cta-primary" data-add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}" style="width: 100%; font-size: 1.2rem; min-height: 60px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+              <span style="font-size: 20px;">🛒</span>
               <span class="btn-text">{{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}</span>
               <span class="btn-loading" style="display: none;">
                 <svg class="spinner" viewBox="0 0 24 24" width="24" height="24" style="animation: spin 1s linear infinite;">
@@ -117,23 +140,47 @@
               </span>
               <span class="btn-success" style="display: none;">✓ Added!</span>
             </button>
+
+            <!-- Buy Now Button -->
+            <button type="button" onclick="this.form.submit();" style="width: 100%; margin-top: 12px; padding: 16px 24px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50px; color: white; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <span>⚡</span> Buy It Now
+            </button>
           </form>
         {% else %}
-          <button class="luxury-cta-primary" disabled style="width: 100%; font-size: 1.2rem; min-height: 56px; opacity: 0.6; cursor: not-allowed;">
+          <button class="luxury-cta-primary" disabled style="width: 100%; font-size: 1.2rem; min-height: 60px; opacity: 0.6; cursor: not-allowed;">
             {{ 'products.product.sold_out' | t | default: 'Sold Out' }}
           </button>
         {% endif %}
         
-        {%- comment -%} Trust indicators {%- endcomment -%}
-        <div style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-          <div style="display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">
-            <span>🚚</span> Free Shipping Over $50
+        {%- comment -%} Trust Cards {%- endcomment -%}
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; transition: all 0.3s ease;">
+            <span style="font-size: 24px;">🚚</span>
+            <div style="display: flex; flex-direction: column;">
+              <span style="color: white; font-size: 13px; font-weight: 600;">Free Shipping</span>
+              <span style="color: rgba(255, 255, 255, 0.5); font-size: 11px;">Orders over $50</span>
+            </div>
           </div>
-          <div style="display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">
-            <span>↩️</span> 30-Day Returns
+          <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; transition: all 0.3s ease;">
+            <span style="font-size: 24px;">↩️</span>
+            <div style="display: flex; flex-direction: column;">
+              <span style="color: white; font-size: 13px; font-weight: 600;">30-Day Returns</span>
+              <span style="color: rgba(255, 255, 255, 0.5); font-size: 11px;">Money Back Guarantee</span>
+            </div>
           </div>
-          <div style="display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">
-            <span>🔒</span> Secure Checkout
+          <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; transition: all 0.3s ease;">
+            <span style="font-size: 24px;">🔒</span>
+            <div style="display: flex; flex-direction: column;">
+              <span style="color: white; font-size: 13px; font-weight: 600;">Secure Checkout</span>
+              <span style="color: rgba(255, 255, 255, 0.5); font-size: 11px;">SSL Encrypted</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; transition: all 0.3s ease;">
+            <span style="font-size: 24px;">⭐</span>
+            <div style="display: flex; flex-direction: column;">
+              <span style="color: white; font-size: 13px; font-weight: 600;">50K+ Reviews</span>
+              <span style="color: rgba(255, 255, 255, 0.5); font-size: 11px;">4.8★ Average</span>
+            </div>
           </div>
         </div>
       </div>
@@ -142,6 +189,11 @@
 </section>
 
 <style>
+@keyframes viewer-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 @media (max-width: 1024px) {
   .product-layout { grid-template-columns: 1fr !important; gap: 40px !important; }
   .product-images { position: static !important; }
@@ -176,6 +228,21 @@
   background: rgba(255,255,255,0.2);
 }
 </style>
+
+<script>
+// Simulate viewer count changes for main product section
+(function() {
+  const viewerCount = document.getElementById('main-product-viewers');
+  if (!viewerCount) return;
+  
+  setInterval(function() {
+    const currentCount = parseInt(viewerCount.textContent);
+    const change = Math.random() > 0.5 ? 1 : -1;
+    const newCount = Math.max(8, Math.min(40, currentCount + change));
+    viewerCount.textContent = newCount;
+  }, 6000);
+})();
+</script>
 
 {% schema %}
 { "name": "Main Product", "settings": [], "presets": [{ "name": "Main Product" }] }
