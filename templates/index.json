@@ -19,11 +19,12 @@
         "hero_product_title": ""
       }
     },
-    "arctic-product-grid": {
+    "arctic_product_grid_hydnRh": {
       "type": "arctic-product-grid",
+      "name": "Holographic Product Grid",
       "settings": {
-        "grid_title": "The Collection",
-        "collection": "all-products",
+        "grid_title": "Featured Products",
+        "collection": "clothing",
         "products_to_show": 6,
         "view_all_text": "View All Products",
         "view_all_link": "shopify://collections/all"
@@ -58,7 +59,7 @@
   },
   "order": [
     "arctic-hero-portal",
-    "arctic-product-grid",
+    "arctic_product_grid_hydnRh",
     "arctic-trust-wall",
     "arctic-snowglobe-footer"
   ]
