@@ -292,9 +292,22 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
                     <!-- Footer Column 1 -->
                     <div>
-                        <h3 style="font-family: var(--font-clash); font-size: 1.5rem; color: white; margin-bottom: 1rem;">
-                            SeasonTrend
-                        </h3>
+                        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;">
+                            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="demo-footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#00F2FF"/>
+                                        <stop offset="50%" style="stop-color:#BD00FF"/>
+                                        <stop offset="100%" style="stop-color:#00F2FF"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M16 2L20 8L28 10L22 16L24 24L16 20L8 24L10 16L4 10L12 8L16 2Z" fill="url(#demo-footer-logo-gradient)" stroke="url(#demo-footer-logo-gradient)" stroke-width="1.5" stroke-linejoin="round"/>
+                                <circle cx="16" cy="14" r="4" fill="white" fill-opacity="0.3"/>
+                            </svg>
+                            <h3 style="font-family: var(--font-clash); font-size: 1.5rem; margin: 0; font-weight: 800; letter-spacing: -0.02em;">
+                                <span style="color: #ffffff;">Season</span><span style="background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 50%, #00F2FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Trend</span>
+                            </h3>
+                        </div>
                         <p style="font-family: var(--font-satoshi); font-size: 0.875rem; line-height: 1.6;">
                             Arctic Neo-Luxury for the modern trendsetter. Experience the future of comfort.
                         </p>

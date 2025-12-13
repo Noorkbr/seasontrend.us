@@ -66,7 +66,24 @@
     <div class="luxury-footer-nav">
       {%- comment -%} About/Brand Column {%- endcomment -%}
       <div class="luxury-footer-column luxury-footer-column--brand">
-        <h4 class="luxury-footer-heading">{{ section.settings.about_title | default: shop.name }}</h4>
+        <div class="footer-brand-logo">
+          <span class="footer-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#00F2FF"/>
+                  <stop offset="50%" style="stop-color:#BD00FF"/>
+                  <stop offset="100%" style="stop-color:#00F2FF"/>
+                </linearGradient>
+              </defs>
+              <path d="M16 2L20 8L28 10L22 16L24 24L16 20L8 24L10 16L4 10L12 8L16 2Z" fill="url(#footer-logo-gradient)" stroke="url(#footer-logo-gradient)" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="16" cy="14" r="4" fill="white" fill-opacity="0.3"/>
+            </svg>
+          </span>
+          <h4 class="luxury-footer-heading footer-logo-text">
+            <span class="footer-season">Season</span><span class="footer-trend">Trend</span>
+          </h4>
+        </div>
         {% if section.settings.about_text != blank %}
           <p class="luxury-footer-about">{{ section.settings.about_text }}</p>
         {% endif %}
@@ -322,6 +339,54 @@
 
 .luxury-footer-column--brand {
   max-width: 300px;
+}
+
+/* Footer Brand Logo Styles */
+.footer-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer-logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo-icon svg {
+  filter: drop-shadow(0 0 6px rgba(0, 242, 255, 0.4));
+}
+
+.footer-logo-text {
+  display: flex;
+  align-items: baseline;
+  margin: 0 !important;
+  font-family: var(--font-clash, 'Inter', sans-serif) !important;
+  font-weight: 800 !important;
+  font-size: 1.25rem !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+}
+
+.footer-season {
+  color: #ffffff;
+}
+
+.footer-trend {
+  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 50%, #00F2FF 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 4s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .luxury-footer-heading {
