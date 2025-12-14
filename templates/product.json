@@ -1,8 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main-product": {
       "type": "main-product",
       "settings": {}
+    },
+    "arctic_product_grid_J7UG7z": {
+      "type": "arctic-product-grid",
+      "name": "Arctic Product Grid",
+      "settings": {
+        "grid_title": "Trending Now",
+        "grid_subtitle": "",
+        "collection": "",
+        "product_list": [],
+        "products_to_show": 8,
+        "show_badges": true,
+        "show_secondary_image": true,
+        "add_to_cart_text": "Add to Cart",
+        "view_all_text": "View All Products",
+        "view_all_link": ""
+      }
     },
     "trust-badges": {
       "type": "trust-badges-section",
@@ -26,6 +51,7 @@
   },
   "order": [
     "main-product",
+    "arctic_product_grid_J7UG7z",
     "trust-badges",
     "product-reviews",
     "product-recommendations",
