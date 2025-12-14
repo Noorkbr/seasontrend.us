@@ -233,13 +233,24 @@
   font-size: 1.5rem;
 }
 
-/* Mobile Toggle Button Touch Target */
+/* Mobile Toggle Button - Hidden on desktop, visible on mobile */
 .arctic-mobile-toggle {
+  display: none;
   min-width: 48px;
   min-height: 48px;
-  display: flex;
   align-items: center;
   justify-content: center;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Show mobile toggle only on mobile devices */
+@media (max-width: 768px) {
+  .arctic-mobile-toggle {
+    display: flex;
+  }
 }
 
 /* Ensure logo link is accessible */
