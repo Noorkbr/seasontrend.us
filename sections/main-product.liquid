@@ -721,12 +721,19 @@
       });
     }
     
-    // Close on Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-        closeModal();
-      }
-    });
+    // Close on Escape key - use a single global handler
+    if (!window.mainProductModalEscapeListenerAdded) {
+      window.mainProductModalEscapeListenerAdded = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          var activeModal = document.querySelector('.main-product-modal.active');
+          if (activeModal) {
+            activeModal.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    }
     
     // Modal thumbnails click handler
     modalThumbnails.forEach(function(thumb) {
