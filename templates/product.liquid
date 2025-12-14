@@ -285,6 +285,7 @@
 }
 
 .product-single__thumbnails {
+  /* Force visibility with !important to override any conflicting CSS that may hide thumbnails */
   display: flex !important;
   gap: 12px;
   margin-top: 16px;
@@ -304,6 +305,7 @@
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
+  /* Ensure thumbnail containers are always visible */
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -324,6 +326,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Ensure thumbnail images are always visible */
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;

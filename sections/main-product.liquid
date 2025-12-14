@@ -203,7 +203,8 @@
   50% { opacity: 0.4; }
 }
 
-/* Ensure thumbnails are always visible */
+/* Ensure thumbnails are always visible - addresses issue where thumbnails were hidden */
+/* Using !important to override any conflicting CSS that may prevent display */
 .thumbnail-grid {
   display: grid !important;
   visibility: visible !important;
