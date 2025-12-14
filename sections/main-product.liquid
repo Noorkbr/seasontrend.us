@@ -228,7 +228,8 @@
   transition: all 0.3s ease !important;
 }
 
-.thumbnail:hover {
+.thumbnail:hover,
+.thumbnail.thumbnail-hover {
   border-color: rgba(0, 242, 255, 0.3) !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -325,28 +326,23 @@
         if (largeSrc) {
           mainImage.src = largeSrc;
           
-          // Update active state
+          // Update active state using class and inline styles for reliability
           thumbnails.forEach(function(t) {
             t.classList.remove('active');
-            t.style.borderColor = 'rgba(255, 255, 255, 0.1)';
           });
           this.classList.add('active');
-          this.style.borderColor = 'rgba(0, 242, 255, 0.5)';
-          this.style.boxShadow = '0 0 20px rgba(0, 242, 255, 0.3)';
         }
       });
       
       // Add hover effect
       thumb.addEventListener('mouseenter', function() {
         if (!this.classList.contains('active')) {
-          this.style.borderColor = 'rgba(0, 242, 255, 0.3)';
+          this.classList.add('thumbnail-hover');
         }
       });
       
       thumb.addEventListener('mouseleave', function() {
-        if (!this.classList.contains('active')) {
-          this.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-        }
+        this.classList.remove('thumbnail-hover');
       });
     });
     
