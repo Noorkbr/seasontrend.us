@@ -749,7 +749,9 @@
       });
     });
     
-    console.log('Product thumbnails initialized:', thumbnails.length);
+    if (typeof console !== 'undefined' && console.log) {
+      console.log('Product thumbnails initialized:', thumbnails.length);
+    }
   }
   
   // Initialize when DOM is ready
