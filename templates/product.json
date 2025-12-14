@@ -13,6 +13,11 @@
       "type": "main-product",
       "settings": {}
     },
+    "product_recommendations_YQWtJg": {
+      "type": "product-recommendations",
+      "name": "Product Recommendations",
+      "settings": {}
+    },
     "arctic_product_grid_J7UG7z": {
       "type": "arctic-product-grid",
       "name": "Arctic Product Grid",
@@ -51,6 +56,7 @@
   },
   "order": [
     "main-product",
+    "product_recommendations_YQWtJg",
     "arctic_product_grid_J7UG7z",
     "trust-badges",
     "product-reviews",
