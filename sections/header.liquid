@@ -58,22 +58,54 @@
           {% else %}
             <a href="/" class="logo-link seasontrend-logo" aria-label="{{ shop.name }} - Home">
               <span class="logo-icon">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="40" height="40" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="header-aurora" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" style="stop-color:#00F2FF"/>
-                      <stop offset="50%" style="stop-color:#BD00FF"/>
-                      <stop offset="100%" style="stop-color:#00F2FF"/>
+                      <stop offset="50%" style="stop-color:#8B5CF6"/>
+                      <stop offset="100%" style="stop-color:#BD00FF"/>
                     </linearGradient>
+                    <linearGradient id="header-gold" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#BF953F"/>
+                      <stop offset="25%" style="stop-color:#FCF6BA"/>
+                      <stop offset="50%" style="stop-color:#D4AF37"/>
+                      <stop offset="75%" style="stop-color:#FCF6BA"/>
+                      <stop offset="100%" style="stop-color:#BF953F"/>
+                    </linearGradient>
+                    <filter id="header-glow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="2" result="blur"/>
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
                   </defs>
-                  <path d="M16 2L20 8L28 10L22 16L24 24L16 20L8 24L10 16L4 10L12 8L16 2Z" fill="url(#logo-gradient)" stroke="url(#logo-gradient)" stroke-width="1.5" stroke-linejoin="round"/>
-                  <circle cx="16" cy="14" r="4" fill="white" fill-opacity="0.3"/>
+                  <!-- Snowflake Icon -->
+                  <g transform="translate(32, 32)" filter="url(#header-glow)">
+                    <polygon points="0,-4 4,0 0,4 -4,0" fill="url(#header-aurora)"/>
+                    <g stroke="url(#header-aurora)" stroke-width="2" stroke-linecap="round">
+                      <line x1="0" y1="-6" x2="0" y2="-22"/>
+                      <line x1="0" y1="6" x2="0" y2="22"/>
+                      <line x1="-6" y1="0" x2="-22" y2="0"/>
+                      <line x1="6" y1="0" x2="22" y2="0"/>
+                      <line x1="-4" y1="-4" x2="-16" y2="-16"/>
+                      <line x1="4" y1="4" x2="16" y2="16"/>
+                      <line x1="-4" y1="4" x2="-16" y2="16"/>
+                      <line x1="4" y1="-4" x2="16" y2="-16"/>
+                    </g>
+                    <g fill="url(#header-gold)">
+                      <circle cx="0" cy="-24" r="2.5"/>
+                      <circle cx="0" cy="24" r="2.5"/>
+                      <circle cx="-24" cy="0" r="2.5"/>
+                      <circle cx="24" cy="0" r="2.5"/>
+                    </g>
+                  </g>
                 </svg>
               </span>
               <span class="logo-text">
-                <span class="logo-season">Season</span><span class="logo-trend">Trend</span>
+                <span class="logo-season">SEASON</span><span class="logo-trend">TREND</span>
               </span>
-              <span class="logo-tagline">Premium Style</span>
+              <span class="logo-tagline">PREMIUM STYLE • EVERY SEASON</span>
             </a>
           {% endif %}
         </div>
@@ -231,8 +263,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   animation: iconPulse 3s ease-in-out infinite;
 }
 
@@ -250,51 +282,59 @@
   display: flex;
   align-items: baseline;
   font-family: var(--font-clash, 'Inter', sans-serif);
-  font-weight: 800;
-  font-size: 1.85rem;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.1em;
   line-height: 1;
   position: relative;
 }
 
 .seasontrend-logo .logo-season {
-  color: #ffffff;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  transition: all 0.4s ease;
-}
-
-.seasontrend-logo .logo-trend {
-  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 50%, #00F2FF 100%);
+  background: linear-gradient(135deg, #00F2FF 0%, #8B5CF6 50%, #BD00FF 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradientFlow 4s ease infinite;
+  text-shadow: none;
+  filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.4));
+  transition: all 0.4s ease;
+}
+
+.seasontrend-logo .logo-trend {
+  background: linear-gradient(90deg, #BF953F 0%, #FCF6BA 25%, #D4AF37 50%, #FCF6BA 75%, #BF953F 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 3s ease infinite;
   transition: all 0.4s ease;
 }
 
 .seasontrend-logo .logo-tagline {
   position: absolute;
-  bottom: -12px;
+  bottom: -14px;
+  left: 0;
   right: 0;
   font-family: var(--font-satoshi, 'Inter', sans-serif);
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  transform: translateY(-5px);
+  color: rgba(192, 192, 192, 0.7);
+  opacity: 0.7;
+  transform: translateY(0);
   transition: all 0.4s ease;
+  text-align: center;
 }
 
 .seasontrend-logo:hover .logo-tagline {
   opacity: 1;
-  transform: translateY(0);
+  color: rgba(192, 192, 192, 0.9);
 }
 
 .seasontrend-logo:hover .logo-season {
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+  filter: drop-shadow(0 0 12px rgba(0, 242, 255, 0.6)) brightness(1.1);
 }
 
 .seasontrend-logo:hover .logo-trend {
@@ -308,6 +348,12 @@
   100% { background-position: 0% 50%; }
 }
 
+@keyframes goldShimmer {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 0%; }
+  100% { background-position: 0% 0%; }
+}
+
 @keyframes iconPulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -316,17 +362,18 @@
 /* Mobile Logo Adjustments */
 @media (max-width: 768px) {
   .seasontrend-logo .logo-icon {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
   
   .seasontrend-logo .logo-icon svg {
-    width: 26px;
-    height: 26px;
+    width: 36px;
+    height: 36px;
   }
   
   .seasontrend-logo .logo-text {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
   }
   
   .seasontrend-logo .logo-tagline {
@@ -340,17 +387,17 @@
 
 @media (max-width: 480px) {
   .seasontrend-logo .logo-text {
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
   
   .seasontrend-logo .logo-icon {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
   }
   
   .seasontrend-logo .logo-icon svg {
-    width: 22px;
-    height: 22px;
+    width: 32px;
+    height: 32px;
   }
 }
 </style>

@@ -68,20 +68,52 @@
       <div class="luxury-footer-column luxury-footer-column--brand">
         <div class="footer-brand-logo">
           <span class="footer-logo-icon">
-            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id="footer-aurora" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" style="stop-color:#00F2FF"/>
-                  <stop offset="50%" style="stop-color:#BD00FF"/>
-                  <stop offset="100%" style="stop-color:#00F2FF"/>
+                  <stop offset="50%" style="stop-color:#8B5CF6"/>
+                  <stop offset="100%" style="stop-color:#BD00FF"/>
                 </linearGradient>
+                <linearGradient id="footer-gold" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#BF953F"/>
+                  <stop offset="25%" style="stop-color:#FCF6BA"/>
+                  <stop offset="50%" style="stop-color:#D4AF37"/>
+                  <stop offset="75%" style="stop-color:#FCF6BA"/>
+                  <stop offset="100%" style="stop-color:#BF953F"/>
+                </linearGradient>
+                <filter id="footer-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
               </defs>
-              <path d="M16 2L20 8L28 10L22 16L24 24L16 20L8 24L10 16L4 10L12 8L16 2Z" fill="url(#footer-logo-gradient)" stroke="url(#footer-logo-gradient)" stroke-width="1.5" stroke-linejoin="round"/>
-              <circle cx="16" cy="14" r="4" fill="white" fill-opacity="0.3"/>
+              <!-- Snowflake Icon -->
+              <g transform="translate(32, 32)" filter="url(#footer-glow)">
+                <polygon points="0,-3 3,0 0,3 -3,0" fill="url(#footer-aurora)"/>
+                <g stroke="url(#footer-aurora)" stroke-width="1.5" stroke-linecap="round">
+                  <line x1="0" y1="-5" x2="0" y2="-18"/>
+                  <line x1="0" y1="5" x2="0" y2="18"/>
+                  <line x1="-5" y1="0" x2="-18" y2="0"/>
+                  <line x1="5" y1="0" x2="18" y2="0"/>
+                  <line x1="-3" y1="-3" x2="-13" y2="-13"/>
+                  <line x1="3" y1="3" x2="13" y2="13"/>
+                  <line x1="-3" y1="3" x2="-13" y2="13"/>
+                  <line x1="3" y1="-3" x2="13" y2="-13"/>
+                </g>
+                <g fill="url(#footer-gold)">
+                  <circle cx="0" cy="-20" r="2"/>
+                  <circle cx="0" cy="20" r="2"/>
+                  <circle cx="-20" cy="0" r="2"/>
+                  <circle cx="20" cy="0" r="2"/>
+                </g>
+              </g>
             </svg>
           </span>
           <h4 class="luxury-footer-heading footer-logo-text">
-            <span class="footer-season">Season</span><span class="footer-trend">Trend</span>
+            <span class="footer-season">SEASON</span><span class="footer-trend">TREND</span>
           </h4>
         </div>
         {% if section.settings.about_text != blank %}
@@ -364,18 +396,14 @@
   align-items: baseline;
   margin: 0 !important;
   font-family: var(--font-clash, 'Inter', sans-serif) !important;
-  font-weight: 800 !important;
-  font-size: 1.25rem !important;
-  letter-spacing: -0.02em !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.08em !important;
   text-transform: none !important;
 }
 
 .footer-season {
-  color: #ffffff;
-}
-
-.footer-trend {
-  background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 50%, #00F2FF 100%);
+  background: linear-gradient(135deg, #00F2FF 0%, #8B5CF6 50%, #BD00FF 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -383,10 +411,25 @@
   animation: gradientFlow 4s ease infinite;
 }
 
+.footer-trend {
+  background: linear-gradient(90deg, #BF953F 0%, #FCF6BA 25%, #D4AF37 50%, #FCF6BA 75%, #BF953F 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 3s ease infinite;
+}
+
 @keyframes gradientFlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+@keyframes goldShimmer {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 0%; }
+  100% { background-position: 0% 0%; }
 }
 
 .luxury-footer-heading {
