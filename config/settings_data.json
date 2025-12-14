@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#6366f1",
@@ -17,12 +26,56 @@
     "sections": {
       "header": {
         "type": "header",
-        "settings": {}
+        "settings": {
+          "logo_width": 150,
+          "logo_text": "",
+          "show_announcement": true,
+          "default_announcement": "Free Shipping on Orders Over $50",
+          "menu": "main-menu",
+          "show_new_arrivals": true,
+          "new_arrivals_text": "NEW ARRIVALS",
+          "new_arrivals_link": "",
+          "show_best_sellers": true,
+          "best_sellers_text": "BEST SELLERS",
+          "best_sellers_link": "",
+          "show_sale_link": true,
+          "sale_text": "SALE",
+          "sale_link": "",
+          "show_search": true,
+          "show_cta_button": true,
+          "cta_text": "Shop Now",
+          "cta_link": ""
+        }
       },
       "footer": {
         "type": "footer",
-        "settings": {}
+        "settings": {
+          "about_title": "",
+          "about_text": "Arctic Neo-Luxury for the modern trendsetter. Premium quality, exceptional service.",
+          "show_newsletter": true,
+          "newsletter_title": "JOIN THE VIP LIST",
+          "newsletter_subtitle": "Get 10% off your first order + exclusive deals",
+          "newsletter_placeholder": "Enter your email",
+          "newsletter_button_text": "Subscribe",
+          "show_trust_badges": true,
+          "show_reviews_summary": true,
+          "reviews_text": "4.8/5 from 1,247+ reviews",
+          "social_title": "Connect",
+          "facebook_url": "",
+          "instagram_url": "",
+          "twitter_url": "",
+          "pinterest_url": "",
+          "tiktok_url": "",
+          "youtube_url": "",
+          "show_legal_links": true,
+          "privacy_link": "",
+          "terms_link": "",
+          "refund_link": "",
+          "copyright_text": "All rights reserved.",
+          "show_payment_icons": true
+        }
       }
-    }
+    },
+    "content_for_index": []
   }
 }
