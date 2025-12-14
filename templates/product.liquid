@@ -181,6 +181,25 @@
   </div>
 </div>
 
+<!-- Full-screen Image Modal -->
+<div class="product-image-modal" id="productImageModal">
+  <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close image modal">×</button>
+  <div class="modal-image-container">
+    <img src="" alt="Product image" id="modalMainImage">
+  </div>
+  {% if product.images.size > 1 %}
+    <div class="modal-thumbnails">
+      {% for image in product.images %}
+        <div class="modal-thumbnail {% if forloop.first %}active{% endif %}" data-modal-index="{{ forloop.index0 }}">
+          <img src="{{ image | image_url: width: 200 }}" 
+               alt="{{ image.alt | default: product.title | escape }}"
+               data-large-src="{{ image | image_url: width: 1200 }}">
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
 <style>
 /* Arctic Product Template */
 .arctic-product {
@@ -636,53 +655,449 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
+  
+  .product-single__photos {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .product-single__photo {
+    width: 100%;
+  }
+  
+  .product-single__photo img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+  }
 }
 
 @media (max-width: 768px) {
   .arctic-product {
-    padding: 40px 0;
+    padding: 20px 0;
   }
 
   .product-urgency-bar {
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
-    padding: 12px 16px;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .urgency-message {
-    font-size: 13px;
+    font-size: 12px;
     width: 100%;
     margin-top: 4px;
   }
+  
+  .urgency-badge-live {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
 
   .product-single {
-    padding: 0 16px;
-    gap: 30px;
+    padding: 0 12px;
+    gap: 24px;
+  }
+  
+  .product-single__photos {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .product-single__photo {
+    border-radius: 16px;
+    width: 100%;
+  }
+  
+  .product-single__photo img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 16px;
+  }
+  
+  .product-badge-sale {
+    top: 10px;
+    left: 10px;
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  
+  .product-single__thumbnails {
+    display: flex !important;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 8px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  
+  .product-single__thumbnail {
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px;
+    flex-shrink: 0;
+    border-radius: 10px;
+  }
+  
+  .product-single__info {
+    width: 100%;
+    padding: 0;
   }
   
   .product-single__title {
-    font-size: 26px;
+    font-size: 22px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  
+  .product-rating {
+    margin-bottom: 12px;
+  }
+  
+  .stars {
+    font-size: 14px;
+  }
+  
+  .rating-count {
+    font-size: 12px;
   }
 
   .product-single__prices {
     flex-direction: column;
     align-items: flex-start;
+    margin: 16px 0;
+    gap: 8px;
   }
 
   .product-single__price {
-    font-size: 28px;
+    font-size: 26px;
+  }
+  
+  .product-single__price--compare {
+    font-size: 18px;
+  }
+  
+  .savings-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+  
+  .stock-urgency {
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+  
+  .stock-icon {
+    font-size: 16px;
+  }
+  
+  .stock-text {
+    font-size: 13px;
+  }
+  
+  .product-single__description {
+    padding: 16px;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  
+  .product-form {
+    margin-bottom: 24px;
+  }
+  
+  .variant-selector {
+    margin-bottom: 16px;
+  }
+  
+  .variant-selector label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  
+  .product-form__variants {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  
+  .product-form__item label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  
+  .quantity-selector {
+    max-width: 140px;
+  }
+  
+  .quantity-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  
+  .product-form__input {
+    width: 56px;
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .product-form__cart-submit {
+    min-height: 50px;
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+  
+  .btn-icon {
+    font-size: 18px;
+  }
+  
+  .buy-now-btn {
+    padding: 12px 20px;
+    font-size: 14px;
   }
 
   .product-trust-cards {
     grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  
+  .trust-card {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .trust-icon {
+    font-size: 20px;
+  }
+  
+  .trust-content strong {
+    font-size: 12px;
+  }
+  
+  .trust-content span {
+    font-size: 10px;
   }
 }
 
 @media (max-width: 480px) {
+  .arctic-product {
+    padding: 16px 0;
+  }
+  
+  .product-urgency-bar {
+    padding: 8px 10px;
+    border-radius: 12px;
+  }
+  
+  .urgency-fire {
+    font-size: 16px;
+  }
+  
+  .urgency-message {
+    font-size: 11px;
+  }
+  
+  .product-single {
+    padding: 0 10px;
+    gap: 20px;
+  }
+  
+  .product-single__photo {
+    border-radius: 14px;
+  }
+  
+  .product-single__photo img {
+    max-height: 350px;
+    border-radius: 14px;
+  }
+  
   .product-badge-sale {
-    font-size: 12px;
-    padding: 6px 12px;
+    font-size: 10px;
+    padding: 4px 8px;
+    top: 8px;
+    left: 8px;
+  }
+  
+  .product-single__thumbnails {
+    gap: 6px;
+  }
+  
+  .product-single__thumbnail {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px;
+    border-radius: 8px;
+  }
+  
+  .product-single__title {
+    font-size: 20px;
+  }
+  
+  .product-single__price {
+    font-size: 24px;
+  }
+  
+  .product-single__price--compare {
+    font-size: 16px;
+  }
+  
+  .product-single__description {
+    padding: 14px;
+    font-size: 13px;
+  }
+  
+  .quantity-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .product-form__input {
+    width: 48px;
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .product-form__cart-submit {
+    min-height: 48px;
+    font-size: 13px;
+  }
+}
+
+/* Full-screen Image Modal */
+.product-image-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 8, 15, 0.98);
+  z-index: 10000;
+  padding: 20px;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-image-modal.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.modal-image-container {
+  max-width: 100%;
+  max-height: calc(100vh - 160px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-image-container img {
+  max-width: 100%;
+  max-height: calc(100vh - 160px);
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-thumbnails {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  overflow-x: auto;
+  padding: 10px;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+.modal-thumbnail {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.modal-thumbnail.active {
+  border-color: rgba(0, 242, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+}
+
+.modal-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .modal-close-btn {
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .modal-image-container {
+    max-height: calc(100vh - 180px);
+  }
+  
+  .modal-image-container img {
+    max-height: calc(100vh - 180px);
+    border-radius: 10px;
+  }
+  
+  .modal-thumbnails {
+    gap: 8px;
+    margin-top: 15px;
+  }
+  
+  .modal-thumbnail {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 8px;
   }
 }
 </style>
@@ -701,11 +1116,15 @@
   }, 5000);
 })();
 
-// Thumbnail click handler - wrapped in DOMContentLoaded for reliability
+// Thumbnail click handler and Full-screen Modal - wrapped in DOMContentLoaded for reliability
 (function() {
   function initializeProductThumbnails() {
     const thumbnails = document.querySelectorAll('.product-single__thumbnail');
     const mainImg = document.getElementById('ProductPhotoImg');
+    const modal = document.getElementById('productImageModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalMainImage = document.getElementById('modalMainImage');
+    const modalThumbnails = document.querySelectorAll('.modal-thumbnail');
     
     if (!thumbnails.length || !mainImg) {
       console.warn('Product thumbnails or main image not found');
@@ -717,6 +1136,86 @@
       thumbnails[0].classList.add('active');
     }
     
+    // Open modal when clicking main image
+    function openModal() {
+      if (!modal) return;
+      modal.classList.add('active');
+      modalMainImage.src = mainImg.src;
+      document.body.style.overflow = 'hidden';
+      
+      // Set active state on modal thumbnails
+      if (modalThumbnails.length > 0) {
+        const currentSrc = mainImg.src;
+        modalThumbnails.forEach(function(thumb) {
+          const thumbImg = thumb.querySelector('img');
+          if (thumbImg && thumbImg.dataset.largeSrc === currentSrc) {
+            thumb.classList.add('active');
+          } else {
+            thumb.classList.remove('active');
+          }
+        });
+      }
+    }
+    
+    // Close modal
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Main image click to open modal
+    mainImg.addEventListener('click', openModal);
+    mainImg.style.cursor = 'zoom-in';
+    
+    // Close button
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', closeModal);
+    }
+    
+    // Close on backdrop click
+    if (modal) {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+    }
+    
+    // Close on Escape key - use a single global handler
+    if (!window.productModalEscapeListenerAdded) {
+      window.productModalEscapeListenerAdded = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          var activeModal = document.querySelector('.product-image-modal.active');
+          if (activeModal) {
+            activeModal.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        }
+      });
+    }
+    
+    // Modal thumbnails click handler
+    modalThumbnails.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        const thumbImg = this.querySelector('img');
+        if (!thumbImg) return;
+        
+        const largeSrc = thumbImg.dataset.largeSrc || thumbImg.src;
+        if (largeSrc && modalMainImage) {
+          modalMainImage.src = largeSrc;
+          
+          // Update active state
+          modalThumbnails.forEach(function(t) {
+            t.classList.remove('active');
+          });
+          this.classList.add('active');
+        }
+      });
+    });
+    
+    // Product page thumbnails click handler
     thumbnails.forEach(function(thumb, index) {
       thumb.addEventListener('click', function() {
         const thumbImg = this.querySelector('img');
