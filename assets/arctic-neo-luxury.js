@@ -948,19 +948,27 @@ function initMobileMenu() {
     
     if (!mobileToggle || !navMenu) return;
     
+    // Get the hamburger icon span inside the button
+    const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+    
     // Toggle menu open/close
     mobileToggle.addEventListener('click', function(e) {
         e.stopPropagation();
         navMenu.classList.toggle('mobile-open');
-        this.textContent = navMenu.classList.contains('mobile-open') ? '✕' : '☰';
-        this.setAttribute('aria-expanded', navMenu.classList.contains('mobile-open'));
+        const isOpen = navMenu.classList.contains('mobile-open');
+        if (hamburgerIcon) {
+            hamburgerIcon.textContent = isOpen ? '✕' : '☰';
+        }
+        this.setAttribute('aria-expanded', isOpen);
     });
     
     // Close menu when clicking outside
     document.addEventListener('click', function(event) {
         if (!event.target.closest('.arctic-navbar') && navMenu.classList.contains('mobile-open')) {
             navMenu.classList.remove('mobile-open');
-            mobileToggle.textContent = '☰';
+            if (hamburgerIcon) {
+                hamburgerIcon.textContent = '☰';
+            }
             mobileToggle.setAttribute('aria-expanded', 'false');
         }
     });
@@ -969,7 +977,9 @@ function initMobileMenu() {
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape' && navMenu.classList.contains('mobile-open')) {
             navMenu.classList.remove('mobile-open');
-            mobileToggle.textContent = '☰';
+            if (hamburgerIcon) {
+                hamburgerIcon.textContent = '☰';
+            }
             mobileToggle.setAttribute('aria-expanded', 'false');
             mobileToggle.focus();
         }
