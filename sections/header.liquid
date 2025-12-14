@@ -105,7 +105,7 @@
               <span class="logo-text">
                 <span class="logo-season">SEASON</span><span class="logo-trend">TREND</span>
               </span>
-              <span class="logo-tagline">PREMIUM STYLE • EVERY SEASON</span>
+              <span class="logo-tagline">{{ section.settings.logo_tagline | default: 'PREMIUM STYLE • EVERY SEASON' }}</span>
             </a>
           {% endif %}
         </div>
@@ -432,6 +432,13 @@
       "id": "logo_text",
       "label": "Text Logo (if no image)",
       "info": "Displayed if no logo image is uploaded"
+    },
+    {
+      "type": "text",
+      "id": "logo_tagline",
+      "label": "Logo Tagline",
+      "default": "PREMIUM STYLE • EVERY SEASON",
+      "info": "Tagline shown below the logo text"
     },
     {
       "type": "header",
