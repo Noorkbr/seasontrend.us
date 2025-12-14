@@ -15,7 +15,8 @@
         "hero_headline": "FUTURE. COMFORT.",
         "hero_subheadline": "Experience the next generation of luxury products",
         "hero_cta_text": "Shop New Arrivals",
-        "hero_cta_link": "/collections/new-arrivals"
+        "hero_cta_link": "/collections/new-arrivals",
+        "hero_product_title": ""
       }
     },
     "stats-banner": {
@@ -54,9 +55,16 @@
           }
         }
       },
-      "block_order": ["stat-1", "stat-2", "stat-3", "stat-4"],
+      "block_order": [
+        "stat-1",
+        "stat-2",
+        "stat-3",
+        "stat-4"
+      ],
       "settings": {
-        "show_cta": false
+        "show_cta": false,
+        "cta_text": "Join Thousands of Happy Customers",
+        "cta_link": ""
       }
     },
     "arctic-product-grid": {
@@ -64,11 +72,46 @@
       "settings": {
         "grid_title": "Trending Now",
         "grid_subtitle": "Discover our most popular products loved by thousands",
+        "collection": "",
+        "product_list": [],
         "products_to_show": 8,
         "show_badges": true,
         "show_secondary_image": true,
+        "add_to_cart_text": "Add to Cart",
         "view_all_text": "View All Products",
-        "view_all_link": "/collections/all"
+        "view_all_link": "shopify://collections/all"
+      }
+    },
+    "arctic_product_grid_yQNXkp": {
+      "type": "arctic-product-grid",
+      "name": "Arctic Product Grid",
+      "settings": {
+        "grid_title": "Womens",
+        "grid_subtitle": "",
+        "collection": "womens-clothing-and-accesories",
+        "product_list": [],
+        "products_to_show": 8,
+        "show_badges": true,
+        "show_secondary_image": true,
+        "add_to_cart_text": "Add to Cart",
+        "view_all_text": "View All Products",
+        "view_all_link": "shopify://collections/womens-clothing-and-accesories"
+      }
+    },
+    "arctic_product_grid_DKPJxA": {
+      "type": "arctic-product-grid",
+      "name": "Arctic Product Grid",
+      "settings": {
+        "grid_title": "Mens",
+        "grid_subtitle": "",
+        "collection": "mens-clothing-and-accesories",
+        "product_list": [],
+        "products_to_show": 8,
+        "show_badges": true,
+        "show_secondary_image": true,
+        "add_to_cart_text": "Add to Cart",
+        "view_all_text": "View All Products",
+        "view_all_link": "shopify://collections/mens-clothing-and-accesories"
       }
     },
     "premium-features": {
@@ -107,7 +150,12 @@
           }
         }
       },
-      "block_order": ["feature-1", "feature-2", "feature-3", "feature-4"],
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3",
+        "feature-4"
+      ],
       "settings": {
         "title": "Why Choose Us",
         "subtitle": "Experience the difference with our premium service and quality products"
@@ -122,7 +170,8 @@
             "stars": 5,
             "text": "Absolutely love the quality! Fast shipping and the product exceeded my expectations. Will definitely order again!",
             "name": "Sarah M.",
-            "verified": true
+            "verified": true,
+            "product": ""
           }
         },
         "testimonial-2": {
@@ -131,7 +180,8 @@
             "stars": 5,
             "text": "Premium quality and beautiful design. Customer service was incredibly helpful. This is my new favorite store!",
             "name": "James K.",
-            "verified": true
+            "verified": true,
+            "product": ""
           }
         },
         "testimonial-3": {
@@ -140,17 +190,23 @@
             "stars": 5,
             "text": "The attention to detail is incredible. Packaging was gorgeous and the product is even better in person!",
             "name": "Emily R.",
-            "verified": true
+            "verified": true,
+            "product": ""
           }
         }
       },
-      "block_order": ["testimonial-1", "testimonial-2", "testimonial-3"],
+      "block_order": [
+        "testimonial-1",
+        "testimonial-2",
+        "testimonial-3"
+      ],
       "settings": {
         "title": "What Our Customers Say",
         "subtitle": "Real reviews from real customers who love our products",
         "rating_text": "4.9 out of 5 based on 2,847 reviews",
         "show_cta": true,
-        "cta_text": "Read More Reviews"
+        "cta_text": "Read More Reviews",
+        "cta_link": ""
       }
     },
     "arctic-trust-wall": {
@@ -165,6 +221,8 @@
     "arctic-hero-portal",
     "stats-banner",
     "arctic-product-grid",
+    "arctic_product_grid_yQNXkp",
+    "arctic_product_grid_DKPJxA",
     "premium-features",
     "premium-testimonials",
     "arctic-trust-wall"
