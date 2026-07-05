@@ -1,4 +1,4 @@
-# 🚀 SeasonTrend Store Launch Checklist
+# 🚀 Levwo Store Launch Checklist
 
 ## Pre-Launch Preparation
 

@@ -29,7 +29,7 @@ class FakeTikTokGenerator {
     ];
     
     this.hashtags = [
-      '#SeasonTrend #TrendingNow #MustHave',
+      '#Levwo #TrendingNow #MustHave',
       '#Fashionista #OOTD #StyleInspo',
       '#ShopLocal #SupportSmallBusiness #Trending',
       '#FashionTok #TikTokMadeMeBuyIt #Review',
@@ -137,7 +137,7 @@ class FakeTikTokGenerator {
     ctx.fillText('🎁', width / 2, height / 2);
     
     ctx.font = '16px Inter, sans-serif';
-    ctx.fillText('SeasonTrend Product', width / 2, height / 2 + 40);
+    ctx.fillText('Levwo Product', width / 2, height / 2 + 40);
   }
   
   /**

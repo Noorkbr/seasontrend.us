@@ -1,8 +1,8 @@
-# SeasonTrend Hybrid Design System
+# Levwo Hybrid Design System
 
 ## 🎨 Design Philosophy
 
-This design system combines the **modern ecommerce aesthetic** of SeasonTrend with the **premium luxury style** of Forex Trading Platform, creating a sophisticated yet approachable user experience.
+This design system combines the **modern ecommerce aesthetic** of Levwo with the **premium luxury style** of Forex Trading Platform, creating a sophisticated yet approachable user experience.
 
 ---
 
@@ -511,7 +511,7 @@ box-shadow: var(--shadow-gold);
 
 ### v1.0.0 (Current)
 - Initial hybrid design system
-- Combined SeasonTrend + Forex premium aesthetics
+- Combined Levwo + Forex premium aesthetics
 - Complete color palette with gold accents
 - Typography system with Playfair Display
 - Animation library (8 keyframe animations)

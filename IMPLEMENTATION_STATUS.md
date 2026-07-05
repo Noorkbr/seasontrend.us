@@ -2,7 +2,7 @@
 
 ## 🎨 Overview
 
-This implementation successfully integrates the **SeasonTrend Hybrid Design System (Option 3)**, combining modern ecommerce aesthetics with premium luxury styling inspired by Forex Trading platforms.
+This implementation successfully integrates the **Levwo Hybrid Design System (Option 3)**, combining modern ecommerce aesthetics with premium luxury styling inspired by Forex Trading platforms.
 
 ---
 
@@ -390,4 +390,4 @@ The hybrid design system successfully combines:
 
 ---
 
-*Built with ❤️ for SeasonTrend.us*
+*Built with ❤️ for Levwo.com*

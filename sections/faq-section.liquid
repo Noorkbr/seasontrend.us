@@ -1,245 +1,117 @@
-<!-- FAQ Section -->
-<section class="faq-section" style="padding: 80px 0; background: var(--arctic-void, #05080F);">
-  <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-    <div class="faq-header" style="text-align: center; margin-bottom: 60px;">
-      <h2 style="
-        font-family: 'Playfair Display', serif;
-        font-size: 48px;
-        font-weight: 700;
-        background: linear-gradient(135deg, #00F2FF 0%, #BD00FF 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 16px;
-      ">
-        {{ section.settings.faq_title | default: 'Frequently Asked Questions' }}
-      </h2>
-      <p style="
-        font-family: 'Inter', sans-serif;
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.7);
-        max-width: 600px;
-        margin: 0 auto;
-      ">
-        {{ section.settings.faq_subtitle | default: 'Got questions? We have answers.' }}
-      </p>
-    </div>
-
-    <div class="faq-grid" style="
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-    ">
-      {% if section.blocks.size > 0 %}
-        {% for block in section.blocks %}
-          <div class="faq-item" data-faq-item style="
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-          ">
-            <div class="faq-question" style="
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              gap: 16px;
-            ">
-              <h3 style="
-                font-family: 'Inter', sans-serif;
-                font-size: 18px;
-                font-weight: 600;
-                color: rgba(255, 255, 255, 0.95);
-                margin: 0;
-                flex: 1;
-              ">
-                {{ block.settings.question }}
-              </h3>
-              <span class="faq-icon" style="
-                font-size: 24px;
-                color: #00F2FF;
-                transition: transform 0.3s ease;
-                flex-shrink: 0;
-              ">+</span>
-            </div>
-            <div class="faq-answer" style="
-              max-height: 0;
-              overflow: hidden;
-              transition: max-height 0.3s ease;
-              padding-top: 0;
-            ">
-              <div style="
-                font-family: 'Inter', sans-serif;
-                font-size: 15px;
-                line-height: 1.6;
-                color: rgba(255, 255, 255, 0.7);
-                padding-top: 16px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-                margin-top: 16px;
-              ">
-                {{ block.settings.answer }}
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <!-- Default FAQs -->
-        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">What is your shipping policy?</h3>
-            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
-          </div>
-          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
-            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
-              We offer FREE shipping on all orders over $50 within the United States. Standard shipping takes 2-5 business days. Express shipping options are available at checkout for faster delivery.
-            </div>
+<!-- sections/faq-section.liquid -->
+<div class="faq-section" style="--section-bg: {{ section.settings.background_color }}; --text-color: {{ section.settings.text_color }};">
+  <div class="container">
+    <h2 class="faq-title">{{ section.settings.title }}</h2>
+    <div class="faq-accordion">
+      {% for block in section.blocks %}
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>{{ block.settings.question }}</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>{{ block.settings.answer }}</p>
           </div>
         </div>
-
-        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">What is your return policy?</h3>
-            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
-          </div>
-          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
-            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
-              We offer a 30-day money-back guarantee. If you're not completely satisfied with your purchase, you can return it within 30 days for a full refund. Items must be unused and in original packaging.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">How do I track my order?</h3>
-            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
-          </div>
-          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
-            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
-              Once your order ships, you'll receive an email with a tracking number and link. You can use this to track your package in real-time. You can also track orders from your account dashboard.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">What payment methods do you accept?</h3>
-            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
-          </div>
-          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
-            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
-              We accept all major credit cards (Visa, Mastercard, American Express), PayPal, Apple Pay, Google Pay, and Shop Pay. All transactions are secured with 256-bit SSL encryption for your safety.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">How do I contact customer support?</h3>
-            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
-          </div>
-          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
-            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
-              Our customer support team is available 24/7 to help you. You can reach us via email at support@seasontrend.us, through our live chat feature, or by calling 1-800-SEASON-TREND. We typically respond within 2 hours.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item" data-faq-item style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.3s ease;">
-          <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-            <h3 style="font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.95); margin: 0; flex: 1;">Are your products authentic?</h3>
-            <span class="faq-icon" style="font-size: 24px; color: #00F2FF; transition: transform 0.3s ease; flex-shrink: 0;">+</span>
-          </div>
-          <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding-top: 0;">
-            <div style="font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.7); padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 16px;">
-              Absolutely! We guarantee 100% authentic products. All our items come directly from authorized distributors and manufacturers. Each product includes a certificate of authenticity and our quality guarantee.
-            </div>
-          </div>
-        </div>
-      {% endif %}
+      {% endfor %}
     </div>
   </div>
-</section>
+</div>
 
 <script>
-// FAQ Accordion functionality
-document.addEventListener('DOMContentLoaded', function() {
-  const faqItems = document.querySelectorAll('[data-faq-item]');
-  
+document.addEventListener('DOMContentLoaded', () => {
+  const faqItems = document.querySelectorAll('.faq-item');
+
   faqItems.forEach(item => {
     const question = item.querySelector('.faq-question');
     const answer = item.querySelector('.faq-answer');
     const icon = item.querySelector('.faq-icon');
-    
+
     question.addEventListener('click', () => {
-      const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
-      
-      // Close all other FAQs
+      const isOpen = item.classList.contains('active');
+
+      // Close all other items
       faqItems.forEach(otherItem => {
         if (otherItem !== item) {
-          const otherAnswer = otherItem.querySelector('.faq-answer');
-          const otherIcon = otherItem.querySelector('.faq-icon');
-          otherAnswer.style.maxHeight = '0px';
-          otherIcon.style.transform = 'rotate(0deg)';
-          otherIcon.textContent = '+';
-          otherItem.style.background = 'rgba(255, 255, 255, 0.03)';
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-answer').style.maxHeight = null;
+          otherItem.querySelector('.faq-icon').textContent = '+';
         }
       });
-      
-      // Toggle current FAQ
+
+      // Toggle current item
       if (isOpen) {
-        answer.style.maxHeight = '0px';
-        icon.style.transform = 'rotate(0deg)';
+        item.classList.remove('active');
+        answer.style.maxHeight = null;
         icon.textContent = '+';
-        item.style.background = 'rgba(255, 255, 255, 0.03)';
       } else {
+        item.classList.add('active');
         answer.style.maxHeight = answer.scrollHeight + 'px';
-        icon.style.transform = 'rotate(45deg)';
-        icon.textContent = '+';
-        item.style.background = 'rgba(255, 255, 255, 0.05)';
+        icon.textContent = '-';
       }
-    });
-    
-    // Hover effect
-    item.addEventListener('mouseenter', () => {
-      item.style.borderColor = 'rgba(0, 242, 255, 0.3)';
-      item.style.transform = 'translateY(-2px)';
-      item.style.boxShadow = '0 8px 24px rgba(0, 242, 255, 0.1)';
-    });
-    
-    item.addEventListener('mouseleave', () => {
-      item.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-      item.style.transform = 'translateY(0)';
-      item.style.boxShadow = 'none';
     });
   });
 });
 </script>
 
 <style>
-@media (max-width: 768px) {
-  .faq-section h2 {
-    font-size: 32px !important;
-  }
-  
-  .faq-grid {
-    grid-template-columns: 1fr !important;
-  }
-  
-  .faq-item {
-    padding: 20px !important;
-  }
-  
-  .faq-question h3 {
-    font-size: 16px !important;
-  }
-  
-  .faq-icon {
-    font-size: 20px !important;
-  }
+.faq-section {
+  padding: 4rem 0;
+  background-color: var(--section-bg, #f9fafb);
+  color: var(--text-color, #1f2937);
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.5rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: inherit;
+  font-family: 'Inter', sans-serif;
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-answer p {
+  padding: 0 1rem 1.5rem;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
 }
 </style>
 
@@ -249,33 +121,111 @@ document.addEventListener('DOMContentLoaded', function() {
   "settings": [
     {
       "type": "text",
-      "id": "faq_title",
+      "id": "title",
       "label": "Section Title",
       "default": "Frequently Asked Questions"
     },
     {
-      "type": "text",
-      "id": "faq_subtitle",
-      "label": "Section Subtitle",
-      "default": "Got questions? We have answers."
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1f2937"
     }
   ],
   "blocks": [
     {
-      "type": "faq_item",
+      "type": "faq",
       "name": "FAQ Item",
       "settings": [
         {
           "type": "text",
           "id": "question",
           "label": "Question",
-          "default": "Your question here"
+          "default": "What is your shipping policy?"
         },
         {
           "type": "textarea",
           "id": "answer",
           "label": "Answer",
-          "default": "Your answer here"
+          "default": "We offer free shipping on all orders over $50. Standard shipping takes 3-5 business days. Expedited shipping options are available at checkout."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your return policy?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "We offer a 30-day money-back guarantee. If you're not satisfied with your purchase, you can return it for a full refund within 30 days of delivery."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How can I track my order?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Once your order ships, you will receive an email with a tracking number. You can use this number to track your package on the carrier's website."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What payment methods do you accept?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "We accept all major credit cards (Visa, Mastercard, American Express), PayPal, Apple Pay, and Google Pay."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How can I contact customer support?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Our customer support team is available 24/7 to help you. You can reach us via email at support@seasontrend.us, through our live chat feature, or by calling 1-800-SEASON-TREND. We typically respond within 2 hours."
         }
       ]
     }

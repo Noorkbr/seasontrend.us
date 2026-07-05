@@ -1,7 +1,7 @@
 {
-  "name": "seasontrend",
+  "name": "levwo",
   "version": "1.0.0",
-  "description": "SeasonTrend - Professional Shopify Liquid theme for dropshipping and e-commerce businesses",
+  "description": "Levwo - Professional Shopify Liquid theme for dropshipping and e-commerce businesses",
   "scripts": {
     "shopify:login": "shopify login",
     "shopify:push": "shopify theme push",
@@ -19,11 +19,11 @@
     "responsive",
     "seo"
   ],
-  "author": "SeasonTrend Team",
+  "author": "Levwo Team",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/noor-87dsdp-beep/seasontrend.us"
+    "url": "https://github.com/noor-87dsdp-beep/levwo"
   },
-  "homepage": "https://seasontrend.us"
+  "homepage": "https://levwo.com"
 }

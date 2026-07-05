@@ -1,6 +1,6 @@
-# Shopify Integration Guide for SeasonTrend
+# Shopify Integration Guide for Levwo
 
-This guide will help you integrate the SeasonTrend theme into your Shopify store.
+This guide will help you integrate the Levwo theme into your Shopify store.
 
 ## 🚀 Quick Start
 
@@ -22,7 +22,7 @@ This guide will help you integrate the SeasonTrend theme into your Shopify store
 
 3. **Activate Theme**
    - Click "Customize" or "Publish" on the uploaded theme
-   - Your SeasonTrend theme is now live!
+   - Your Levwo theme is now live!
 
 ### Method 2: Development Store Setup
 
@@ -44,7 +44,7 @@ shopify theme push
 ## 📂 File Structure for Shopify
 
 ```
-seasontrend-theme/
+levwo-theme/
 ├── assets/
 │   ├── styles.css              # Main stylesheet
 │   └── script.js               # JavaScript functionality
@@ -74,7 +74,7 @@ seasontrend-theme/
 
 Access theme settings in Shopify Admin:
 1. Go to Online Store → Themes
-2. Click "Customize" on SeasonTrend theme
+2. Click "Customize" on Levwo theme
 3. Navigate to Theme Settings
 
 Available settings:
@@ -137,7 +137,7 @@ Shopify Admin → Settings → Taxes and duties
 ```
 Shopify Admin → Settings → Domains
 ```
-- Connect seasontrend.us domain
+- Connect levwo.com domain
 - Update DNS records
 - Enable SSL certificate
 
@@ -385,9 +385,9 @@ Upload in Theme Customizer:
 ## 📞 Support Resources
 
 - **Shopify Help Center**: help.shopify.com
-- **Theme Documentation**: seasontrend.us/docs
+- **Theme Documentation**: levwo.com/docs
 - **Community Forum**: community.shopify.com
-- **Support Email**: support@seasontrend.us
+- **Support Email**: support@levwo.com
 
 ## 🔄 Regular Maintenance
 
@@ -418,6 +418,6 @@ Final steps before going live:
 
 ---
 
-**Need help?** Contact support@seasontrend.us
+**Need help?** Contact support@levwo.com
 
-**Ready to sell?** Let's make SeasonTrend a success! 🚀
+**Ready to sell?** Let's make Levwo a success! 🚀

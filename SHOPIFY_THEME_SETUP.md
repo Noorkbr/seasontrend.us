@@ -1,6 +1,6 @@
 # Shopify Theme Installation Guide
 
-This guide will help you install and set up the SeasonTrend Shopify Liquid theme on your Shopify store.
+This guide will help you install and set up the Levwo Shopify Liquid theme on your Shopify store.
 
 ## ✅ Prerequisites
 
@@ -25,8 +25,8 @@ npm install -g @shopify/cli @shopify/theme
 #### Step 2: Clone the Repository
 
 ```bash
-git clone https://github.com/noor-87dsdp-beep/seasontrend.us.git
-cd seasontrend.us
+git clone https://github.com/noor-87dsdp-beep/levwo.git
+cd levwo
 ```
 
 #### Step 3: Login to Your Store
@@ -51,7 +51,7 @@ shopify theme push --unpublished --publish
 
 After pushing, you can:
 - Go to your Shopify admin → Online Store → Themes
-- Click "Customize" on the SeasonTrend theme
+- Click "Customize" on the Levwo theme
 - Or use `shopify theme dev` for live development
 
 ### Method 2: Manual Upload via Shopify Admin
@@ -62,8 +62,8 @@ If you prefer not to use the CLI, you can manually upload the theme.
 
 Download the repository as a ZIP file or clone it:
 ```bash
-git clone https://github.com/noor-87dsdp-beep/seasontrend.us.git
-cd seasontrend.us
+git clone https://github.com/noor-87dsdp-beep/levwo.git
+cd levwo
 ```
 
 #### Step 2: Create a Theme ZIP
@@ -72,12 +72,12 @@ cd seasontrend.us
 
 On macOS/Linux:
 ```bash
-zip -r seasontrend-theme.zip assets config layout locales sections snippets templates theme.json
+zip -r levwo-theme.zip assets config layout locales sections snippets templates theme.json
 ```
 
 On Windows (PowerShell):
 ```powershell
-Compress-Archive -Path assets,config,layout,locales,sections,snippets,templates,theme.json -DestinationPath seasontrend-theme.zip
+Compress-Archive -Path assets,config,layout,locales,sections,snippets,templates,theme.json -DestinationPath levwo-theme.zip
 ```
 
 #### Step 3: Upload to Shopify
@@ -85,7 +85,7 @@ Compress-Archive -Path assets,config,layout,locales,sections,snippets,templates,
 1. Log in to your Shopify admin
 2. Go to **Online Store** → **Themes**
 3. Click **Add theme** (or **Upload zip file**)
-4. Select your `seasontrend-theme.zip` file
+4. Select your `levwo-theme.zip` file
 5. Wait for the upload to complete
 
 #### Step 4: Preview and Publish
@@ -98,7 +98,7 @@ Compress-Archive -Path assets,config,layout,locales,sections,snippets,templates,
 ### Access Theme Editor
 
 1. Go to **Online Store** → **Themes**
-2. Find SeasonTrend theme
+2. Find Levwo theme
 3. Click **Customize**
 
 ### Available Customization Options
@@ -368,4 +368,4 @@ After installation:
 
 **Happy Selling! 🚀**
 
-Visit us at: [https://seasontrend.us](https://seasontrend.us)
+Visit us at: [https://levwo.com](https://levwo.com)

@@ -1,8 +1,8 @@
-# 🎨 SeasonTrend Luxury Brand Transformation
+# 🎨 Levwo Luxury Brand Transformation
 
 ## Overview
 
-The SeasonTrend Shopify theme has been transformed into a **high-end luxury e-commerce experience** with premium design elements, enhanced user experience, and mobile-first approach.
+The Levwo Shopify theme has been transformed into a **high-end luxury e-commerce experience** with premium design elements, enhanced user experience, and mobile-first approach.
 
 ---
 
@@ -209,7 +209,8 @@ initCartAnimation()        // Triggers pulse on cart add
    - "Shop All Best Sellers" default text
 
 #### Settings:
-- Two-part title (prefix + accent)
+- Title prefix (default: "CUSTOMER")
+- Title accent (default: "FAVORITES")
 - Subtitle
 - Collection selection
 - Products to show
@@ -523,9 +524,9 @@ box-shadow: 0 8px 32px rgba(0, 242, 255, 0.4);
 ## 📧 Contact
 
 For support or customization requests:
-- **Theme**: SeasonTrend Luxury
+- **Theme**: Levwo Luxury
 - **Version**: 2.0.0
-- **Repository**: https://github.com/noor-87dsdp-beep/seasontrend.us
+- **Repository**: https://github.com/noor-87dsdp-beep/levwo
 
 ---
 

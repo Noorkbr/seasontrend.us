@@ -1,4 +1,4 @@
-# 🔌 SeasonTrend Store Integrations Guide
+# 🔌 Levwo Store Integrations Guide
 
 This guide covers all third-party integrations and apps recommended for maximum store performance and profitability.
 

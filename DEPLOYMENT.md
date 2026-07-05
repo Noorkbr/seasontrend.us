@@ -1,6 +1,6 @@
-# Deployment Guide for SeasonTrend
+# Deployment Guide for Levwo
 
-This guide covers different deployment options for your SeasonTrend website.
+This guide covers different deployment options for your Levwo website.
 
 ## 🌐 Deployment Options
 
@@ -11,9 +11,9 @@ This guide covers different deployment options for your SeasonTrend website.
 1. **Prepare Theme Package**
    ```bash
    # Create theme directory structure
-   mkdir seasontrend-theme
-   cp -r layout sections snippets assets seasontrend-theme/
-   cp theme.json seasontrend-theme/
+   mkdir levwo-theme
+   cp -r layout sections snippets assets levwo-theme/
+   cp theme.json levwo-theme/
    ```
 
 2. **Upload to Shopify**
@@ -50,7 +50,7 @@ This guide covers different deployment options for your SeasonTrend website.
 
 3. **Custom Domain**
    - Go to Domain settings
-   - Add `seasontrend.us`
+   - Add `levwo.com`
    - Update DNS records
 
 #### Vercel (Free)
@@ -67,7 +67,7 @@ This guide covers different deployment options for your SeasonTrend website.
 
 3. **Custom Domain**
    - Go to Settings → Domains
-   - Add `seasontrend.us`
+   - Add `levwo.com`
 
 #### GitHub Pages (Free)
 
@@ -79,7 +79,7 @@ This guide covers different deployment options for your SeasonTrend website.
    - Save
 
 2. **Access Site**
-   - Your site will be at: `https://noor-87dsdp-beep.github.io/seasontrend.us`
+   - Your site will be at: `https://noor-87dsdp-beep.github.io/levwo`
 
 3. **Custom Domain**
    - Add `CNAME` file with your domain
@@ -104,16 +104,16 @@ This guide covers different deployment options for your SeasonTrend website.
    ```bash
    # Using SFTP
    sftp user@yourserver.com
-   put -r /path/to/seasontrend/* /var/www/html/
+   put -r /path/to/levwo/* /var/www/html/
    ```
 
 2. **Configure Web Server**
 
-   **Nginx Configuration** (`/etc/nginx/sites-available/seasontrend.us`):
+   **Nginx Configuration** (`/etc/nginx/sites-available/levwo.com`):
    ```nginx
    server {
        listen 80;
-       server_name seasontrend.us www.seasontrend.us;
+       server_name levwo.com www.levwo.com;
        root /var/www/html;
        index index.html;
        
@@ -158,7 +158,7 @@ This guide covers different deployment options for your SeasonTrend website.
    ```bash
    # Using Let's Encrypt (free)
    sudo apt install certbot python3-certbot-nginx
-   sudo certbot --nginx -d seasontrend.us -d www.seasontrend.us
+   sudo certbot --nginx -d levwo.com -d www.levwo.com
    ```
 
 ---
@@ -169,13 +169,13 @@ This guide covers different deployment options for your SeasonTrend website.
 
 1. **Create S3 Bucket**
    ```bash
-   aws s3 mb s3://seasontrend.us
-   aws s3 website s3://seasontrend.us --index-document index.html
+   aws s3 mb s3://levwo.com
+   aws s3 website s3://levwo.com --index-document index.html
    ```
 
 2. **Upload Files**
    ```bash
-   aws s3 sync . s3://seasontrend.us --exclude ".git/*"
+   aws s3 sync . s3://levwo.com --exclude ".git/*"
    ```
 
 3. **Configure CloudFront**
@@ -188,18 +188,18 @@ This guide covers different deployment options for your SeasonTrend website.
 
 1. **Create Bucket**
    ```bash
-   gsutil mb gs://seasontrend.us
-   gsutil web set -m index.html gs://seasontrend.us
+   gsutil mb gs://levwo.com
+   gsutil web set -m index.html gs://levwo.com
    ```
 
 2. **Upload Files**
    ```bash
-   gsutil -m rsync -r . gs://seasontrend.us
+   gsutil -m rsync -r . gs://levwo.com
    ```
 
 3. **Set Permissions**
    ```bash
-   gsutil iam ch allUsers:objectViewer gs://seasontrend.us
+   gsutil iam ch allUsers:objectViewer gs://levwo.com
    ```
 
 ---
@@ -211,7 +211,7 @@ This guide covers different deployment options for your SeasonTrend website.
 Add these DNS records:
 ```
 A     @           [Your IP Address]
-CNAME www         seasontrend.us
+CNAME www         levwo.com
 TXT   @           "v=spf1 include:_spf.google.com ~all"
 ```
 
@@ -399,7 +399,7 @@ HTML: max-age=3600
 
 ## 📞 Support
 
-- **Technical Support**: support@seasontrend.us
+- **Technical Support**: support@levwo.com
 - **Shopify Help**: help.shopify.com
 - **Documentation**: [README.md](./README.md)
 - **Integration Guide**: [SHOPIFY_INTEGRATION.md](./SHOPIFY_INTEGRATION.md)
@@ -417,4 +417,4 @@ Once everything is tested and configured:
 5. Start marketing campaigns
 6. Monitor performance
 
-**Congratulations on launching SeasonTrend! 🚀**
+**Congratulations on launching Levwo! 🚀**

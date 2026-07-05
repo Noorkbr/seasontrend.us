@@ -2,7 +2,7 @@
 
 ## 🎯 Overview
 
-This guide provides step-by-step instructions for implementing the SeasonTrend Hybrid Design System (Option 3), which combines modern ecommerce aesthetics with premium luxury styling.
+This guide provides step-by-step instructions for implementing the Levwo Hybrid Design System (Option 3), which combines modern ecommerce aesthetics with premium luxury styling.
 
 ---
 

@@ -1,8 +1,8 @@
-# SeasonTrend Arctic Neo-Luxury Theme Documentation
+# Levwo Arctic Neo-Luxury Theme Documentation
 
 ## Quick Start Guide for Merchants
 
-This guide explains how to customize the SeasonTrend theme using the Shopify Theme Editor.
+This guide explains how to customize the Levwo theme using the Shopify Theme Editor.
 
 ---
 
@@ -228,7 +228,7 @@ To show review counts and sold counts on product cards, set up metafields:
 ## Getting Help
 
 - **Shopify Help Center**: help.shopify.com
-- **Theme Support**: support@seasontrend.us
+- **Theme Support**: support@levwo.com
 
 ---
 

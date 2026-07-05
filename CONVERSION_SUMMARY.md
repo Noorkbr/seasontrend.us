@@ -1,6 +1,6 @@
 # Conversion Summary
 
-## SeasonTrend: Static HTML to Shopify Liquid Theme
+## Levwo: Static HTML to Shopify Liquid Theme
 
 ### Date: November 2, 2025
 
@@ -8,7 +8,7 @@
 
 ## ✅ Conversion Complete
 
-The SeasonTrend project has been successfully converted from a static HTML/CSS/JavaScript website into a fully functional Shopify Liquid theme that meets all Shopify theme requirements.
+The Levwo project has been successfully converted from a static HTML/CSS/JavaScript website into a fully functional Shopify Liquid theme that meets all Shopify theme requirements.
 
 ---
 
@@ -156,7 +156,7 @@ shopify theme push --unpublished
 ### Method 2: Manual Upload
 ```bash
 # Create ZIP (exclude non-theme files)
-zip -r seasontrend-theme.zip assets config layout locales sections snippets templates theme.json
+zip -r levwo-theme.zip assets config layout locales sections snippets templates theme.json
 
 # Upload via Shopify Admin
 # Online Store → Themes → Upload theme
@@ -201,7 +201,7 @@ The theme is now a valid Shopify Liquid theme that:
 - **Setup Guide**: See SHOPIFY_THEME_SETUP.md
 - **Shopify Docs**: https://shopify.dev/docs/themes
 - **Shopify Help**: https://help.shopify.com
-- **Repository**: https://github.com/noor-87dsdp-beep/seasontrend.us
+- **Repository**: https://github.com/noor-87dsdp-beep/levwo.com
 
 ---
 

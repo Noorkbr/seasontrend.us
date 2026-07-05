@@ -1,11 +1,11 @@
 {
-  "name": "SeasonTrend",
+  "name": "Levwo",
   "version": "1.0.0",
-  "theme_author": "SeasonTrend Team",
-  "theme_documentation_url": "https://seasontrend.us/docs",
-  "theme_support_url": "https://seasontrend.us/support",
+  "theme_author": "Levwo Team",
+  "theme_documentation_url": "https://levwo.com/docs",
+  "theme_support_url": "https://levwo.com/support",
   "theme_version": "1.0.0",
-  "theme_store_url": "https://seasontrend.us",
+  "theme_store_url": "https://levwo.com",
   "description": "A professional Shopify Liquid theme for dropshipping with beautiful UI/UX design and conversion optimization",
   "features": [
     "Responsive design",
